@@ -3,11 +3,8 @@ angular.module('loginApp', [])
 .controller('loginController', function ($scope, $location) {
     $scope.userInfo = { "userName": "", "password": "123456" };
     $scope.signIn = function () {
-
-        console.log($scope.userInfo);
-
-        $location.path("/app");
-        debugger;
+        window.location.assign("app.html")
+      
        // console.log("user", user);
 
         //myFactory.userAuth(user).then(

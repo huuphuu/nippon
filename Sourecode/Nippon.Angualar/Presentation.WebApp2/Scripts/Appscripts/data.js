@@ -60,7 +60,7 @@ $adminCMS.data = {
                 "labelCss": "fa fa-angle-left",
                 "childs": [
                     { "name": "Upload Files", "url": "uploadFiles", "cssIcon": "fa fa-flag-o", "childs": "" },
-                    { "name": "List Files", "url": "controlPanel.listFiles", "cssIcon": "fa fa-flag-o", "childs": "" }
+                    { "name": "List Files", "url": "listFiles", "cssIcon": "fa fa-flag-o", "childs": "" }
                 ]
             },
             {

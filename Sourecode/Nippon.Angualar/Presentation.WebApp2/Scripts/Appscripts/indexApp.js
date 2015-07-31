@@ -1,7 +1,7 @@
 ﻿'use strict';
 angular.module('indexApp')
 // Controller ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    .controller('BodyController', function ($scope, toaster, myFactory) {
+    .controller('BodyController', function ($scope, toaster, myFactory) {    
         $scope.navigation = $adminCMS.data.navigation;
         $scope.currentUser = $adminCMS.data.user;
         $scope.sidebarNavigation = $adminCMS.data.navigation.sidebarNav;
@@ -22,13 +22,14 @@ angular.module('indexApp')
             //        alert("error");
             //    })
 
-            myFactory.userAuth(user).$promise.then(
-               function () {
-                   $location.path("/index");
-               },
-               function () {
-                   alert("error");
-               })
+            $location.path("/index");
+            //myFactory.userAuth(user).$promise.then(
+            //   function () {
+            //       $location.path("/index");
+            //   },
+            //   function () {
+            //       alert("error");
+            //   })
 
             //if (user.userName == $scope.userInfo.userName && user.password == $scope.userInfo.password) {
             //    //alert("sign in!");
@@ -85,7 +86,7 @@ angular.module('indexApp')
         uploader.filters.push({
             name: 'itemResetFilter',
             fn: function (item, options) {
-                if (this.queue.length <100)
+                if (this.queue.length < 100)
                     return true;
                 else {
                     //alert('You have exceeded the limit of uploading files.');

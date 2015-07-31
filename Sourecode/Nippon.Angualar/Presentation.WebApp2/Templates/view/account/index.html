@@ -1,0 +1,359 @@
+﻿<section class="content-header">
+    <h1> Account Management
+      
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
+       
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row ng-scope" ng-controller="UserCtrl">
+        <div class="col-md-7 col-sm-8" ng-hide="appService.isExtraSmallScreen() &amp;&amp; (action=='add' || action=='update')">
+            <h4 class="ng-binding">Account<span class="pull-right visible-xs"><small><a href="" ng-click="action='add'" class="ng-binding"><span class="glyphicon glyphicon-plus"></span>
+                Add New </a></small></span>
+            </h4>
+
+            <div class="table-responsive">
+                <table class="table table-hover table-striped pointer">
+                     <tfoot>
+                        <tr ng-show="status!='loading' &amp;&amp; users.length==0">
+                            <td colspan="3" class="ng-binding">No account</td>
+                        </tr>
+                    </tfoot>
+                    <thead>
+                        <tr>
+                            <th width="40%" class="ng-binding">Account</th>
+                            <th width="25%" class="ng-binding">Status</th>
+                            <th width="35%" class="text-right ng-binding">Last login</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- ngRepeat: u in users -->
+                    </tbody>
+                   
+                </table>
+            </div>
+
+            <!-- Navigator part -->
+
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="input-group" ng-show="navigatorCfg.search==true">
+                        <input type="text" class="form-control ng-pristine ng-untouched ng-valid" placeholder="Account" ng-model="navigator.search" ng-change="checkEmptySearch()" ui-keydown="{'enter':'search($event)'}"><span class="input-group-btn">
+                            <button type="button" class="btn btn-primary ng-binding" ng-click="search();">
+                                <span class="glyphicon glyphicon-search"></span>Search
+                            </button>
+                            <button type="button" class="btn btn-default" ng-click="clearSearch();">
+                                <span class="glyphicon glyphicon-ban-circle"></span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+                <div class="mt-10 visible-sm visible-xs"></div>
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <span class="input-group-addon ng-binding">(0-0)&nbsp;
+
+                        </span>
+                        <select class="form-control ng-pristine ng-untouched ng-valid" ng-model="navigator.page" ng-options="p for p in navigatorPages" ng-change="changePage();">
+                            <option value="?" selected="selected" label=""></option>
+                        </select>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="previousPage();">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                            </button>
+                            <button type="button" class="btn btn-default" ng-click="nextPage();">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-5 col-sm-4" ng-hide="appService.isExtraSmallScreen() &amp;&amp; (action=='view')">
+            <h4 ng-show="user.id==0" class="ng-binding">Add New</h4>
+            <h4 ng-show="user.id>0" class="ng-binding ng-hide">Update</h4>
+
+            <p class="ng-binding">Account:</p>
+            <div class="input-group">
+                <input type="text" class="form-control ng-pristine ng-untouched ng-valid" ng-model="user.username">
+                <span class="input-group-addon ng-binding">@TEST0002</span>
+            </div>
+
+            <p class="mt-10 ng-binding">Status:</p>
+            <select class="form-control ng-pristine ng-untouched ng-valid" ng-model="user.status">
+                <option value="0" class="ng-binding">Deactive</option>
+                <option value="1" class="ng-binding">Active</option>
+            </select>
+
+            <div ng-show="user.managedBranches.length > 0" class="ng-hide">
+                <p class="mt-10 ng-binding">Manage branches:</p>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <!-- ngRepeat: b in user.managedBranches -->
+                    </div>
+                </div>
+            </div>
+
+            <p class="mt-10 ng-binding">Privilege:</p>
+            <div class="panel panel-default">
+                <div class="panel-heading ng-binding">
+                    <input type="checkbox" ng-model="saleAll" ng-change="selectSale()" class="ng-pristine ng-untouched ng-valid">
+                    Sale
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>
+                                <span class="ng-binding">
+                                    <input type="checkbox" ng-model="user.authority.saleCreate" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
+                                    POS (Point-of-Sale)</span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>
+                                <span class="ng-binding">
+                                    <input type="checkbox" ng-model="user.authority.saleOrder" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
+                                    Sales Order</span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>
+                                <span class="ng-binding">
+                                    <input type="checkbox" ng-model="user.authority.saleStatistic" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
+                                    Sales Statistic</span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>
+                                <span class="ng-binding">
+                                    <input type="checkbox" ng-model="user.authority.saleStatisticIngredient" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
+                                    Ingredient Statistic</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading ng-binding">
+                    <input type="checkbox" ng-model="inventoryAll" ng-change="selectInventory()" class="ng-pristine ng-untouched ng-valid">
+                    Inventory
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>
+                                <span class="ng-binding">
+                                    <input type="checkbox" ng-model="user.authority.inventoryInstock" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
+                                    In Stock</span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>
+                                <span class="ng-binding">
+                                    <input type="checkbox" ng-model="user.authority.inventoryPurchase" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
+                                    Purchase</span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>
+                                <span class="ng-binding">
+                                    <input type="checkbox" ng-model="user.authority.inventoryPurchaseStatistic" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
+                                    Purchase Statistic</span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>
+                                <span class="ng-binding">
+                                    <input type="checkbox" ng-model="user.authority.inventoryPurchaseOrder" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
+                                    Purchase Order</span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>
+                                <span class="ng-binding">
+                                    <input type="checkbox" ng-model="user.authority.inventoryExport" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
+                                    Export</span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>
+                                <span class="ng-binding">
+                                    <input type="checkbox" ng-model="user.authority.inventoryExportOrder" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
+                                    Export Order</span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>
+                                <span class="ng-binding">
+                                    <input type="checkbox" ng-model="user.authority.inventoryExportStatistic" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
+                                    Export Statistic</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading ng-binding">
+                    <input type="checkbox" ng-model="expenseAll" ng-change="selectExpense()" class="ng-pristine ng-untouched ng-valid">
+                    Expense
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>
+                                <span class="ng-binding">
+                                    <input type="checkbox" ng-model="user.authority.expenseLog" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
+                                    Expense Log</span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>
+                                <span class="ng-binding">
+                                    <input type="checkbox" ng-model="user.authority.expenseStatistic" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
+                                    Expense Statistic</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading ng-binding">
+                    <input type="checkbox" ng-model="workAll" ng-change="selectWork()" class="ng-pristine ng-untouched ng-valid">
+                    Work
+                </div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>
+                                <span class="ng-binding">
+                                    <input type="checkbox" ng-model="user.authority.workLog" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
+                                    Work Log</span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>
+                                <span class="ng-binding">
+                                    <input type="checkbox" ng-model="user.authority.workStatistic" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
+                                    Work Statistic</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading ng-binding">
+                    <input type="checkbox" ng-model="manageAll" ng-change="selectManage()" class="ng-pristine ng-untouched ng-valid">
+                    Manage
+                </div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>
+                                <span class="ng-binding">
+                                    <input type="checkbox" ng-model="user.authority.manageReport" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
+                                    Report</span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>
+                                <span class="ng-binding">
+                                    <input type="checkbox" ng-model="user.authority.manageAccount" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
+                                    Account</span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>
+                                <span class="ng-binding">
+                                    <input type="checkbox" ng-model="user.authority.manageProductSale" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
+                                    Sales Product</span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>
+                                <span class="ng-binding">
+                                    <input type="checkbox" ng-model="user.authority.manageProductPurchase" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
+                                    Purchase Product</span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>
+                                <span class="ng-binding">
+                                    <input type="checkbox" ng-model="user.authority.manageAddressbookCustomer" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
+                                    Customer</span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>
+                                <span class="ng-binding">
+                                    <input type="checkbox" ng-model="user.authority.manageAddressbookSupplier" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
+                                    Supplier</span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>
+                                <span class="ng-binding">
+                                    <input type="checkbox" ng-model="user.authority.manageAddressbookEmployee" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
+                                    Employee</span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>
+                                <span class="ng-binding">
+                                    <input type="checkbox" ng-model="user.authority.manageLogActivity" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
+                                    Activity Log</span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>
+                                <span class="ng-binding">
+                                    <input type="checkbox" ng-model="user.authority.manageSettingSale" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
+                                    Setting</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-show="user.id>0" class="ng-hide">
+                <a href="" ng-click="showConfirm('account.reset.pass.confirm',resetPasswordUser)" class="ng-binding">
+                    <span class="glyphicon glyphicon-refresh"></span>
+                    Reset password
+                </a>
+            </div>
+            <div class="mt-10">
+                <button type="button" class="btn btn-primary ng-binding" ng-show="user.id==0" ng-click="addUser();">
+                    <span class="glyphicon glyphicon-plus"></span>Add
+                </button>
+                <button type="button" class="btn btn-default ng-binding" ng-show="user.id==0" ng-click="resetUser();">
+                    <span class="glyphicon glyphicon-ban-circle"></span>
+                    Reset
+                </button>
+                <button type="button" class="btn btn-primary ng-binding ng-hide" ng-show="user.id>0" ng-click="updateUser();">
+                    <span class="glyphicon glyphicon-ok"></span>Save
+                </button>
+                <button type="button" class="btn btn-danger ng-binding ng-hide" ng-show="user.id>0" ng-click="showConfirm('account.lock.confirm',disableUser);">
+                    <span class="glyphicon glyphicon-lock"></span>Lock
+                </button>
+
+                <button type="button" class="btn btn-default ng-hide" ng-show="user.id>0" ng-click="resetUser();">
+                    <span class="glyphicon glyphicon-arrow-left"></span>
+                </button>
+            </div>
+        </div>
+
+      
+    </div>
+
+</section>

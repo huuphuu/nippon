@@ -73,7 +73,12 @@ angular.module('indexApp')
                 //}
             }
         })
-
+     .controller('EmployeeCtrl', function ($scope, $location, myFactory) {
+         $scope.init = function () {
+             debugger;
+            $(window).trigger("resize")
+         }
+     })
     .controller('uploadController', function ($scope, FileUploader, toaster, myFactory) {
         // Uploader Plugin Code
 

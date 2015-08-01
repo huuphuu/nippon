@@ -840,6 +840,7 @@
     <Content Include="Style\bootstrap\js\npm.js" />
     <Content Include="Style\css\AdminLTE.css" />
     <Content Include="Style\css\AdminLTE.min.css" />
+    <Content Include="Style\css\Main.css" />
     <Content Include="Style\css\skins\skin-black-light.css" />
     <Content Include="Style\css\skins\skin-black-light.min.css" />
     <Content Include="Style\css\skins\skin-black.css" />
@@ -867,14 +868,22 @@
     <Content Include="Style\css\skins\_all-skins.css" />
     <Content Include="Style\css\skins\_all-skins.min.css" />
     <Content Include="Style\css\loginPage.css" />
+    <Content Include="Style\fontAwesome\css\font-awesome.css" />
+    <Content Include="Style\fontAwesome\css\font-awesome.min.css" />
+    <Content Include="Style\fontAwesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Style\fontAwesome\ionicons.min.css" />
     <Content Include="Style\toaster\toaster.css" />
     <Content Include="Style\toaster\toaster.js" />
+    <Content Include="Templates\directive\form\content-header.html" />
+    <Content Include="Templates\directive\form\left-action.html" />
+    <Content Include="Templates\directive\form\right-action.html" />
     <Content Include="Templates\directive\header\nav\header-Navbar-Menu-dropdown.html" />
     <Content Include="Templates\directive\header\nav\header-Navbar-Menu.html" />
     <Content Include="Templates\directive\listFolderTreeView\listFolder-childs.html" />
     <Content Include="Templates\directive\listFolderTreeView\listFolder-Parent.html" />
     <Content Include="Templates\directive\navigation\navigation-childs.html" />
     <Content Include="Templates\directive\navigation\navigation.html" />
+    <Content Include="Templates\view\account\index.html" />
     <Content Include="Templates\view\CP.index.html" />
     <Content Include="Templates\view\index.html" />
     <Content Include="Templates\view\login.html" />
@@ -914,6 +923,11 @@
     <Content Include="Scripts\plugins\datatables\extensions\TableTools\Readme.md" />
     <Content Include="Scripts\plugins\input-mask\phone-codes\phone-be.json" />
     <Content Include="Scripts\plugins\input-mask\phone-codes\phone-codes.json" />
+    <Content Include="Style\fontAwesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Style\fontAwesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Style\fontAwesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Style\fontAwesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Style\fontAwesome\fonts\FontAwesome.otf" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

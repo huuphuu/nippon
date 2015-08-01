@@ -482,13 +482,12 @@ angular.module('indexApp')
 
         };
     })
-     .directive('contentHear', function ($timeout) {
+     .directive('contentHeader', function ($timeout) {
          return {
-             restrict: 'EA',
              replace: true,
-             templateUrl: '/Templates/directive/form/right-Action.html',
+             templateUrl: '/Templates/directive/form/content-header.html',
              scope: {
-                 title: '='
+                 titleName: '@titleName'
              },
          };
      })

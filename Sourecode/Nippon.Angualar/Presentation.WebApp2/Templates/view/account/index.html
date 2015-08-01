@@ -1,10 +1,10 @@
 ﻿<section class="content-header">
-    <h1> Account Management
+    <h1>Account Management
       
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
-       
+
     </ol>
 </section>
 
@@ -12,28 +12,45 @@
 <section class="content">
     <div class="row ng-scope" ng-controller="UserCtrl">
         <div class="col-md-7 col-sm-8" ng-hide="appService.isExtraSmallScreen() &amp;&amp; (action=='add' || action=='update')">
-            <h4 class="ng-binding">Account<span class="pull-right visible-xs"><small><a href="" ng-click="action='add'" class="ng-binding"><span class="glyphicon glyphicon-plus"></span>
-                Add New </a></small></span>
-            </h4>
+            <form class="form-inline row">
+                <div class="form-group col-md-12" style="padding-left: 25px;">
+                    <div class="col-md-2">
+                        <label for="exampleInputEmail1"></label>
+                    </div>
+                    
+                    <div class="input-group col-md-7" ng-show="navigatorCfg.search==true">
+                        <input type="text" class="form-control ng-pristine ng-untouched ng-valid" placeholder="Account" ng-model="navigator.search" ng-change="checkEmptySearch()" ui-keydown="{'enter':'search($event)'}"><span class="input-group-btn">
+                            <button type="button" class="btn btn-primary col-xs-12" ng-click="search();">
+                                <span class="glyphicon glyphicon-search"></span>
+                                Search
+                            </button>
+                        </span>
+                    </div>
+                    <div class="col-md-3 pull-right">
+                         <button class="btn btn-primary col-xs-12">
+                              <span class="glyphicon glyphicon-print"></span>
+                             Print</button>
+                    </div>
+                </div>
+
+            </form>
+
 
             <div class="table-responsive">
                 <table class="table table-hover table-striped pointer">
-                     <tfoot>
-                        <tr ng-show="status!='loading' &amp;&amp; users.length==0">
-                            <td colspan="3" class="ng-binding">No account</td>
-                        </tr>
-                    </tfoot>
+
                     <thead>
                         <tr>
-                            <th width="40%" class="ng-binding">Account</th>
-                            <th width="25%" class="ng-binding">Status</th>
-                            <th width="35%" class="text-right ng-binding">Last login</th>
+                            <th width="20%" class="ng-binding">Login Name</th>
+                            <th width="40%" class="text-center ng-binding">Full Name</th>
+                            <th width="30%" class="text-center ng-binding">Last Login</th>
+                            <th width="10%" class="text-center ng-binding">Status</th>
                         </tr>
                     </thead>
                     <tbody>
                         <!-- ngRepeat: u in users -->
                     </tbody>
-                   
+
                 </table>
             </div>
 
@@ -41,20 +58,9 @@
 
 
             <div class="row">
-                <div class="col-md-6">
-                    <div class="input-group" ng-show="navigatorCfg.search==true">
-                        <input type="text" class="form-control ng-pristine ng-untouched ng-valid" placeholder="Account" ng-model="navigator.search" ng-change="checkEmptySearch()" ui-keydown="{'enter':'search($event)'}"><span class="input-group-btn">
-                            <button type="button" class="btn btn-primary ng-binding" ng-click="search();">
-                                <span class="glyphicon glyphicon-search"></span>Search
-                            </button>
-                            <button type="button" class="btn btn-default" ng-click="clearSearch();">
-                                <span class="glyphicon glyphicon-ban-circle"></span>
-                            </button>
-                        </span>
-                    </div>
-                </div>
+
                 <div class="mt-10 visible-sm visible-xs"></div>
-                <div class="col-md-6">
+                <div class="col-md-6 pull-right">
                     <div class="input-group">
                         <span class="input-group-addon ng-binding">(0-0)&nbsp;
 
@@ -353,7 +359,7 @@
             </div>
         </div>
 
-      
+
     </div>
 
 </section>

@@ -2,9 +2,21 @@
 }
 
     .actionRight div {
-        padding-left:2px!important;
-        padding-right:0px!important;
+        padding-left: 2px!important;
+        padding-right: 0px!important;
     }
-    .actionRight div.first {
-         padding-left:0px!important;
-    }
+
+        .actionRight div.first {
+            padding-left: 0px!important;
+        }
+
+.btnPrint {
+    padding-right: 0px!important;
+}
+
+.padding-right-4 {
+    padding-right: 4px!important;
+}
+.padding-right-19{
+    padding-right: 19px!important;
+}

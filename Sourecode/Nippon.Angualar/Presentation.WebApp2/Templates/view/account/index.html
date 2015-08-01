@@ -13,11 +13,11 @@
     <div class="row ng-scope" ng-controller="UserCtrl">
         <div class="col-md-7 col-sm-8" ng-hide="appService.isExtraSmallScreen() &amp;&amp; (action=='add' || action=='update')">
             <form class="form-inline row">
-                <div class="form-group col-md-12" style="padding-left: 25px;">
+                <div class="form-group col-md-12">
                     <div class="col-md-2">
                         <label for="exampleInputEmail1"></label>
                     </div>
-                    
+
                     <div class="input-group col-md-7" ng-show="navigatorCfg.search==true">
                         <input type="text" class="form-control ng-pristine ng-untouched ng-valid" placeholder="Account" ng-model="navigator.search" ng-change="checkEmptySearch()" ui-keydown="{'enter':'search($event)'}"><span class="input-group-btn">
                             <button type="button" class="btn btn-primary col-xs-12" ng-click="search();">
@@ -27,9 +27,9 @@
                         </span>
                     </div>
                     <div class="col-md-3 pull-right">
-                         <button class="btn btn-primary col-xs-12">
-                              <span class="glyphicon glyphicon-print"></span>
-                             Print</button>
+                        <button class="btn btn-primary col-xs-12">
+                            <span class="glyphicon glyphicon-print"></span>
+                            Print</button>
                     </div>
                 </div>
 
@@ -81,9 +81,32 @@
             </div>
         </div>
 
-        <div class="col-md-5 col-sm-4" ng-hide="appService.isExtraSmallScreen() &amp;&amp; (action=='view')">
-            <h4 ng-show="user.id==0" class="ng-binding">Add New</h4>
-            <h4 ng-show="user.id>0" class="ng-binding ng-hide">Update</h4>
+        <div class="col-md-5 col-sm-4">
+            <form class="form-inline row">
+                <div class="form-group col-md-12 actionRight">
+                    <div class="col-md-3 first">
+                        <button class="btn btn-primary col-xs-12">
+                            <span class="glyphicon glyphicon-print"></span>
+                            Deactive</button>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-primary col-xs-12">
+                            <span class="glyphicon glyphicon-print"></span>
+                            Save</button>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-primary col-xs-12">
+                            <span class="glyphicon glyphicon-print"></span>
+                            Delete</button>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-primary col-xs-12">
+                            <span class="glyphicon glyphicon-print"></span>
+                            Add</button>
+                    </div>
+                </div>
+
+            </form>
 
             <p class="ng-binding">Account:</p>
             <div class="input-group">

@@ -54,13 +54,17 @@ $adminCMS.data = {
 
         "sidebarNav": [
             {
-                "name": "Files",
+                "name": "Manager",
                 "url": "#",
-                "cssIcon": "fa fa-laptop",
+                "cssIcon": "fa fa-users text-success",
                 "labelCss": "fa fa-angle-left",
                 "childs": [
-                    { "name": "Upload Files", "url": "uploadFiles", "cssIcon": "fa fa-flag-o", "childs": "" },
-                    { "name": "List Files", "url": "listFiles", "cssIcon": "fa fa-flag-o", "childs": "" }
+                    { "name": "Account", "url": "account", "cssIcon": "fa fa-flag-o", "childs": "" },
+                    { "name": "Employee", "url": "employee", "cssIcon": "fa fa-flag-o", "childs": "" },
+                    { "name": "Department", "url": "department", "cssIcon": "fa fa-flag-o", "childs": "" },
+                     { "name": "Office", "url": "office", "cssIcon": "fa fa-flag-o", "childs": "" },
+                    { "name": "Supplier", "url": "supplier", "cssIcon": "fa fa-flag-o", "childs": "" }
+                    
                 ]
             },
             {

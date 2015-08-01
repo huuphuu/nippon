@@ -5,16 +5,16 @@ var app = angular.module('indexApp', ['toaster', 'angularMoment', 'ui.router', '
 //ui.router
 app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
-    $urlRouterProvider.otherwise('/controlPanel');
+    $urlRouterProvider.otherwise('/account');
 
     $stateProvider
       //.state('login', {
       //    url: "",
       //    templateUrl: "/Templates/view/login.html"          
       //})
-        .state('controlPanel', {
+        .state('account', {
             url: '',
-            templateUrl: '/Templates/view/Partials/upload-files.html'
+            templateUrl: '/Templates/view/account/index.html'
         })
             .state('uploadFiles', {
                 url: '/upload-files',

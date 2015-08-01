@@ -12,29 +12,8 @@
 <section class="content">
     <div class="row ng-scope" ng-controller="UserCtrl">
         <div class="col-md-7 col-sm-8" ng-hide="appService.isExtraSmallScreen() &amp;&amp; (action=='add' || action=='update')">
-            <form class="form-inline row">
-                <div class="form-group col-md-12">
-                    <div class="col-md-2">
-                        <label for="exampleInputEmail1"></label>
-                    </div>
-
-                    <div class="input-group col-md-7" >
-                        <input type="text" class="form-control ng-pristine ng-untouched ng-valid" placeholder="Account" ng-model="navigator.search" ng-change="checkEmptySearch()" ui-keydown="{'enter':'search($event)'}"><span class="input-group-btn">
-                            <button type="button" class="btn  col-xs-12"  ng-class="themeButton" ng-click="search();">
-                                <span class="glyphicon glyphicon-search"></span>
-                                Search
-                            </button>
-                        </span>
-                    </div>
-                    <div class="col-md-3 pull-right">
-                        <button class="btn col-xs-12" ng-class="themeButton">
-                            <span class="glyphicon glyphicon-print" ></span>
-                            Print</button>
-                    </div>
-                </div>
-
-            </form>
-
+            <!---Directive left-action-->
+            <left-action theme-button="themeButton"></left-action>
 
             <div class="table-responsive">
                 <table class="table table-hover table-striped pointer">
@@ -82,36 +61,8 @@
         </div>
 
         <div class="col-md-5 col-sm-4">
-            <form class="form-inline row">
-                <div class="form-group col-md-12 actionRight">
-                    <div class="col-md-3 first hidden">
-                        <button class="btn col-xs-12" ng-class="themeButton">
-                            <span class="glyphicon glyphicon-lock"></span>
-                            Deactive</button>
-                    </div>
-                    <div class="col-md-3 first">
-                        <button class="btn col-xs-12" ng-class="themeButton">
-                            <span class="glyphicon glyphicon-ok"></span>
-                            Active</button>
-                    </div>
-                    <div class="col-md-3">
-                        <button class="btn col-xs-12" ng-class="themeButton">
-                            <span class="glyphicon glyphicon-save"></span>
-                            Save</button>
-                    </div>
-                    <div class="col-md-3">
-                        <button class="btn col-xs-12" ng-class="themeButton">
-                            <span class="glyphicon glyphicon-minus"></span>
-                            Delete</button>
-                    </div>
-                    <div class="col-md-3">
-                        <button class="btn col-xs-12" ng-class="themeButton">
-                            <span class="glyphicon glyphicon-plus"></span>
-                            Add</button>
-                    </div>
-                </div>
-
-            </form>
+            <!---Directive right-->
+            <right-action theme-button="themeButton" full-action="false"></right-action>
 
             <form class="form-horizontal row">
                 <div class="box-body">
@@ -190,9 +141,9 @@
             </div>
 
 
-           
+
             <div class="mt-10 pull-right">
-               <!-- <button type="button" class="btn ng-binding" ng-show="user.id==0" ng-click="addUser();">
+                <!-- <button type="button" class="btn ng-binding" ng-show="user.id==0" ng-click="addUser();">
                     <span class="glyphicon glyphicon-plus"></span>Add
                 </button>-->
                 <button type="button" class="btn ng-binding" ng-class="themeButton" ng-show="user.id==0" ng-click="resetUser();">

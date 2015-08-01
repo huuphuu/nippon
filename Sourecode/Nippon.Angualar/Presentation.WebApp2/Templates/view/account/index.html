@@ -133,323 +133,82 @@
                             <input type="email" class="form-control" id="Email1" placeholder="Email">
                         </div>
                     </div>
+
                 </div>
 
-             <div class="box">
-                    <div class="box-header">
-                        <h3 class="box-title">Condensed Full Width Table</h3>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body no-padding">
-                        <table class="table table-condensed">
-                            <tbody>
-                                <tr>
-                                    <th style="width: 10px">#</th>
-                                    <th>Task</th>
-                                    <th>Progress</th>
-                                    <th style="width: 40px">Label</th>
-                                </tr>
-                                <tr>
-                                    <td>1.</td>
-                                    <td>Update software</td>
-                                    <td>
-                                        <div class="progress progress-xs">
-                                            <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                                        </div>
-                                    </td>
-                                    <td><span class="badge bg-red">55%</span></td>
-                                </tr>
-                                <tr>
-                                    <td>2.</td>
-                                    <td>Clean database</td>
-                                    <td>
-                                        <div class="progress progress-xs">
-                                            <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
-                                        </div>
-                                    </td>
-                                    <td><span class="badge bg-yellow">70%</span></td>
-                                </tr>
-                                <tr>
-                                    <td>3.</td>
-                                    <td>Cron job running</td>
-                                    <td>
-                                        <div class="progress progress-xs progress-striped active">
-                                            <div class="progress-bar progress-bar-primary" style="width: 30%"></div>
-                                        </div>
-                                    </td>
-                                    <td><span class="badge bg-light-blue">30%</span></td>
-                                </tr>
-                                <tr>
-                                    <td>4.</td>
-                                    <td>Fix and squish bugs</td>
-                                    <td>
-                                        <div class="progress progress-xs progress-striped active">
-                                            <div class="progress-bar progress-bar-success" style="width: 90%"></div>
-                                        </div>
-                                    </td>
-                                    <td><span class="badge bg-green">90%</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <!-- /.box-body -->
-
-                </div>   
             </form>
+            <div class="box panel panel-default">
+                <div class="box-header panel-heading ng-binding">
+                    <h3 class="box-title"><strong>Role</strong></h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body no-padding">
+                    <table class="table table-condensed">
+                        <tbody>
+                            <tr>
+                                <th style="width: 35%">Function</th>
+                                <th style="width: 13%" class="text-center">View</th>
+                                <th style="width: 13%" class="text-center">Add</th>
+                                <th style="width: 13%" class="text-center">Edit</th>
+                                <th style="width: 13%" class="text-center">Delete</th>
+                                <th style="width: 13%" class="text-center">Orther</th>
+                            </tr>
+                            <tr>
+                                <td>User Mangager</td>
+                                <td class="text-center">
+                                    <label>
+                                        <input type="checkbox" class="minimal" checked />
+                                    </label>
+                                </td>
+                                <td class="text-center">
+                                    <label>
+                                        <input type="checkbox" class="minimal" checked />
+                                    </label>
+                                </td>
+                                <td class="text-center">
+                                    <label>
+                                        <input type="checkbox" class="minimal" checked />
+                                    </label>
+                                </td>
+                                <td class="text-center">
+                                    <label>
+                                        <input type="checkbox" class="minimal" checked />
+                                    </label>
+                                </td>
+                                <td class="text-center">
+                                    <label>
+                                        <input type="checkbox" class="minimal" checked />
+                                    </label>
+                                </td>
+                            </tr>
 
-            <div class="row">
-               
-            </div>
-            <p class="mt-10 ng-binding"><strong>Chức năng:</strong></p>
-            <div class="panel panel-default">
-                <div class="panel-heading ng-binding">
-                    <input type="checkbox" ng-model="saleAll" ng-change="selectSale()" class="ng-pristine ng-untouched ng-valid">
-                    Sale
+                        </tbody>
+                    </table>
                 </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>
-                                <span class="ng-binding">
-                                    <input type="checkbox" ng-model="user.authority.saleCreate" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
-                                    POS (Point-of-Sale)</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6">
-                            <p>
-                                <span class="ng-binding">
-                                    <input type="checkbox" ng-model="user.authority.saleOrder" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
-                                    Sales Order</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6">
-                            <p>
-                                <span class="ng-binding">
-                                    <input type="checkbox" ng-model="user.authority.saleStatistic" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
-                                    Sales Statistic</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6">
-                            <p>
-                                <span class="ng-binding">
-                                    <input type="checkbox" ng-model="user.authority.saleStatisticIngredient" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
-                                    Ingredient Statistic</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                <!-- /.box-body -->
 
-            <div class="panel panel-default">
-                <div class="panel-heading ng-binding">
-                    <input type="checkbox" ng-model="inventoryAll" ng-change="selectInventory()" class="ng-pristine ng-untouched ng-valid">
-                    Inventory
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>
-                                <span class="ng-binding">
-                                    <input type="checkbox" ng-model="user.authority.inventoryInstock" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
-                                    In Stock</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6">
-                            <p>
-                                <span class="ng-binding">
-                                    <input type="checkbox" ng-model="user.authority.inventoryPurchase" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
-                                    Purchase</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6">
-                            <p>
-                                <span class="ng-binding">
-                                    <input type="checkbox" ng-model="user.authority.inventoryPurchaseStatistic" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
-                                    Purchase Statistic</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6">
-                            <p>
-                                <span class="ng-binding">
-                                    <input type="checkbox" ng-model="user.authority.inventoryPurchaseOrder" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
-                                    Purchase Order</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6">
-                            <p>
-                                <span class="ng-binding">
-                                    <input type="checkbox" ng-model="user.authority.inventoryExport" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
-                                    Export</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6">
-                            <p>
-                                <span class="ng-binding">
-                                    <input type="checkbox" ng-model="user.authority.inventoryExportOrder" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
-                                    Export Order</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6">
-                            <p>
-                                <span class="ng-binding">
-                                    <input type="checkbox" ng-model="user.authority.inventoryExportStatistic" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
-                                    Export Statistic</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
             </div>
 
-            <div class="panel panel-default">
-                <div class="panel-heading ng-binding">
-                    <input type="checkbox" ng-model="expenseAll" ng-change="selectExpense()" class="ng-pristine ng-untouched ng-valid">
-                    Expense
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>
-                                <span class="ng-binding">
-                                    <input type="checkbox" ng-model="user.authority.expenseLog" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
-                                    Expense Log</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6">
-                            <p>
-                                <span class="ng-binding">
-                                    <input type="checkbox" ng-model="user.authority.expenseStatistic" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
-                                    Expense Statistic</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="panel panel-default">
-                <div class="panel-heading ng-binding">
-                    <input type="checkbox" ng-model="workAll" ng-change="selectWork()" class="ng-pristine ng-untouched ng-valid">
-                    Work
-                </div>
-                <div class="panel-body">
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>
-                                <span class="ng-binding">
-                                    <input type="checkbox" ng-model="user.authority.workLog" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
-                                    Work Log</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6">
-                            <p>
-                                <span class="ng-binding">
-                                    <input type="checkbox" ng-model="user.authority.workStatistic" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
-                                    Work Statistic</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="panel panel-default">
-                <div class="panel-heading ng-binding">
-                    <input type="checkbox" ng-model="manageAll" ng-change="selectManage()" class="ng-pristine ng-untouched ng-valid">
-                    Manage
-                </div>
-                <div class="panel-body">
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>
-                                <span class="ng-binding">
-                                    <input type="checkbox" ng-model="user.authority.manageReport" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
-                                    Report</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6">
-                            <p>
-                                <span class="ng-binding">
-                                    <input type="checkbox" ng-model="user.authority.manageAccount" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
-                                    Account</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6">
-                            <p>
-                                <span class="ng-binding">
-                                    <input type="checkbox" ng-model="user.authority.manageProductSale" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
-                                    Sales Product</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6">
-                            <p>
-                                <span class="ng-binding">
-                                    <input type="checkbox" ng-model="user.authority.manageProductPurchase" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
-                                    Purchase Product</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6">
-                            <p>
-                                <span class="ng-binding">
-                                    <input type="checkbox" ng-model="user.authority.manageAddressbookCustomer" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
-                                    Customer</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6">
-                            <p>
-                                <span class="ng-binding">
-                                    <input type="checkbox" ng-model="user.authority.manageAddressbookSupplier" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
-                                    Supplier</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6">
-                            <p>
-                                <span class="ng-binding">
-                                    <input type="checkbox" ng-model="user.authority.manageAddressbookEmployee" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
-                                    Employee</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6">
-                            <p>
-                                <span class="ng-binding">
-                                    <input type="checkbox" ng-model="user.authority.manageLogActivity" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
-                                    Activity Log</span>
-                            </p>
-                        </div>
-                        <div class="col-md-6">
-                            <p>
-                                <span class="ng-binding">
-                                    <input type="checkbox" ng-model="user.authority.manageSettingSale" ng-change="recalculateCheckbox()" class="ng-pristine ng-untouched ng-valid">
-                                    Setting</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div ng-show="user.id>0" class="ng-hide">
-                <a href="" ng-click="showConfirm('account.reset.pass.confirm',resetPasswordUser)" class="ng-binding">
-                    <span class="glyphicon glyphicon-refresh"></span>
-                    Reset password
-                </a>
-            </div>
-            <div class="mt-10">
-                <button type="button" class="btn btn-primary ng-binding" ng-show="user.id==0" ng-click="addUser();">
+           
+            <div class="mt-10 pull-right">
+               <!-- <button type="button" class="btn btn-primary ng-binding" ng-show="user.id==0" ng-click="addUser();">
                     <span class="glyphicon glyphicon-plus"></span>Add
-                </button>
-                <button type="button" class="btn btn-default ng-binding" ng-show="user.id==0" ng-click="resetUser();">
+                </button>-->
+                <button type="button" class="btn btn-primary ng-binding" ng-show="user.id==0" ng-click="resetUser();">
                     <span class="glyphicon glyphicon-ban-circle"></span>
-                    Reset
+                    Reset Password
                 </button>
-                <button type="button" class="btn btn-primary ng-binding ng-hide" ng-show="user.id>0" ng-click="updateUser();">
+                <!--<button type="button" class="btn btn-primary ng-binding ng-hide" ng-show="user.id>0" ng-click="updateUser();">
                     <span class="glyphicon glyphicon-ok"></span>Save
                 </button>
                 <button type="button" class="btn btn-danger ng-binding ng-hide" ng-show="user.id>0" ng-click="showConfirm('account.lock.confirm',disableUser);">
                     <span class="glyphicon glyphicon-lock"></span>Lock
                 </button>
 
-                <button type="button" class="btn btn-default ng-hide" ng-show="user.id>0" ng-click="resetUser();">
+                <button type="button" class="btn btn-default ng-hide" ng-click="resetUser();">
                     <span class="glyphicon glyphicon-arrow-left"></span>
-                </button>
+                </button>-->
             </div>
         </div>
 

@@ -89,7 +89,7 @@
                             <span class="glyphicon glyphicon-lock"></span>
                             Deactive</button>
                     </div>
-                     <div class="col-md-3 first">
+                    <div class="col-md-3 first">
                         <button class="btn btn-primary col-xs-12">
                             <span class="glyphicon glyphicon-ok"></span>
                             Active</button>
@@ -116,38 +116,91 @@
             <form class="form-horizontal row">
                 <div class="box-body">
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">Login Name</label>
-                        <div class="col-sm-10 padding-right-19">
+                        <label for="inputEmail3" class="col-sm-3 control-label">Login Name</label>
+                        <div class="col-sm-9 padding-right-19">
                             <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
-                        <div class="col-sm-10 padding-right-19 ">
+                        <label for="inputPassword3" class="col-sm-3 control-label">Password</label>
+                        <div class="col-sm-9 padding-right-19 ">
                             <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
                         </div>
                     </div>
                     <div class="form-group">
-                         <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
-                        <div class="col-sm-10 padding-right-19">
+                        <label for="inputEmail3" class="col-sm-3 control-label">Email</label>
+                        <div class="col-sm-9 padding-right-19">
                             <input type="email" class="form-control" id="Email1" placeholder="Email">
                         </div>
                     </div>
                 </div>
-               
-                <!-- /.box-footer -->
+
+             <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Condensed Full Width Table</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body no-padding">
+                        <table class="table table-condensed">
+                            <tbody>
+                                <tr>
+                                    <th style="width: 10px">#</th>
+                                    <th>Task</th>
+                                    <th>Progress</th>
+                                    <th style="width: 40px">Label</th>
+                                </tr>
+                                <tr>
+                                    <td>1.</td>
+                                    <td>Update software</td>
+                                    <td>
+                                        <div class="progress progress-xs">
+                                            <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-red">55%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>2.</td>
+                                    <td>Clean database</td>
+                                    <td>
+                                        <div class="progress progress-xs">
+                                            <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-yellow">70%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>3.</td>
+                                    <td>Cron job running</td>
+                                    <td>
+                                        <div class="progress progress-xs progress-striped active">
+                                            <div class="progress-bar progress-bar-primary" style="width: 30%"></div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-light-blue">30%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>4.</td>
+                                    <td>Fix and squish bugs</td>
+                                    <td>
+                                        <div class="progress progress-xs progress-striped active">
+                                            <div class="progress-bar progress-bar-success" style="width: 90%"></div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-green">90%</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+
+                </div>   
             </form>
 
-            <div ng-show="user.managedBranches.length > 0" class="ng-hide">
-                <p class="mt-10 ng-binding">Manage branches:</p>
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <!-- ngRepeat: b in user.managedBranches -->
-                    </div>
-                </div>
+            <div class="row">
+               
             </div>
-
-            <p class="mt-10 ng-binding">Privilege:</p>
+            <p class="mt-10 ng-binding"><strong>Chức năng:</strong></p>
             <div class="panel panel-default">
                 <div class="panel-heading ng-binding">
                     <input type="checkbox" ng-model="saleAll" ng-change="selectSale()" class="ng-pristine ng-untouched ng-valid">

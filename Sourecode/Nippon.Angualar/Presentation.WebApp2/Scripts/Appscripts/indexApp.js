@@ -1,7 +1,9 @@
-﻿'use strict';
+﻿/// <reference path="../../Templates/directive/Action/form-Action.html" />
+/// <reference path="../../Templates/directive/Action/form-Action.html" />
+'use strict';
 angular.module('indexApp')
 // Controller ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    .controller('BodyController', function ($scope, toaster, myFactory) {    
+    .controller('BodyController', function ($scope, toaster, myFactory) {
         $scope.navigation = $adminCMS.data.navigation;
         $scope.currentUser = $adminCMS.data.user;
         $scope.sidebarNavigation = $adminCMS.data.navigation.sidebarNav;
@@ -40,6 +42,37 @@ angular.module('indexApp')
             //}
         }
     })
+        .controller('UserCtrl', function ($scope, $location, myFactory) {
+            $scope.themeButton = 'btn-success';
+            $scope.signIn = function (user) {
+                console.log("user", user);
+
+                //myFactory.userAuth(user).then(
+                //    function () {
+                //        $location.path("/controlPanel/upload-files");
+                //    },
+                //    function () {
+                //        alert("error");
+                //    })
+
+                $location.path("/index");
+                //myFactory.userAuth(user).$promise.then(
+                //   function () {
+                //       $location.path("/index");
+                //   },
+                //   function () {
+                //       alert("error");
+                //   })
+
+                //if (user.userName == $scope.userInfo.userName && user.password == $scope.userInfo.password) {
+                //    //alert("sign in!");
+                //    $location.path("/controlPanel/upload-files");
+                //}
+                //else {
+                //    alert("Reject!");
+                //}
+            }
+        })
 
     .controller('uploadController', function ($scope, FileUploader, toaster, myFactory) {
         // Uploader Plugin Code
@@ -449,4 +482,26 @@ angular.module('indexApp')
 
         };
     })
+ .directive('rightAction', function ($timeout) {
+     return {
+         restrict: 'EA',
+         replace: true,
+         templateUrl: '/Templates/directive/form/right-Action.html',
+         scope: {
+             themeButton: '=',
+             fullAction:'='
+         },
+     };
+ })
+ .directive('leftAction', function ($timeout) {
+     return {
+         restrict: 'EA',
+         replace: true,
+         templateUrl: '/Templates/directive/form/left-Action.html',
+         scope: {
+             themeButton: '='
+         },
+     };
+ })
+
 

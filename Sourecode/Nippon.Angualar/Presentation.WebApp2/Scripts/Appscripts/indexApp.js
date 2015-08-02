@@ -9,6 +9,7 @@ angular.module('indexApp')
         $scope.sidebarNavigation = $adminCMS.data.navigation.sidebarNav;
         $scope.server = $adminCMS.data.server;
         $scope.serverList = $adminCMS.data.serverList;
+        $scope.themeButton = 'btn-success';
     })
 
     .controller('loginController', function ($scope, $location, myFactory) {
@@ -43,9 +44,10 @@ angular.module('indexApp')
         }
     })
         .controller('UserCtrl', function ($scope, $location, myFactory) {
-            $scope.themeButton = 'btn-success';
-            $scope.signIn = function (user) {
-                console.log("user", user);
+            $scope.init = function (user) {
+                window.setTimeout(function () {
+                    $(window).trigger("resize")
+                },200);
 
                 //myFactory.userAuth(user).then(
                 //    function () {
@@ -75,8 +77,9 @@ angular.module('indexApp')
         })
      .controller('EmployeeCtrl', function ($scope, $location, myFactory) {
          $scope.init = function () {
-             debugger;
-            $(window).trigger("resize")
+             window.setTimeout(function () {
+                 $(window).trigger("resize")
+             }, 200);
          }
      })
     .controller('uploadController', function ($scope, FileUploader, toaster, myFactory) {

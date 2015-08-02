@@ -43,11 +43,34 @@ angular.module('indexApp')
             //}
         }
     })
+     .controller('EmployeeCtrl', function ($scope, $location, myFactory) {
+         $scope.gridInfo = {
+             header:['Name','Email','Phone']
+         },
+
+         $scope.init = function () {
+             window.setTimeout(function () {
+                 $(window).trigger("resize")
+             }, 200);
+
+             //  $("#example1").DataTable();
+             //$('#example2').DataTable({
+             //    "paging": true,
+             //    "lengthChange": false,
+             //    "searching": false,
+             //    "ordering": true,
+             //    "info": true,
+             //    "autoWidth": false,
+             //    "pageLength": 9
+             //});
+
+         }
+     })
         .controller('UserCtrl', function ($scope, $location, myFactory) {
             $scope.init = function (user) {
                 window.setTimeout(function () {
                     $(window).trigger("resize")
-                },200);
+                }, 200);
 
                 //myFactory.userAuth(user).then(
                 //    function () {
@@ -75,25 +98,7 @@ angular.module('indexApp')
                 //}
             }
         })
-     .controller('EmployeeCtrl', function ($scope, $location, myFactory) {
-         $scope.init = function () {
-             window.setTimeout(function () {
-                 $(window).trigger("resize")
-             }, 200);
 
-           //  $("#example1").DataTable();
-             $('#example2').DataTable({
-                 "paging": true,
-                 "lengthChange": false,
-                 "searching": false,
-                 "ordering": true,
-                 "info": true,
-                 "autoWidth": false,
-                 "pageLength": 9
-             });
-         
-         }
-     })
     .controller('uploadController', function ($scope, FileUploader, toaster, myFactory) {
         // Uploader Plugin Code
 
@@ -518,7 +523,7 @@ angular.module('indexApp')
          templateUrl: '/Templates/directive/form/right-Action.html',
          scope: {
              themeButton: '=',
-             fullAction:'='
+             fullAction: '='
          },
      };
  })
@@ -532,5 +537,30 @@ angular.module('indexApp')
          },
      };
  })
+
+ .directive('gridTable', function ($timeout) {
+     return {
+         restrict: 'EA',
+         replace: true,
+         templateUrl: '/Templates/directive/form/data-table.html',
+         scope: {
+             gridInfo: '='
+         },
+         compile: function (el) {
+             window.setTimeout(function () {
+                 $('#gridContent').DataTable({
+                     "paging": true,
+                     "lengthChange": false,
+                     "searching": false,
+                     "ordering": true,
+                     "info": true,
+                     "autoWidth": false,
+                     "pageLength": 9
+                 });
+             }, 500);
+         }
+     };
+ })
+
 
 

@@ -875,6 +875,7 @@
     <Content Include="Style\toaster\toaster.css" />
     <Content Include="Style\toaster\toaster.js" />
     <Content Include="Templates\directive\form\content-header.html" />
+    <Content Include="Templates\directive\form\data-table.html" />
     <Content Include="Templates\directive\form\left-action.html" />
     <Content Include="Templates\directive\form\right-action.html" />
     <Content Include="Templates\directive\header\nav\header-Navbar-Menu-dropdown.html" />

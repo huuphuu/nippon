@@ -80,6 +80,18 @@ angular.module('indexApp')
              window.setTimeout(function () {
                  $(window).trigger("resize")
              }, 200);
+
+           //  $("#example1").DataTable();
+             $('#example2').DataTable({
+                 "paging": true,
+                 "lengthChange": false,
+                 "searching": false,
+                 "ordering": true,
+                 "info": true,
+                 "autoWidth": false,
+                 "pageLength": 9
+             });
+         
          }
      })
     .controller('uploadController', function ($scope, FileUploader, toaster, myFactory) {

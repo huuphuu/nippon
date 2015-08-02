@@ -22,3 +22,11 @@
     padding-right: 19px!important;
     padding-left: 12px;
 }
+.padding-right-10 {
+    padding-right: 10px;
+}
+.dataTables_paginate{
+    float:right;
+}
+   
+

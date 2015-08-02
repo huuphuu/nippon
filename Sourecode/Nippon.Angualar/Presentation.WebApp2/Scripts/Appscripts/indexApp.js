@@ -45,7 +45,7 @@ angular.module('indexApp')
     })
      .controller('EmployeeCtrl', function ($scope, $location, myFactory) {
          $scope.gridInfo = {
-             header:['Name','Email','Phone']
+             header: ['Name', 'Email', 'Phone']
          },
 
          $scope.init = function () {
@@ -548,14 +548,19 @@ angular.module('indexApp')
          },
          compile: function (el) {
              window.setTimeout(function () {
-                 $('#gridContent').DataTable({
+                 var table = $('#gridContent').DataTable({
                      "paging": true,
                      "lengthChange": false,
-                     "searching": false,
+                   //  "searching": true,
                      "ordering": true,
                      "info": true,
                      "autoWidth": false,
                      "pageLength": 9
+                 });
+
+                 $('#txtSearchGrid').on('keyup', function () {
+                     console.log('table',this.value);
+                     table.search(this.value).draw();
                  });
              }, 500);
          }

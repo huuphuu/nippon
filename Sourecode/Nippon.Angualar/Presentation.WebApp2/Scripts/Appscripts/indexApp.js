@@ -43,9 +43,29 @@ angular.module('indexApp')
             //}
         }
     })
+      .controller('DepartmentCtrl', function ($scope, $location, myFactory) {
+          $scope.gridInfo = {
+              cols: [{ Name: 'Name', Heading: 'Name', Width: '30%' },
+                    { Name: 'Email', Heading: 'Email', Width: '40%' },
+                    { Name: 'Phone', Heading: 'Phone', Width: '30%' }
+              ],
+              data: dataEmployee
+          },
+
+          $scope.init = function () {
+              window.setTimeout(function () {
+                  $(window).trigger("resize")
+              }, 200);
+
+          }
+      })
      .controller('EmployeeCtrl', function ($scope, $location, myFactory) {
          $scope.gridInfo = {
-             header: ['Name', 'Email', 'Phone']
+             cols: [{ Name: 'Name', Heading: 'Name', Width: '30%' },
+                    { Name: 'Email', Heading: 'Email', Width: '40%' },
+                    { Name: 'Phone', Heading: 'Phone', Width: '30%' }
+             ],
+             data: dataEmployee
          },
 
          $scope.init = function () {
@@ -53,20 +73,20 @@ angular.module('indexApp')
                  $(window).trigger("resize")
              }, 200);
 
-             //  $("#example1").DataTable();
-             //$('#example2').DataTable({
-             //    "paging": true,
-             //    "lengthChange": false,
-             //    "searching": false,
-             //    "ordering": true,
-             //    "info": true,
-             //    "autoWidth": false,
-             //    "pageLength": 9
-             //});
-
          }
      })
         .controller('UserCtrl', function ($scope, $location, myFactory) {
+            $scope.gridInfo = {
+                cols: [
+                    { Name: 'LoginName', Heading: 'Login Name', Width: '20%',Hiden:false },
+                    { Name: 'FullName', Heading: 'Full Name', Width: '20%', Hiden: false },
+                    { Name: 'LastLogin', Heading: 'Last Login', Width: '30%', Hiden: false },
+                    { Name: 'Status', Heading: 'Status', Width: '30%',Hiden:false }
+                ],
+
+                data: dataUser
+            },
+
             $scope.init = function (user) {
                 window.setTimeout(function () {
                     $(window).trigger("resize")
@@ -540,7 +560,7 @@ angular.module('indexApp')
 
  .directive('gridTable', function ($timeout) {
      return {
-         restrict: 'EA',
+      //   restrict: 'EA',
          replace: true,
          templateUrl: '/Templates/directive/form/data-table.html',
          scope: {
@@ -551,7 +571,7 @@ angular.module('indexApp')
                  var table = $('#gridContent').DataTable({
                      "paging": true,
                      "lengthChange": false,
-                   //  "searching": true,
+                     //  "searching": true,
                      "ordering": true,
                      "info": true,
                      "autoWidth": false,
@@ -559,7 +579,7 @@ angular.module('indexApp')
                  });
 
                  $('#txtSearchGrid').on('keyup', function () {
-                     console.log('table',this.value);
+                     console.log('table', this.value);
                      table.search(this.value).draw();
                  });
              }, 500);

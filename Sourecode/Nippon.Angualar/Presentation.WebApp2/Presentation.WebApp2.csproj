@@ -105,6 +105,7 @@
     <Content Include="Scripts\angularjs\plugins\toaster\toaster.js" />
     <Content Include="Scripts\Appscripts\app.js" />
     <Content Include="Scripts\Appscripts\data.js" />
+    <Content Include="Scripts\Appscripts\datademo.js" />
     <Content Include="Scripts\Appscripts\indexApp.js" />
     <Content Include="Scripts\Appscripts\loginApp.js" />
     <Content Include="Scripts\LTEScripts\app.js" />
@@ -886,7 +887,7 @@
     <Content Include="Templates\directive\navigation\navigation.html" />
     <Content Include="Templates\view\account\index.html" />
     <Content Include="Templates\view\CP.index.html" />
-    <Content Include="Templates\view\department\index.html" />
+    <Content Include="Templates\view\department\department-index.html" />
     <Content Include="Templates\view\employee\index.html" />
     <Content Include="Templates\view\index.html" />
     <Content Include="Templates\view\login.html" />

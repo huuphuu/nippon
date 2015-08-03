@@ -7,49 +7,13 @@
             <!---Directive left-action-->
             <left-action theme-button="themeButton"></left-action>
 
-            <div class="table-responsive">
-                <table class="table table-hover table-striped pointer">
-
-                    <thead>
-                        <tr>
-                            <th width="20%" class="ng-binding">Login Name</th>
-                            <th width="40%" class="text-center ng-binding">Full Name</th>
-                            <th width="30%" class="text-center ng-binding">Last Login</th>
-                            <th width="10%" class="text-center ng-binding">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- ngRepeat: u in users -->
-                    </tbody>
-
-                </table>
+            <div class="row">
+                <!---Directive left-action-->
+                <grid-table grid-info="gridInfo"></grid-table>
             </div>
-
             <!-- Navigator part -->
 
 
-            <div class="row">
-
-                <div class="mt-10 visible-sm visible-xs"></div>
-                <div class="col-md-6 pull-right">
-                    <div class="input-group">
-                        <span class="input-group-addon ng-binding">(0-0)&nbsp;
-
-                        </span>
-                        <select class="form-control ng-pristine ng-untouched ng-valid" ng-model="navigator.page" ng-options="p for p in navigatorPages" ng-change="changePage();">
-                            <option value="?" selected="selected" label=""></option>
-                        </select>
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" ng-click="previousPage();">
-                                <span class="glyphicon glyphicon-chevron-left"></span>
-                            </button>
-                            <button type="button" class="btn btn-default" ng-click="nextPage();">
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                            </button>
-                        </span>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <div class="col-md-5 col-sm-4">

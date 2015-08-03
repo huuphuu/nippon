@@ -4,7 +4,7 @@
         <!-- /.box-header -->
         <form class="form-horizontal row ng-pristine ng-valid">
             <div class="box-body">
-                <table id="gridContent" class="table table-bordered table-striped box">
+                <table id="{{gridInfo.gridID}}" class="table table-bordered table-striped box">
                     <thead>
                         <tr>
                             <th data-ng-repeat="c in gridInfo.cols" ng-width="{{c.width}}" ng-hide="{{c.isHidden}}">{{ c.heading }}
@@ -14,7 +14,7 @@
 
                     <tbody>
                         <tr data-ng-repeat="item in gridInfo.data">
-                            <td data-ng-repeat="c in gridInfo.cols" ng-width="{{c.width}}" ng-hide="{{c.isHidden}}">{{ item[c.name] }}
+                            <td data-ng-repeat="c in gridInfo.cols" ng-width="{{c.width}}" ng-hide="{{c.isHidden}}" class="Pointer" ng-click="setData()">{{ item[c.name] }}
                             </td>
                         </tr>
                     </tbody>

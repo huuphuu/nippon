@@ -13,20 +13,20 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
       //    templateUrl: "/Templates/view/login.html"          
       //})
         .state('account', {
-            url: '',
-            templateUrl: '/Templates/view/account/index.html'
+            url: '/account',
+            templateUrl: '/Templates/view/account/account-index.html'
         })
         .state('employee', {
             url: '/employee',
-            templateUrl: '/Templates/view/employee/index.html'
+            templateUrl: '/Templates/view/employee/employee-index.html'
         })
         .state('department', {
             url: '/department',
             templateUrl: '/Templates/view/department/department-index.html'
         })
         .state('office', {
-            url: 'department',
-            templateUrl: '/Templates/view/office/index.html'
+            url: '/office',
+            templateUrl: '/Templates/view/office/office-index.html'
         })
 
             .state('uploadFiles', {

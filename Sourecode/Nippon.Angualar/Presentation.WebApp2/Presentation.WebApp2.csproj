@@ -885,13 +885,16 @@
     <Content Include="Templates\directive\listFolderTreeView\listFolder-Parent.html" />
     <Content Include="Templates\directive\navigation\navigation-childs.html" />
     <Content Include="Templates\directive\navigation\navigation.html" />
+    <Content Include="Templates\view\account\account-index.html" />
     <Content Include="Templates\view\account\index.html" />
     <Content Include="Templates\view\CP.index.html" />
     <Content Include="Templates\view\department\department-index.html" />
+    <Content Include="Templates\view\employee\employee-index.html" />
     <Content Include="Templates\view\employee\index.html" />
     <Content Include="Templates\view\index.html" />
     <Content Include="Templates\view\login.html" />
     <Content Include="Templates\view\office\index.html" />
+    <Content Include="Templates\view\office\office-index.html" />
     <Content Include="Templates\view\Partials\list-files.html" />
     <Content Include="Templates\view\Partials\login.view.html" />
     <Content Include="Templates\view\Partials\upload-files.html" />

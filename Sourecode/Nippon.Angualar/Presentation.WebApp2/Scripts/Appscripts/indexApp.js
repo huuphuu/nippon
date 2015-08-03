@@ -45,6 +45,7 @@ angular.module('indexApp')
     })
       .controller('DepartmentCtrl', function ($scope, $location, myFactory) {
           $scope.gridInfo = {
+              gridID: 'departmentgrid',
               cols: [{ name: 'Name', heading: 'Name', width: '30%' },
                     { name: 'Email', heading: 'Email', width: '40%' },
                     { name: 'Phone', heading: 'Phone', width: '30%' }
@@ -56,11 +57,14 @@ angular.module('indexApp')
               window.setTimeout(function () {
                   $(window).trigger("resize")
               }, 200);
-
+          }
+          $scope.setData = function () {
+              alert('a');
           }
       })
      .controller('EmployeeCtrl', function ($scope, $location, myFactory) {
          $scope.gridInfo = {
+             gridID: 'Employeegrid',
              cols: [{ name: 'Name', heading: 'Name', width: '30%' },
                     { name: 'Email', heading: 'Email', width: '40%' },
                     { name: 'Phone', heading: 'Phone', width: '30%' }
@@ -77,6 +81,7 @@ angular.module('indexApp')
      })
         .controller('UserCtrl', function ($scope, $location, myFactory) {
             $scope.gridInfo = {
+                gridID: 'Usergrid',
                 cols: [
                     { name: 'LoginName', heading: 'Login Name', width: '20%', isHidden: false },
                     { name: 'FullName', heading: 'Full Name', wdth: '20%', isHidden: false },
@@ -560,32 +565,29 @@ angular.module('indexApp')
 
  .directive('gridTable', function ($timeout) {
      return {
-      //   restrict: 'EA',
+         //   restrict: 'EA',
          replace: true,
          templateUrl: '/Templates/directive/form/data-table.html',
-         scope: {
-             gridInfo: '='
-         },
-         compile: function (el) {
+         compile: function ($scope, el, attr) {
              window.setTimeout(function () {
-                 var table = $('#gridContent').DataTable({
+                 var gridID = "#GridContent";
+                 if (typeof el.gridid != 'undefined')
+                     gridID = "#" + el.gridid;
+                 var table = $(gridID).DataTable({
                      "paging": true,
                      "lengthChange": false,
-                     //  "searching": true,
-                     "ordering": true,
                      "info": true,
-                     "autoWidth": false,
+                     "autoWidth": true,
                      "pageLength": 9
                  });
 
                  $('#txtSearchGrid').on('keyup', function () {
-                     console.log('table', this.value);
                      table.search(this.value).draw();
                  });
              }, 500);
          }
-     };
- })
+ };
+})
 
 
 

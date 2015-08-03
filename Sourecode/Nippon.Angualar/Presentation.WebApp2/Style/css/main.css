@@ -30,6 +30,10 @@
 }
    
 
-#gridContent_filter{
+.dataTables_filter{
     display:none;
+}
+
+.Pointer{
+    cursor:pointer;
 }

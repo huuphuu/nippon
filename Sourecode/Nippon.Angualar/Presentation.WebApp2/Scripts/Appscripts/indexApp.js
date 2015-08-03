@@ -42,15 +42,17 @@ angular.module('indexApp')
             //}
         }
     })
-    .controller('DepartmentCtrl', function ($scope, $location, myFactory, gridService) {
+    .controller('DepartmentCtrl', function ($scope, $location, myFactory) {
         $scope.gridInfo = {
             gridID: 'departmentgrid',
             table: null,
-            cols: [{ name: 'Name', heading: 'Name', width: '30%' },
-                  { name: 'Email', heading: 'Email', width: '40%' },
-                  { name: 'Phone', heading: 'Phone', width: '30%' }
+            cols: [
+                  { name: 'ID', heading: 'ID', width: '30%', isHidden: true },
+                  { name: 'Name', heading: 'Name', width: '30%' },
+                  { name: 'Description', heading: 'Description', width: '40%' },
+                  { name: 'Status', heading: 'Status', width: '30%' }
             ],
-            data: dataEmployee,
+            data: [],
             sysViewID: 1
         },
         $scope.variable = { id: '', name: '', description: '' };
@@ -65,9 +67,7 @@ angular.module('indexApp')
                 $scope.variable.description = data[2];
             }
         }
-        gridService.getList($scope.gridInfo.sysViewID, function (data) {
-            console.log('getContextData',data)
-        });
+
     })
     .controller('EmployeeCtrl', function ($scope, $location, myFactory) {
         $scope.gridInfo = {
@@ -596,35 +596,38 @@ angular.module('indexApp')
             //   restrict: 'EA',
             replace: true,
             templateUrl: '/Templates/directive/form/data-table.html',
-            controller: function ($scope) {
+            controller: function ($scope, gridService) {
+
+                var gridID = "#GridContent";
+                gridID = "#" + $scope.gridInfo.gridID;
                 window.setTimeout(function () {
-                    var gridID = "#GridContent";
-                    gridID = "#" + $scope.gridInfo.gridID;
-                    $scope.gridInfo.table = $(gridID).DataTable({
-                        "paging": true,
-                        "lengthChange": false,
-                        "info": true,
-                        "autoWidth": true,
-                        "pageLength": 9
+                    gridService.getList($scope.gridInfo.sysViewID, function (data) {
+                       $scope.gridInfo.data = data[1];
+                        $scope.gridInfo.table = $(gridID).DataTable({
+                            "paging": true,
+                            "lengthChange": false,
+                            "info": true,
+                            "autoWidth": true,
+                            "pageLength": 9
+                        });
+                        $(gridID + ' tbody').on('click', 'tr', function () {
+                            if ($(this).hasClass('selected')) {
+                                $(this).removeClass('selected');
+                            }
+                            else {
+                                $scope.gridInfo.table.$('tr.selected').removeClass('selected');
+                                $(this).addClass('selected');
+                                $scope.setData($scope.gridInfo.table.row(this).data());
+                            }
+                        });
+                        $('#txtSearchGrid').on('keyup', function () {
+                            $scope.gridInfo.table.search(this.value).draw();
+                        });
+                        $scope.$apply();
                     });
-                    $(gridID + ' tbody').on('click', 'tr', function () {
-                        if ($(this).hasClass('selected')) {
-                            $(this).removeClass('selected');
-                        }
-                        else {
-                            $scope.gridInfo.table.$('tr.selected').removeClass('selected');
-                            $(this).addClass('selected');
-                            $scope.setData($scope.gridInfo.table.row(this).data());
-                        }
-                    });
-
-                    $('#txtSearchGrid').on('keyup', function () {
-                        $scope.gridInfo.table.search(this.value).draw();
-                    });
-
-                    $scope.$apply();
                 }, 500);
 
+                
             }
         };
     })

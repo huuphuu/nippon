@@ -600,16 +600,10 @@ angular.module('indexApp')
 
                 var gridID = "#GridContent";
                 gridID = "#" + $scope.gridInfo.gridID;
-                window.setTimeout(function () {
+             
                     gridService.getList($scope.gridInfo.sysViewID, function (data) {
                        $scope.gridInfo.data = data[1];
-                        $scope.gridInfo.table = $(gridID).DataTable({
-                            "paging": true,
-                            "lengthChange": false,
-                            "info": true,
-                            "autoWidth": true,
-                            "pageLength": 9
-                        });
+                       
                         $(gridID + ' tbody').on('click', 'tr', function () {
                             if ($(this).hasClass('selected')) {
                                 $(this).removeClass('selected');
@@ -623,9 +617,18 @@ angular.module('indexApp')
                         $('#txtSearchGrid').on('keyup', function () {
                             $scope.gridInfo.table.search(this.value).draw();
                         });
-                        $scope.$apply();
+                        window.setTimeout(function () {
+                            $scope.gridInfo.table = $(gridID).DataTable({
+                                "paging": true,
+                                "lengthChange": false,
+                                "info": true,
+                                "autoWidth": true,
+                                "pageLength": 9
+                            });
+                            $scope.$apply();
+                        }, 500);
                     });
-                }, 500);
+               
 
                 
             }

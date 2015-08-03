@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
+using Service.Data.Core.Class;
 
 namespace Service.Data.Core
 {
@@ -18,9 +19,15 @@ namespace Service.Data.Core
     {
 
         [WebMethod]
-        public string HelloWorld()
+        public string GetContextData(string clientKey, string inputValue)
         {
-            return "Hello World";
+            return new CCoreService().GetContextData(clientKey, inputValue);
+        }
+
+        [WebMethod]
+        public string ExecuteAction(string clientKey, string inputValue)
+        {
+            return new CCoreService().ExecuteAction(clientKey, inputValue);
         }
     }
 }

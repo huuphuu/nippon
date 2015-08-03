@@ -7,15 +7,14 @@
                 <table id="gridContent" class="table table-bordered table-striped box">
                     <thead>
                         <tr>
-                            <th data-ng-repeat="x in gridInfo.cols" style="width:{{ x.Width }}">{{ x.Heading }}
+                            <th data-ng-repeat="c in gridInfo.cols" ng-width="{{c.width}}" ng-hide="{{c.isHidden}}">{{ c.heading }}
                             </th>
                         </tr>
                     </thead>
 
                     <tbody>
                         <tr data-ng-repeat="item in gridInfo.data">
-                            <td data-ng-repeat="c in gridInfo.cols" >
-                                {{ item[c.Name] }}
+                            <td data-ng-repeat="c in gridInfo.cols" ng-width="{{c.width}}" ng-hide="{{c.isHidden}}">{{ item[c.name] }}
                             </td>
                         </tr>
                     </tbody>

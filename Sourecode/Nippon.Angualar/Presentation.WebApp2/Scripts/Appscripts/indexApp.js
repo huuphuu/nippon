@@ -45,9 +45,9 @@ angular.module('indexApp')
     })
       .controller('DepartmentCtrl', function ($scope, $location, myFactory) {
           $scope.gridInfo = {
-              cols: [{ Name: 'Name', Heading: 'Name', Width: '30%' },
-                    { Name: 'Email', Heading: 'Email', Width: '40%' },
-                    { Name: 'Phone', Heading: 'Phone', Width: '30%' }
+              cols: [{ name: 'Name', heading: 'Name', width: '30%' },
+                    { name: 'Email', heading: 'Email', width: '40%' },
+                    { name: 'Phone', heading: 'Phone', width: '30%' }
               ],
               data: dataEmployee
           },
@@ -61,9 +61,9 @@ angular.module('indexApp')
       })
      .controller('EmployeeCtrl', function ($scope, $location, myFactory) {
          $scope.gridInfo = {
-             cols: [{ Name: 'Name', Heading: 'Name', Width: '30%' },
-                    { Name: 'Email', Heading: 'Email', Width: '40%' },
-                    { Name: 'Phone', Heading: 'Phone', Width: '30%' }
+             cols: [{ name: 'Name', heading: 'Name', width: '30%' },
+                    { name: 'Email', heading: 'Email', width: '40%' },
+                    { name: 'Phone', heading: 'Phone', width: '30%' }
              ],
              data: dataEmployee
          },
@@ -78,10 +78,10 @@ angular.module('indexApp')
         .controller('UserCtrl', function ($scope, $location, myFactory) {
             $scope.gridInfo = {
                 cols: [
-                    { Name: 'LoginName', Heading: 'Login Name', Width: '20%',Hiden:false },
-                    { Name: 'FullName', Heading: 'Full Name', Width: '20%', Hiden: false },
-                    { Name: 'LastLogin', Heading: 'Last Login', Width: '30%', Hiden: false },
-                    { Name: 'Status', Heading: 'Status', Width: '30%',Hiden:false }
+                    { name: 'LoginName', heading: 'Login Name', width: '20%', isHidden: false },
+                    { name: 'FullName', heading: 'Full Name', wdth: '20%', isHidden: false },
+                    { name: 'LastLogin', heading: 'Last Login', width: '30%', isHidden: false },
+                    { name: 'Status', heading: 'Status', width: '30%' }
                 ],
 
                 data: dataUser

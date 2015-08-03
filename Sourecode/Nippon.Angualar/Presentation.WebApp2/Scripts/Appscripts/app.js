@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-var app = angular.module('indexApp', ['toaster', 'angularMoment', 'ui.router', 'angularFileUpload', 'ngCookies', 'ngResource','angularGrid']);
+var app = angular.module('indexApp', ['toaster', 'angularMoment', 'ui.router', 'angularFileUpload', 'ngCookies', 'ngResource', 'angularGrid', 'app.service']);
 
 //ui.router
 app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
@@ -41,4 +41,5 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     //    $locationProvider.html5Mode(true);
     //}
 });
+
 

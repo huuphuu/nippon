@@ -104,6 +104,7 @@
     <Content Include="Scripts\angularjs\plugins\toaster\toaster.css" />
     <Content Include="Scripts\angularjs\plugins\toaster\toaster.js" />
     <Content Include="Scripts\Appscripts\app.js" />
+    <Content Include="Scripts\Appscripts\core.app.js" />
     <Content Include="Scripts\Appscripts\data.js" />
     <Content Include="Scripts\Appscripts\datademo.js" />
     <Content Include="Scripts\Appscripts\indexApp.js" />
@@ -354,6 +355,7 @@
     <Content Include="Scripts\plugins\colorpicker\img\hue-horizontal.png" />
     <Content Include="Scripts\plugins\colorpicker\img\hue.png" />
     <Content Include="Scripts\plugins\colorpicker\img\saturation.png" />
+    <Content Include="Scripts\plugins\datatables\angular-datatables.min.js" />
     <Content Include="Scripts\plugins\datatables\dataTables.bootstrap.css" />
     <Content Include="Scripts\plugins\datatables\dataTables.bootstrap.js" />
     <Content Include="Scripts\plugins\datatables\dataTables.bootstrap.min.js" />

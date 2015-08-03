@@ -11,7 +11,6 @@ angular.module('indexApp')
         $scope.serverList = $adminCMS.data.serverList;
         $scope.themeButton = 'btn-success';
     })
-
     .controller('loginController', function ($scope, $location, myFactory) {
         $scope.userInfo = { "userName": "thanh", "password": "123456" };
         $scope.signIn = function (user) {
@@ -43,115 +42,119 @@ angular.module('indexApp')
             //}
         }
     })
-      .controller('DepartmentCtrl', function ($scope, $location, myFactory) {
-          $scope.gridInfo = {
-              gridID: 'departmentgrid',
-              cols: [{ name: 'Name', heading: 'Name', width: '30%' },
-                    { name: 'Email', heading: 'Email', width: '40%' },
-                    { name: 'Phone', heading: 'Phone', width: '30%' }
-              ],
-              data: dataEmployee
-          },
-
-          $scope.init = function () {
-              window.setTimeout(function () {
-                  $(window).trigger("resize")
-              }, 200);
-          }
-          $scope.setData = function () {
-              alert('a');
-          }
-      })
-     .controller('OfficerCtrl', function ($scope, $location, myFactory) {
-         $scope.gridInfo = {
-             gridID: 'Employeegrid',
-             cols: [{ name: 'Name', heading: 'Name', width: '30%' },
-                    { name: 'Email', heading: 'Email', width: '40%' },
-                    { name: 'Phone', heading: 'Phone', width: '30%' }
-             ],
-             data: dataEmployee
-         }
-         var columnDefs = [
-         { headerName: "Make", field: "make", width: 30 },
-         { headerName: "Model", field: "model", width: 30 },
-         { headerName: "Price", field: "price", width: 40 }
-         ];
-
-         var rowData = [
-             { make: "Toyota", model: "Celica", price: 35000 },
-             { make: "Ford", model: "Mondeo", price: 32000 },
-             { make: "Porsche", model: "Boxter", price: 72000 }
-         ];
-
-         $scope.gridOptions = {
-             columnDefs: columnDefs,
-             rowData: rowData,
-             dontUseScrolls: true // because so little data, no need to use scroll bars
-         };
-
-     })
-     .controller('EmployeeCtrl', function ($scope, $location, myFactory) {
-         $scope.gridInfo = {
-             gridID: 'Employeegrid',
-             cols: [{ name: 'Name', heading: 'Name', width: '30%' },
-                    { name: 'Email', heading: 'Email', width: '40%' },
-                    { name: 'Phone', heading: 'Phone', width: '30%' }
-             ],
-             data: dataEmployee
-         },
-
-         $scope.init = function () {
-             window.setTimeout(function () {
-                 $(window).trigger("resize")
-             }, 200);
-
-         }
-     })
-        .controller('UserCtrl', function ($scope, $location, myFactory) {
-            $scope.gridInfo = {
-                gridID: 'usergrid',
-                cols: [
-                    { name: 'LoginName', heading: 'Login Name', width: '20%', isHidden: false },
-                    { name: 'FullName', heading: 'Full Name', wdth: '20%', isHidden: false },
-                    { name: 'LastLogin', heading: 'Last Login', width: '30%', isHidden: false },
-                    { name: 'Status', heading: 'Status', width: '30%' }
-                ],
-
-                data: dataUser
-            },
-
-            $scope.init = function (user) {
-                window.setTimeout(function () {
-                    $(window).trigger("resize")
-                }, 200);
-
-                //myFactory.userAuth(user).then(
-                //    function () {
-                //        $location.path("/controlPanel/upload-files");
-                //    },
-                //    function () {
-                //        alert("error");
-                //    })
-
-                $location.path("/index");
-                //myFactory.userAuth(user).$promise.then(
-                //   function () {
-                //       $location.path("/index");
-                //   },
-                //   function () {
-                //       alert("error");
-                //   })
-
-                //if (user.userName == $scope.userInfo.userName && user.password == $scope.userInfo.password) {
-                //    //alert("sign in!");
-                //    $location.path("/controlPanel/upload-files");
-                //}
-                //else {
-                //    alert("Reject!");
-                //}
+    .controller('DepartmentCtrl', function ($scope, $location, myFactory, coreService) {
+        $scope.gridInfo = {
+            gridID: 'departmentgrid',
+            table: null,
+            cols: [{ name: 'Name', heading: 'Name', width: '30%' },
+                  { name: 'Email', heading: 'Email', width: '40%' },
+                  { name: 'Phone', heading: 'Phone', width: '30%' }
+            ],
+            data: dataEmployee,
+            sysViewID: 1
+        },
+        $scope.variable = { id: '', name: '', description: '' };
+        $scope.init = function () {
+            window.setTimeout(function () {
+                $(window).trigger("resize")
+            }, 200);
+        }
+        $scope.setData = function (data) {
+            if (typeof data != 'undefined') {
+                $scope.variable.name = data[1];
+                $scope.variable.description = data[2];
             }
-        })
+        }
+        coreService.getContextData('aa','ss');
+    })
+    .controller('EmployeeCtrl', function ($scope, $location, myFactory) {
+        $scope.gridInfo = {
+            gridID: 'Employeegrid',
+            cols: [{ name: 'Name', heading: 'Name', width: '30%' },
+                   { name: 'Email', heading: 'Email', width: '40%' },
+                   { name: 'Phone', heading: 'Phone', width: '30%' }
+            ],
+            data: dataEmployee
+        },
 
+        $scope.init = function () {
+            window.setTimeout(function () {
+                $(window).trigger("resize")
+            }, 200);
+        }
+    })
+    .controller('UserCtrl', function ($scope, $location, myFactory) {
+        $scope.gridInfo = {
+            gridID: 'usergrid',
+            cols: [
+                { name: 'LoginName', heading: 'Login Name', width: '20%', isHidden: false },
+                { name: 'FullName', heading: 'Full Name', wdth: '20%', isHidden: false },
+                { name: 'LastLogin', heading: 'Last Login', width: '30%', isHidden: false },
+                { name: 'Status', heading: 'Status', width: '30%' }
+            ],
+
+            data: dataUser
+        },
+
+        $scope.init = function (user) {
+            window.setTimeout(function () {
+                $(window).trigger("resize")
+            }, 200);
+
+            //myFactory.userAuth(user).then(
+            //    function () {
+            //        $location.path("/controlPanel/upload-files");
+            //    },
+            //    function () {
+            //        alert("error");
+            //    })
+
+            $location.path("/index");
+            //myFactory.userAuth(user).$promise.then(
+            //   function () {
+            //       $location.path("/index");
+            //   },
+            //   function () {
+            //       alert("error");
+            //   })
+
+            //if (user.userName == $scope.userInfo.userName && user.password == $scope.userInfo.password) {
+            //    //alert("sign in!");
+            //    $location.path("/controlPanel/upload-files");
+            //}
+            //else {
+            //    alert("Reject!");
+            //}
+        }
+    })
+    .controller('OfficerCtrl', function ($scope, $location, myFactory) {
+        $scope.gridInfo = {
+            gridID: 'Employeegrid',
+            cols: [{ name: 'Name', heading: 'Name', width: '30%' },
+                   { name: 'Email', heading: 'Email', width: '40%' },
+                   { name: 'Phone', heading: 'Phone', width: '30%' }
+            ],
+            data: dataEmployee
+        }
+        var columnDefs = [
+        { headerName: "Make", field: "make", width: 30 },
+        { headerName: "Model", field: "model", width: 30 },
+        { headerName: "Price", field: "price", width: 40 }
+        ];
+
+        var rowData = [
+            { make: "Toyota", model: "Celica", price: 35000 },
+            { make: "Ford", model: "Mondeo", price: 32000 },
+            { make: "Porsche", model: "Boxter", price: 72000 }
+        ];
+
+        $scope.gridOptions = {
+            columnDefs: columnDefs,
+            rowData: rowData,
+            dontUseScrolls: true // because so little data, no need to use scroll bars
+        };
+
+    })
     .controller('uploadController', function ($scope, FileUploader, toaster, myFactory) {
         // Uploader Plugin Code
 
@@ -293,7 +296,6 @@ angular.module('indexApp')
 
         console.info('uploader', uploader);
     })
-
     .controller("ListFilesController", function ($scope) {
         $scope.serverId = 1;
         $scope.servers = $scope.serverList;
@@ -482,7 +484,6 @@ angular.module('indexApp')
             templateUrl: '/Templates/directive/header/nav/header-Navbar-Menu.html'
         };
     })
-
     .directive('sidebarNavigation', function () {
         return {
             restrict: 'EA',
@@ -521,8 +522,6 @@ angular.module('indexApp')
 
         };
     })
-
-
     .directive('folderTreeViewParent', function () {
         return {
             restrict: 'EA',
@@ -560,73 +559,73 @@ angular.module('indexApp')
 
         };
     })
-     .directive('contentHeader', function ($timeout) {
-         return {
-             replace: true,
-             templateUrl: '/Templates/directive/form/content-header.html',
-             scope: {
-                 titleName: '@titleName'
-             },
-         };
-     })
- .directive('rightAction', function ($timeout) {
-     return {
-         restrict: 'EA',
-         replace: true,
-         templateUrl: '/Templates/directive/form/right-Action.html',
-         scope: {
-             themeButton: '=',
-             fullAction: '='
-         },
-     };
- })
- .directive('leftAction', function ($timeout) {
-     return {
-         restrict: 'EA',
-         replace: true,
-         templateUrl: '/Templates/directive/form/left-Action.html',
-         scope: {
-             themeButton: '='
-         },
-     };
- })
+    .directive('contentHeader', function ($timeout) {
+        return {
+            replace: true,
+            templateUrl: '/Templates/directive/form/content-header.html',
+            scope: {
+                titleName: '@titleName'
+            },
+        };
+    })
+    .directive('rightAction', function ($timeout) {
+        return {
+            restrict: 'EA',
+            replace: true,
+            templateUrl: '/Templates/directive/form/right-Action.html',
+            scope: {
+                themeButton: '=',
+                fullAction: '='
+            },
+        };
+    })
+    .directive('leftAction', function ($timeout) {
+        return {
+            restrict: 'EA',
+            replace: true,
+            templateUrl: '/Templates/directive/form/left-Action.html',
+            scope: {
+                themeButton: '='
+            },
+        };
+    })
+    .directive('gridTable', function ($timeout) {
+        return {
+            //   restrict: 'EA',
+            replace: true,
+            templateUrl: '/Templates/directive/form/data-table.html',
+            controller: function ($scope) {
+                window.setTimeout(function () {
+                    var gridID = "#GridContent";
+                    gridID = "#" + $scope.gridInfo.gridID;
+                    $scope.gridInfo.table = $(gridID).DataTable({
+                        "paging": true,
+                        "lengthChange": false,
+                        "info": true,
+                        "autoWidth": true,
+                        "pageLength": 9
+                    });
+                    $(gridID + ' tbody').on('click', 'tr', function () {
+                        if ($(this).hasClass('selected')) {
+                            $(this).removeClass('selected');
+                        }
+                        else {
+                            $scope.gridInfo.table.$('tr.selected').removeClass('selected');
+                            $(this).addClass('selected');
+                            $scope.setData($scope.gridInfo.table.row(this).data());
+                        }
+                    });
 
- .directive('gridTable', function ($timeout) {
-     return {
-         //   restrict: 'EA',
-         replace: true,
-         templateUrl: '/Templates/directive/form/data-table.html',
-         compile: function ($scope, el, attr) {
-             window.setTimeout(function () {
-                 var gridID = "#GridContent";
-                 if (typeof el.gridid != 'undefined')
-                     gridID = "#" + el.gridid;
-                 var table = $(gridID).DataTable({
-                     "paging": true,
-                     "lengthChange": false,
-                     "info": true,
-                     "autoWidth": true,
-                     "pageLength": 9
-                 });
+                    $('#txtSearchGrid').on('keyup', function () {
+                        $scope.gridInfo.table.search(this.value).draw();
+                    });
 
+                    $scope.$apply();
+                }, 500);
 
-                 $(gridID + ' tbody').on('click', 'tr', function () {
-                     if ($(this).hasClass('selected')) {
-                         $(this).removeClass('selected');
-                     }
-                     else {
-                         table.$('tr.selected').removeClass('selected');
-                         $(this).addClass('selected');
-                     }
-                 });
-
-                 $('#txtSearchGrid').on('keyup', function () {
-                     table.search(this.value).draw();
-                 });
-             }, 500);
-         }
-     };
- })
+            }
+        };
+    })
 
 
 

@@ -22,18 +22,24 @@
     padding-right: 19px!important;
     padding-left: 12px;
 }
+
 .padding-right-10 {
     padding-right: 10px;
 }
-.dataTables_paginate{
-    float:right;
-}
-   
 
-.dataTables_filter{
-    display:none;
+.dataTables_paginate {
+    float: right;
 }
 
-.Pointer{
-    cursor:pointer;
+
+.dataTables_filter {
+    display: none;
+}
+
+.Pointer {
+    cursor: pointer;
+}
+
+table.dataTable tbody tr.selected {
+    background-color: #bbbbbb;
 }

@@ -62,6 +62,34 @@ angular.module('indexApp')
               alert('a');
           }
       })
+     .controller('OfficerCtrl', function ($scope, $location, myFactory) {
+         $scope.gridInfo = {
+             gridID: 'Employeegrid',
+             cols: [{ name: 'Name', heading: 'Name', width: '30%' },
+                    { name: 'Email', heading: 'Email', width: '40%' },
+                    { name: 'Phone', heading: 'Phone', width: '30%' }
+             ],
+             data: dataEmployee
+         }
+         var columnDefs = [
+         { headerName: "Make", field: "make", width: 30 },
+         { headerName: "Model", field: "model", width: 30 },
+         { headerName: "Price", field: "price", width: 40 }
+         ];
+
+         var rowData = [
+             { make: "Toyota", model: "Celica", price: 35000 },
+             { make: "Ford", model: "Mondeo", price: 32000 },
+             { make: "Porsche", model: "Boxter", price: 72000 }
+         ];
+
+         $scope.gridOptions = {
+             columnDefs: columnDefs,
+             rowData: rowData,
+             dontUseScrolls: true // because so little data, no need to use scroll bars
+         };
+
+     })
      .controller('EmployeeCtrl', function ($scope, $location, myFactory) {
          $scope.gridInfo = {
              gridID: 'Employeegrid',
@@ -81,7 +109,7 @@ angular.module('indexApp')
      })
         .controller('UserCtrl', function ($scope, $location, myFactory) {
             $scope.gridInfo = {
-                gridID: 'Usergrid',
+                gridID: 'usergrid',
                 cols: [
                     { name: 'LoginName', heading: 'Login Name', width: '20%', isHidden: false },
                     { name: 'FullName', heading: 'Full Name', wdth: '20%', isHidden: false },
@@ -581,13 +609,24 @@ angular.module('indexApp')
                      "pageLength": 9
                  });
 
+
+                 $(gridID + ' tbody').on('click', 'tr', function () {
+                     if ($(this).hasClass('selected')) {
+                         $(this).removeClass('selected');
+                     }
+                     else {
+                         table.$('tr.selected').removeClass('selected');
+                         $(this).addClass('selected');
+                     }
+                 });
+
                  $('#txtSearchGrid').on('keyup', function () {
                      table.search(this.value).draw();
                  });
              }, 500);
          }
- };
-})
+     };
+ })
 
 
 

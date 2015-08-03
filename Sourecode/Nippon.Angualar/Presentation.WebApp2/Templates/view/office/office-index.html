@@ -6,15 +6,30 @@
         <div class="col-md-7 col-sm-8">
             <!---Directive left-action-->
             <left-action theme-button="themeButton"></left-action>
+            <div class="row">
+                <div class="form-group col-md-12">
 
-           
-            <div class="col-md-5 col-sm-4">
-                <!---Directive right-->
-                <right-action theme-button="themeButton" full-action="false"></right-action>
+                    <div class="col-xs-12 pull-right ">
+                        <!-- /.box-header -->
+                        <form class="form-horizontal row ng-pristine ng-valid">
+                            <div class="box-body">
+                                <div ag-grid="gridOptions" class="ag-fresh" style="width: 100%; height: 100%;"></div>
 
-
+                            </div>
+                        </form>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
             </div>
+        </div>
+        <div class="col-md-5 col-sm-4">
+            <!---Directive right-->
+            <right-action theme-button="themeButton" full-action="false"></right-action>
 
 
         </div>
+
+
+    </div>
 </section>

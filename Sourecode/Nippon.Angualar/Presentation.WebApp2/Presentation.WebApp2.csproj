@@ -111,6 +111,9 @@
     <Content Include="Scripts\LTEScripts\app.js" />
     <Content Include="Scripts\LTEScripts\app.min.js" />
     <Content Include="Scripts\LTEScripts\demo.js" />
+    <Content Include="Scripts\plugins\angular-grid\angular-grid.css" />
+    <Content Include="Scripts\plugins\angular-grid\angular-grid.js" />
+    <Content Include="Scripts\plugins\angular-grid\theme-fresh.css" />
     <Content Include="Scripts\plugins\bootstrap-slider\bootstrap-slider.js" />
     <Content Include="Scripts\plugins\bootstrap-slider\slider.css" />
     <Content Include="Scripts\plugins\bootstrap-wysihtml5\bootstrap3-wysihtml5.all.js" />

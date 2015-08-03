@@ -774,6 +774,10 @@
     <Content Include="Scripts\plugins\jQueryUI\jquery-ui.js" />
     <Content Include="Scripts\plugins\jQueryUI\jquery-ui.min.js" />
     <Content Include="Scripts\plugins\jQuery\jQuery-2.1.4.min.js" />
+    <Content Include="Scripts\plugins\jQuery\plugin\CCSV.js" />
+    <Content Include="Scripts\plugins\jQuery\plugin\jquery.splitter.js" />
+    <Content Include="Scripts\plugins\jQuery\plugin\jquery.string.format.js" />
+    <Content Include="Scripts\plugins\jQuery\ui\jquery-ui.min.js" />
     <Content Include="Scripts\plugins\jvectormap\jquery-jvectormap-1.2.2.css" />
     <Content Include="Scripts\plugins\jvectormap\jquery-jvectormap-1.2.2.min.js" />
     <Content Include="Scripts\plugins\jvectormap\jquery-jvectormap-world-mill-en.js" />

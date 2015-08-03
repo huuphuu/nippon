@@ -42,7 +42,7 @@ angular.module('indexApp')
             //}
         }
     })
-    .controller('DepartmentCtrl', function ($scope, $location, myFactory, coreService) {
+    .controller('DepartmentCtrl', function ($scope, $location, myFactory, gridService) {
         $scope.gridInfo = {
             gridID: 'departmentgrid',
             table: null,
@@ -65,7 +65,9 @@ angular.module('indexApp')
                 $scope.variable.description = data[2];
             }
         }
-        coreService.getContextData('aa','ss');
+        gridService.getList($scope.gridInfo.sysViewID, function (data) {
+            console.log('getContextData',data)
+        });
     })
     .controller('EmployeeCtrl', function ($scope, $location, myFactory) {
         $scope.gridInfo = {

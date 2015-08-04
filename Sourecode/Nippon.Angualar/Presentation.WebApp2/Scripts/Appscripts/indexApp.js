@@ -62,12 +62,17 @@ angular.module('indexApp')
             }, 200);
         }
         $scope.setData = function (data) {
+            console.log('root', data)
             if (typeof data != 'undefined') {
                 $scope.variable.name = data[1];
                 $scope.variable.description = data[2];
             }
         }
+        $scope.reset = function (data) {
+            $scope.variable.name = '';
+            $scope.variable.description = '';
 
+        }
     })
     .controller('EmployeeCtrl', function ($scope, $location, myFactory) {
         $scope.gridInfo = {
@@ -575,10 +580,8 @@ angular.module('indexApp')
             restrict: 'EA',
             replace: true,
             templateUrl: '/Templates/directive/form/right-Action.html',
-            scope: {
-                themeButton: '=',
-                fullAction: '='
-            },
+            controller: function ($scope) {
+            }
         };
     })
     .directive('leftAction', function ($timeout) {
@@ -600,10 +603,19 @@ angular.module('indexApp')
 
                 var gridID = "#GridContent";
                 gridID = "#" + $scope.gridInfo.gridID;
-             
-                    gridService.getList($scope.gridInfo.sysViewID, function (data) {
-                       $scope.gridInfo.data = data[1];
-                       
+
+                gridService.getList($scope.gridInfo.sysViewID, function (data) {
+                    $scope.gridInfo.data = data[1];
+
+
+                    window.setTimeout(function () {
+                        $scope.gridInfo.table = $(gridID).DataTable({
+                            "paging": true,
+                            "lengthChange": false,
+                            "info": true,
+                            "autoWidth": true,
+                            "pageLength": 9
+                        });
                         $(gridID + ' tbody').on('click', 'tr', function () {
                             if ($(this).hasClass('selected')) {
                                 $(this).removeClass('selected');
@@ -617,23 +629,60 @@ angular.module('indexApp')
                         $('#txtSearchGrid').on('keyup', function () {
                             $scope.gridInfo.table.search(this.value).draw();
                         });
-                        window.setTimeout(function () {
-                            $scope.gridInfo.table = $(gridID).DataTable({
-                                "paging": true,
-                                "lengthChange": false,
-                                "info": true,
-                                "autoWidth": true,
-                                "pageLength": 9
-                            });
-                            $scope.$apply();
-                        }, 500);
-                    });
-               
+                        $scope.$apply();
+                    }, 500);
+                });
 
-                
+
+
             }
         };
     })
+    .directive('angularGridTable', function ($timeout) {
+        return {
+            //   restrict: 'EA',
+            replace: true,
+            templateUrl: '/Templates/directive/grid/angular-data-table.html',
+            scope: {
+                gridInfo: '=',
+                rootScope: '='
+            },
+            controller: function ($scope, gridService) {
 
+                var gridID = "#GridContent";
+                gridID = "#" + $scope.gridInfo.gridID;
+
+                gridService.getList($scope.gridInfo.sysViewID, function (data) {
+                    $scope.gridInfo.data = data[1];
+                });
+            }
+        };
+    })
+.controller('WithOptionsCtrl', WithOptionsCtrl);
+function WithOptionsCtrl(DTOptionsBuilder, DTColumnDefBuilder, $scope, gridService) {
+  //  console.log('$scope--------------------------------', $scope, gridService);
+    var vm = this;
+    vm.gridData = [];
+    
+
+    console.log('controller', vm.gridInfo)
+    vm.init = function (gridInfo, rootScope) {
+            vm.gridInfo = gridInfo;
+        vm.rootScope = rootScope;      
+        gridService.getList($scope.gridInfo.sysViewID, function (data) {
+            vm.gridData = data[1];
+            $scope.$apply();
+
+        });
+
+    }
+    vm.setData = function (item) {
+        var row = angular.copy(item);
+        console.log('::table::setData', row)
+        if (angular.isFunction(vm.rootScope.setData)) {
+            vm.rootScope.setData(row);
+        }
+    }
+}
 
 

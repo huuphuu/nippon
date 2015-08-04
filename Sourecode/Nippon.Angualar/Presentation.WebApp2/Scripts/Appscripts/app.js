@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-var app = angular.module('indexApp', ['toaster', 'angularMoment', 'ui.router', 'angularFileUpload', 'ngCookies', 'ngResource', 'angularGrid', 'app.service']);
+var app = angular.module('indexApp', ['toaster', 'angularMoment', 'ui.router', 'angularFileUpload', 'ngCookies', 'ngResource', 'angularGrid', 'app.service', 'datatables']);
 
 //ui.router
 app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {

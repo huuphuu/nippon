@@ -888,6 +888,7 @@
     <Content Include="Templates\directive\form\data-table.html" />
     <Content Include="Templates\directive\form\left-action.html" />
     <Content Include="Templates\directive\form\right-action.html" />
+    <Content Include="Templates\directive\grid\angular-data-table.html" />
     <Content Include="Templates\directive\header\nav\header-Navbar-Menu-dropdown.html" />
     <Content Include="Templates\directive\header\nav\header-Navbar-Menu.html" />
     <Content Include="Templates\directive\listFolderTreeView\listFolder-childs.html" />

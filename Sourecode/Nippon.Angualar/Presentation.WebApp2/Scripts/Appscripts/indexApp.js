@@ -42,7 +42,7 @@ angular.module('indexApp')
             //}
         }
     })
-    .controller('DepartmentCtrl', function ($scope, $location, myFactory) {
+    .controller('DepartmentCtrl', function ($scope, coreService) {
         $scope.gridInfo = {
             gridID: 'departmentgrid',
             table: null,
@@ -55,22 +55,59 @@ angular.module('indexApp')
             data: [],
             sysViewID: 1
         },
-        $scope.variable = { id: '', name: '', description: '' };
+        $scope.dataSeleted = { ID: 0, Name: "", Code: '', Description: "", Status: "0", Sys_ViewID: $scope.gridInfo.sysViewID };
         $scope.init = function () {
             window.setTimeout(function () {
                 $(window).trigger("resize")
             }, 200);
         }
         $scope.setData = function (data) {
-            console.log('root', data)
             if (typeof data != 'undefined') {
-                $scope.variable.name = data[1];
-                $scope.variable.description = data[2];
+                $scope.dataSeleted = data;
+            }
+        }
+        $scope.actionEntry = function (act) {
+            if (typeof act != 'undefined') {
+                var entry = angular.copy($scope.dataSeleted);
+                entry.Action = act;
+                entry.Sys_ViewID = $scope.gridInfo.sysViewID;
+                coreService.actionEntry(entry, function (data) {
+                    if (data[0].length > 0)
+                        if (data[0][0]) {
+                            switch (act) {
+                                case 'INSERT':
+                                    entry.ID = data[0][0].ID;
+                                    $scope.gridInfo.data.unshift(entry);
+                                    break;
+                                case 'UPDATE':
+                                    angular.forEach($scope.gridInfo.data, function (item, key) {
+                                        if (entry.ID == item.ID){
+                                             $scope.gridInfo.data[key] = angular.copy(entry);
+                                           
+                                        }
+                                    });
+                                    break;
+                                case 'DELETE':
+                                    var index = -1;
+                                    var i = 0;
+                                    angular.forEach($scope.gridInfo.data, function (item, key) {
+                                        if (entry.ID == item.ID)
+                                            index = i;
+                                        i++;
+                                    });
+                                    if (index > -1)
+                                        $scope.gridInfo.data.splice(index, 1);
+                                    break;
+                            }
+                            $scope.reset();
+                        }
+                    $scope.$apply();
+
+                });
             }
         }
         $scope.reset = function (data) {
-            $scope.variable.name = '';
-            $scope.variable.description = '';
+            $scope.dataSeleted = { ID: 0, Name: "", Code: '', Description: "", Status: "0", Sys_ViewID: $scope.gridInfo.sysViewID };
 
         }
     })
@@ -649,28 +686,32 @@ angular.module('indexApp')
             },
             controller: function ($scope, gridService) {
 
-                var gridID = "#GridContent";
-                gridID = "#" + $scope.gridInfo.gridID;
-
-                gridService.getList($scope.gridInfo.sysViewID, function (data) {
-                    $scope.gridInfo.data = data[1];
-                });
             }
         };
     })
 .controller('WithOptionsCtrl', WithOptionsCtrl);
-function WithOptionsCtrl(DTOptionsBuilder, DTColumnDefBuilder, $scope, gridService) {
-  //  console.log('$scope--------------------------------', $scope, gridService);
+function WithOptionsCtrl(DTOptionsBuilder, DTColumnDefBuilder, $scope, coreService) {
+    //  console.log('$scope--------------------------------', $scope, gridService);
     var vm = this;
     vm.gridData = [];
-    
 
-    console.log('controller', vm.gridInfo)
+    vm.dtOptions = DTOptionsBuilder.newOptions()
+         .withOption("paging", true)
+         .withOption("pagingType", 'simple_numbers')
+         .withOption("pageLength", 9)
+         .withOption("searching", true)
+    //  .withLanguageSource('Scripts/plugins/datatables/LanguageSource.json');
+
+    //vm.dtColumnDefs = [
+    //   DTColumnDefBuilder.newColumnDef(0).notVisible(),
+    //   DTColumnDefBuilder.newColumnDef(1).notVisible(),
+    //   DTColumnDefBuilder.newColumnDef(2).notSortable()
+    //];
     vm.init = function (gridInfo, rootScope) {
-            vm.gridInfo = gridInfo;
-        vm.rootScope = rootScope;      
-        gridService.getList($scope.gridInfo.sysViewID, function (data) {
-            vm.gridData = data[1];
+        vm.gridInfo = gridInfo;
+        vm.rootScope = rootScope;
+        coreService.getList($scope.gridInfo.sysViewID, function (data) {
+            vm.gridInfo.data = data[1];
             $scope.$apply();
 
         });
@@ -678,7 +719,6 @@ function WithOptionsCtrl(DTOptionsBuilder, DTColumnDefBuilder, $scope, gridServi
     }
     vm.setData = function (item) {
         var row = angular.copy(item);
-        console.log('::table::setData', row)
         if (angular.isFunction(vm.rootScope.setData)) {
             vm.rootScope.setData(row);
         }

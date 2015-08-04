@@ -545,6 +545,7 @@
     <Content Include="Scripts\plugins\datatables\jquery.dataTables.min.css" />
     <Content Include="Scripts\plugins\datatables\jquery.dataTables.min.js" />
     <Content Include="Scripts\plugins\datatables\jquery.dataTables_themeroller.css" />
+    <Content Include="Scripts\plugins\datatables\ui-bootstrap.min.js" />
     <Content Include="Scripts\plugins\datepicker\bootstrap-datepicker.js" />
     <Content Include="Scripts\plugins\datepicker\datepicker3.css" />
     <Content Include="Scripts\plugins\datepicker\locales\bootstrap-datepicker.ar.js" />
@@ -947,6 +948,10 @@
     <Content Include="Style\fontAwesome\fonts\fontawesome-webfont.woff" />
     <Content Include="Style\fontAwesome\fonts\fontawesome-webfont.woff2" />
     <Content Include="Style\fontAwesome\fonts\FontAwesome.otf" />
+    <Content Include="Scripts\LTEScripts\app.min.js.map">
+      <DependentUpon>app.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\plugins\datatables\LanguageSource.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

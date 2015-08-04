@@ -5,7 +5,7 @@
     <div class="row ng-scope" ng-controller="DepartmentCtrl" ng-init="init()">
         <div class="col-md-7 col-sm-8">
             <!---Directive left-action-->
-            <left-action theme-button="themeButton"></left-action>
+            <left-action theme-button="themeButton"  root-scope="this" ></left-action>
 
             <div class="row">
                 <!---Directive left-action-->
@@ -25,13 +25,13 @@
                     <div class="form-group">
                         <label for="Name" class="col-sm-3 control-label">Name</label>
                         <div class="col-sm-9 padding-right-19">
-                            <input type="text" class="form-control" id="txtName" name="Name" placeholder="Name" ng-model="variable.name"/>
+                            <input type="text" class="form-control" id="txtName" name="Name" placeholder="Name" ng-model="dataSeleted.Name"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="description" class="col-sm-3 control-label">Description</label>
                         <div class="col-sm-9 padding-right-19 ">
-                          <textarea name="description" class="form-control" rows="5" placeholder="Enter ..."  ng-model="variable.description"></textarea>
+                          <textarea name="description" class="form-control" rows="5" placeholder="Enter ..."  ng-model="dataSeleted.Description"></textarea>
                         </div>
                     </div>
                    

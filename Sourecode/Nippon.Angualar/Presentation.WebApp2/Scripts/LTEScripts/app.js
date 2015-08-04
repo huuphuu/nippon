@@ -246,7 +246,7 @@ function _init() {
             });
         },
         fix: function () {
-            console.log('::height::fix');
+          //  console.log('::height::fix');
             //Get window height and the wrapper height
             var neg = $('.main-header').outerHeight() + $('.main-footer').outerHeight();
             var window_height = $(window).height();
@@ -256,7 +256,7 @@ function _init() {
             if ($("body").hasClass("fixed")) {
                 $(".content-wrapper, .right-side").css('min-height', window_height - $('.main-footer').outerHeight());
             } else {
-                console.log('::height::window_height', window_height, sidebar_height);
+            //    console.log('::height::window_height', window_height, sidebar_height);
                 var postSetWidth;
                 if (window_height >= sidebar_height) {
                     $(".content-wrapper, .right-side").css('min-height', window_height - neg);
@@ -268,7 +268,7 @@ function _init() {
 
                 //Fix for the control sidebar height
                 var controlSidebar = $($.AdminLTE.options.controlSidebarOptions.selector);
-                console.log('::height::controlSidebar', controlSidebar, postSetWidth);
+           //     console.log('::height::controlSidebar', controlSidebar, postSetWidth);
                 if (typeof controlSidebar !== "undefined") {
                     if (controlSidebar.height() > postSetWidth)
                         $(".content-wrapper, .right-side").css('min-height', controlSidebar.height());

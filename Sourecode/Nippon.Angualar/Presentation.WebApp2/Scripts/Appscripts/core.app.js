@@ -28,6 +28,39 @@ var coreApp;
                 return r;
             }
         },
+        html: {
+            encode: function (text) {
+                var ret = '';
+                text = '' + text;
+                if (typeof text == "string") {
+                    ret = text
+                        .replace(/&/g, '&amp;')
+                        .replace(/"/g, '&quot;')
+                        .replace(/'/g, '&#39;')
+                        .replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;');
+                }
+                return ret;
+            },
+            decode: function (text) {
+                var ret = '';
+                text = '' + text;
+                if (typeof text == "string") {
+                    ret = text
+                        .replace(/&amp;/g, '&')
+                        .replace(/&quot;/g, '"')
+                        .replace(/&#39;/g, '\'')
+                        .replace(/&lt;/g, '<')
+                        .replace(/&gt;/g, '>')
+                        .replace(/\\u0026amp;/g, '&')
+                        .replace(/\\u0026quot;/g, '"')
+                        .replace(/\\u0026#39;/g, '\'')
+                        .replace(/\\u0026lt;/g, '<')
+                        .replace(/\\u0026gt;/g, '>');
+                }
+                return ret;
+            }
+        },
         xml: {
             getContent: function (xmlString, tagName) {
                 tagName = tagName || "string";
@@ -60,6 +93,20 @@ var coreApp;
                 return this.ajax(defOptions);
             }
             return null;
+        },
+        objectToXML: function (tagName, data) {
+            var objThis = this;
+            var inputs = [],
+                ret = '';
+            angular.forEach(data, function (value, key) {
+                if (typeof value != "function" && typeof value != "object") {
+                    // value = html.decode(value);
+                    inputs.push($.string.Format('{0}="{1}" ', key, (value)));
+                }
+            });
+            ret = $.string.Format('<{0} {1}/>', tagName, inputs.join(' '));
+
+            return ret;
         },
         ajax: function (options) {
             options.timeout = 3600000;
@@ -115,20 +162,24 @@ var coreApp;
         core: function () {
             this.execute = function (fnName, inputValue, callback) {
                 return a.callAjax({
-                    url: 'apiproduct/core/coreservice.asmx/' + fnName,
+                    url: 'Core/CoreService.asmx/' + fnName,
                     data: {
-                        userID: a.systemConfig.userID,
-                        userName: a.systemConfig.userName,
-                        session: a.systemConfig.sessionKey,
-                        inputValue: inputValue
+                        clientKey: a.systemConfig.clientKey,
+                        inputValue: a.html.encode(inputValue)
                     }
                 }, callback);
             };
 
             this.getContextData = function (inputValue, callback) {
-                console.log('getContextData', inputValue);
-                return false;
                 return this.execute('GetContextData', inputValue, callback);
+            };
+            this.getList = function (viewID, callback) {
+                var inputValue = a.objectToXML('InputValue', { UserID: 0 }) + a.objectToXML('RequestParams', { Sys_ViewID: viewID }); //$.string.Format('<InputValue UserID=""/><RequestParams Sys_ViewID="{0}"/>', viewID);
+                return this.execute('GetContextData ', inputValue, callback);
+            };
+            this.actionEntry = function (data, callback) {
+                var inputValue = a.objectToXML('InputValue', { UserID: 0 }) + a.objectToXML('RequestParams', data);
+                return this.execute('ExecuteAction ', inputValue, callback);
             };
         },
         //gird infomation
@@ -147,7 +198,8 @@ var coreApp;
                 var inputValue = $.string.Format('<InputValue UserID=""/><RequestParams Sys_ViewID="{0}"/>', viewID);
                 return this.execute('GetContextData ', inputValue, callback);
             };
-        }
+        },
+
     }
 })(coreApp);
 //-----------------------------------------------------------------------------

@@ -4,14 +4,14 @@
         <!-- /.box-header -->
         <form class="form-horizontal row ng-pristine ng-valid">
             <div class="box-body" ng-controller="WithOptionsCtrl as vm" ng-init="vm.init(gridInfo, rootScope)">
-                <table datatable="ng" class="table table-bordered table-striped box">
+                <table datatable="ng" class="table table-bordered table-striped box" dt-options="vm.dtOptions" dt-column-defs="vm.dtColumnDefs">
                     <thead>
                         <th data-ng-repeat="c in vm.gridInfo.cols" ng-width="{{c.width}}" ng-hide="{{c.isHidden}}">{{ c.heading }}
                         </th>
                     </thead>
                     <tbody>
-                        <tr data-ng-repeat="item in  vm.gridData">
-                            <td data-ng-repeat="c in gridInfo.cols" ng-width="{{c.width}}" ng-hide="{{c.isHidden}}" class="Pointer" ng-click="vm.setData(item)">{{ item[c.name] }}
+                        <tr data-ng-repeat="item in  vm.gridInfo.data">
+                            <td data-ng-repeat="c in vm.gridInfo.cols" ng-width="{{c.width}}" ng-hide="{{c.isHidden}}" class="Pointer" ng-click="vm.setData(item)">{{ item[c.name] }}
                             </td>
                         </tr>
                     </tbody>
@@ -22,4 +22,5 @@
         <!-- /.box-body -->
     </div>
     <!-- /.box -->
+   
 </div>

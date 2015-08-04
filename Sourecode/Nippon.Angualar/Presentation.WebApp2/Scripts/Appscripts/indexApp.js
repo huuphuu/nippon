@@ -53,7 +53,8 @@ angular.module('indexApp')
                   { name: 'Status', heading: 'Status', width: '30%' }
             ],
             data: [],
-            sysViewID: 1
+            sysViewID: 1,
+            searchQuery :''
         },
         $scope.dataSeleted = { ID: 0, Name: "", Code: '', Description: "", Status: "0", Sys_ViewID: $scope.gridInfo.sysViewID };
         $scope.init = function () {
@@ -108,8 +109,11 @@ angular.module('indexApp')
         }
         $scope.reset = function (data) {
             $scope.dataSeleted = { ID: 0, Name: "", Code: '', Description: "", Status: "0", Sys_ViewID: $scope.gridInfo.sysViewID };
-
         }
+        $scope.searchTable = function () {
+            var query = $scope.gridInfo.searchQuery;
+            $scope.gridInfo.tableInstance.search(query).draw();
+        };
     })
     .controller('EmployeeCtrl', function ($scope, $location, myFactory) {
         $scope.gridInfo = {
@@ -625,10 +629,7 @@ angular.module('indexApp')
         return {
             restrict: 'EA',
             replace: true,
-            templateUrl: '/Templates/directive/form/left-Action.html',
-            scope: {
-                themeButton: '='
-            },
+            templateUrl: '/Templates/directive/form/left-Action.html'
         };
     })
     .directive('gridTable', function ($timeout) {
@@ -723,6 +724,15 @@ function WithOptionsCtrl(DTOptionsBuilder, DTColumnDefBuilder, $scope, coreServi
             vm.rootScope.setData(row);
         }
     }
+    vm.dtInstanceCallback = function (dtInstance) {
+        var datatableObj = dtInstance.DataTable;
+        $scope.gridInfo.tableInstance = datatableObj;
+    };
+    $scope.searchTable = function () {
+        var query = $scope.searchQuery;
+
+        $scope.gridInfo.tableInstance.search(query).draw();
+    };
 }
 
 

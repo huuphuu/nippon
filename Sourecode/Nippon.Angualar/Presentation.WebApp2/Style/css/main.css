@@ -32,9 +32,9 @@
 }
 
 
-/*.dataTables_filter, .dataTables_length {
+.dataTables_filter, .dataTables_length {
     display: none;
-}*/
+}
 
 .Pointer {
     cursor: pointer;

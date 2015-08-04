@@ -1,17 +1,17 @@
 ﻿<form class="form-inline row">
     <div class="form-group col-md-12 actionRight ">
         <div class="col-md-3 pull-right">
-            <button class="btn col-xs-12" ng-class="themeButton" ng-click="reset()">
+            <button class="btn col-xs-12 " ng-click="reset()" ng-class="{'{{themeButton}}':layout.enableClear, 'disabled':!layout.enableClear}">
                 <span class="glyphicon glyphicon-flash"></span>
-                Clear</button>
+                 Clear</button>
         </div>
         <div class="col-md-3 pull-right" ng-hide="dataSeleted.ID==0">
-            <button class="btn col-xs-12" ng-class="themeButton"  ng-click="actionEntry('DELETE')">
+            <button class="btn col-xs-12" ng-class="{'{{themeButton}}':layout.enableButtonOrther, 'disabled':!layout.enableButtonOrther}" ng-click="actionEntry('DELETE')">
                 <span class="glyphicon glyphicon-minus"></span>
                 Delete</button>
         </div>
-        <div class="col-md-3 pull-right" ng-hide="dataSeleted.ID==0" >
-            <button class="btn col-xs-12" ng-class="themeButton" ng-click="actionEntry('UPDATE')">
+        <div class="col-md-3 pull-right" ng-hide="dataSeleted.ID==0">
+            <button class="btn col-xs-12" ng-class="{'{{themeButton}}':layout.enableButtonOrther, 'disabled':!layout.enableButtonOrther}"  ng-click="actionEntry('UPDATE')">
                 <span class="glyphicon glyphicon-save"></span>
                 Save</button>
         </div>
@@ -25,10 +25,10 @@
                 <span class="glyphicon glyphicon-lock"></span>
                 Deactive</button>
         </div>
-         <div class="col-md-3 pull-right" ng-show="dataSeleted.ID==0">
-            <button class="btn col-xs-12" ng-class="themeButton" ng-click="actionEntry('INSERT')">
+        <div class="col-md-3 pull-right" ng-show="dataSeleted.ID==0">
+            <button class="btn col-xs-12" ng-class="{'{{themeButton}}':layout.enableButtonOrther, 'disabled':!layout.enableButtonOrther}" ng-click="actionEntry('INSERT')">
                 <span class="glyphicon glyphicon-plus"></span>
-                Add</button>
+              Add</button>
         </div>
     </div>
 

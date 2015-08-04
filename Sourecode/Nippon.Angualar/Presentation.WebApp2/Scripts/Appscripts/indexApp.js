@@ -47,15 +47,21 @@ angular.module('indexApp')
             gridID: 'departmentgrid',
             table: null,
             cols: [
-                  { name: 'ID', heading: 'ID', width: '30%', isHidden: true },
+                  { name: 'ID', heading: 'ID', width: '0', isHidden: true },
                   { name: 'Name', heading: 'Name', width: '30%' },
                   { name: 'Description', heading: 'Description', width: '40%' },
-                  { name: 'Status', heading: 'Status', width: '30%' }
+                  { name: 'Status', heading: 'Status', width: '30%' },
+                  { name: 'StatusText', heading: 'Status', width: '0', isHidden: true }
             ],
             data: [],
             sysViewID: 1,
-            searchQuery :''
+            searchQuery: '',
         },
+         $scope.statusOptions = statusOptions;
+         $scope.layout = {
+             enableClear: false,
+             enableButtonOrther: false
+         }
         $scope.dataSeleted = { ID: 0, Name: "", Code: '', Description: "", Status: "0", Sys_ViewID: $scope.gridInfo.sysViewID };
         $scope.init = function () {
             window.setTimeout(function () {
@@ -65,6 +71,8 @@ angular.module('indexApp')
         $scope.setData = function (data) {
             if (typeof data != 'undefined') {
                 $scope.dataSeleted = data;
+                $scope.layout.enableClear = true;
+                $scope.layout.enableButtonOrther = true;
             }
         }
         $scope.actionEntry = function (act) {
@@ -82,9 +90,9 @@ angular.module('indexApp')
                                     break;
                                 case 'UPDATE':
                                     angular.forEach($scope.gridInfo.data, function (item, key) {
-                                        if (entry.ID == item.ID){
-                                             $scope.gridInfo.data[key] = angular.copy(entry);
-                                           
+                                        if (entry.ID == item.ID) {
+                                            $scope.gridInfo.data[key] = angular.copy(entry);
+
                                         }
                                     });
                                     break;
@@ -109,11 +117,25 @@ angular.module('indexApp')
         }
         $scope.reset = function (data) {
             $scope.dataSeleted = { ID: 0, Name: "", Code: '', Description: "", Status: "0", Sys_ViewID: $scope.gridInfo.sysViewID };
+           // $scope.$apply();
         }
         $scope.searchTable = function () {
             var query = $scope.gridInfo.searchQuery;
             $scope.gridInfo.tableInstance.search(query).draw();
         };
+        $scope.changeText = function () {
+            if ($scope.dataSeleted.Name == '' && $scope.dataSeleted.Description == '')
+                $scope.layout.enableClear = false;
+            else
+                $scope.layout.enableClear = true;
+
+            if ($scope.dataSeleted.Name =='')
+                $scope.layout.enableButtonOrther = false;
+            else
+                $scope.layout.enableButtonOrther = true;
+
+           // $scope.$apply();
+        }
     })
     .controller('EmployeeCtrl', function ($scope, $location, myFactory) {
         $scope.gridInfo = {

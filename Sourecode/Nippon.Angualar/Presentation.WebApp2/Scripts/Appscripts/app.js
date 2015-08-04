@@ -43,3 +43,14 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 });
 
 
+var statusOptions = [
+        {
+            name: 'DeActive',
+            value: '1'
+        },
+{
+    name: 'Active',
+    value: '0'
+}
+];
+

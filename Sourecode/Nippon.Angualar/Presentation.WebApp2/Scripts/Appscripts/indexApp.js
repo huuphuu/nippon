@@ -116,7 +116,11 @@ angular.module('indexApp')
             }
         }
         $scope.reset = function (data) {
-            $scope.dataSeleted = { ID: 0, Name: "", Code: '', Description: "", Status: "0", Sys_ViewID: $scope.gridInfo.sysViewID };
+            $scope.dataSeleted = { ID: 0, Name: '', Code: '', Description: "", Status: "0", Sys_ViewID: $scope.gridInfo.sysViewID };
+            $scope.layout = {
+                enableClear: false,
+                enableButtonOrther: false
+            }
            // $scope.$apply();
         }
         $scope.searchTable = function () {

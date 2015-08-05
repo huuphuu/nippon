@@ -43,5 +43,7 @@
 table.dataTable tbody tr.selected {
     background-color: #bbbbbb;
 }
-
+.selectize-control > .selectize-dropdown {
+      top: 36px;
+    }
 

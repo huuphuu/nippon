@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-var app = angular.module('indexApp', ['toaster', 'angularMoment', 'ui.router', 'angularFileUpload', 'ngCookies', 'ngResource', 'angularGrid', 'app.service', 'datatables', 'ui.bootstrap', 'dialogs.main']);
+var app = angular.module('indexApp', ['toaster', 'angularMoment', 'ngSanitize','ui.router', 'angularFileUpload', 'ngCookies', 'ngResource', 'angularGrid', 'app.service', 'datatables', 'ui.bootstrap', 'dialogs.main', 'ui.select']);
 
 //ui.router
 app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
@@ -44,17 +44,16 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     //if (window.history && window.history.pushState) {
     //    $locationProvider.html5Mode(true);
     //}
-});
+})
 
-
-var statusOptions = [
-        {
-            name: 'DeActive',
-            value: '1'
-        },
-{
-    name: 'Active',
-    value: '0'
-}
-];
+    var statusOptions = [
+            {
+                name: 'DeActive',
+                value: '1'
+            },
+    {
+        name: 'Active',
+        value: '0'
+    }
+    ];
 

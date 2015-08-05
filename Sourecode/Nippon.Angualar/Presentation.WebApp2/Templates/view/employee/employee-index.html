@@ -10,7 +10,7 @@
             <!-- Navigator part -->
             <div class="row">
                 <!---Directive left-action-->
-                <grid-table grid-info="gridInfo" gridID="Employeegrid"></grid-table>
+                <angular-grid-table grid-info="gridInfo" root-scope="this"></angular-grid-table>
             </div>
 
         </div>
@@ -53,7 +53,14 @@
                     <div class="form-group">
                         <label for="inputEmail3" class="col-sm-3 control-label">Department</label>
                         <div class="col-sm-9 padding-right-19">
-                            <input type="email" class="form-control" id="txtDpet" placeholder="Department">
+                            <ui-select ng-model="country.selected" theme="selectize" ng-disabled="disabled"  title="Choose a department">
+    <ui-select-match placeholder="Select or search a department in the list...">{{$select.selected.Name}}</ui-select-match>
+    <ui-select-choices repeat="country in countries | filter: $select.search">
+      <span ng-bind-html="country.Name | highlight: $select.search"></span>
+      <small ng-bind-html="country.Code | highlight: $select.search"></small>
+    </ui-select-choices>
+  </ui-select>
+                            </ui-select>
                         </div>
                     </div>
 

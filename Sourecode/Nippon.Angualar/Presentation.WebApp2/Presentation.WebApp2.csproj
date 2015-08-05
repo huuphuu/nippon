@@ -846,6 +846,8 @@
     <Content Include="Scripts\plugins\timepicker\bootstrap-timepicker.min.css" />
     <Content Include="Scripts\plugins\timepicker\bootstrap-timepicker.min.js" />
     <Content Include="Scripts\plugins\toaster\toaster.js" />
+    <Content Include="Scripts\plugins\ui-select-master\select.css" />
+    <Content Include="Scripts\plugins\ui-select-master\select.js" />
     <Content Include="Style\bootstrap\css\bootstrap.css" />
     <Content Include="Style\bootstrap\css\bootstrap.min.css" />
     <Content Include="Style\bootstrap\fonts\glyphicons-halflings-regular.svg" />

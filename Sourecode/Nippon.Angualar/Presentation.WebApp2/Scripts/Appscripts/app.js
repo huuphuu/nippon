@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-var app = angular.module('indexApp', ['toaster', 'angularMoment', 'ui.router', 'angularFileUpload', 'ngCookies', 'ngResource', 'angularGrid', 'app.service', 'datatables']);
+var app = angular.module('indexApp', ['toaster', 'angularMoment', 'ui.router', 'angularFileUpload', 'ngCookies', 'ngResource', 'angularGrid', 'app.service', 'datatables', 'ui.bootstrap', 'dialogs.main']);
 
 //ui.router
 app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
@@ -24,6 +24,10 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/department',
             templateUrl: '/Templates/view/department/department-index.html'
         })
+         .state('position', {
+             url: '/position',
+             templateUrl: '/Templates/view/position/position-index.html'
+         })
         .state('office', {
             url: '/office',
             templateUrl: '/Templates/view/office/office-index.html'

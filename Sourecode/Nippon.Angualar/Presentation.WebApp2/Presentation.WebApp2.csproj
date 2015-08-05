@@ -121,6 +121,7 @@
     <Content Include="Scripts\plugins\bootstrap-wysihtml5\bootstrap3-wysihtml5.all.min.js" />
     <Content Include="Scripts\plugins\bootstrap-wysihtml5\bootstrap3-wysihtml5.css" />
     <Content Include="Scripts\plugins\bootstrap-wysihtml5\bootstrap3-wysihtml5.min.css" />
+    <Content Include="Scripts\plugins\bootstrap.ui\ui-bootstrap-tpls-0.13.2.min.js" />
     <Content Include="Scripts\plugins\chartjs\Chart.js" />
     <Content Include="Scripts\plugins\chartjs\Chart.min.js" />
     <Content Include="Scripts\plugins\ckeditor\adapters\jquery.js" />
@@ -603,6 +604,8 @@
     <Content Include="Scripts\plugins\daterangepicker\daterangepicker.js" />
     <Content Include="Scripts\plugins\daterangepicker\moment.js" />
     <Content Include="Scripts\plugins\daterangepicker\moment.min.js" />
+    <Content Include="Scripts\plugins\dialog\dialog.css" />
+    <Content Include="Scripts\plugins\dialog\dialogs.min.js" />
     <Content Include="Scripts\plugins\fastclick\fastclick.js" />
     <Content Include="Scripts\plugins\fastclick\fastclick.min.js" />
     <Content Include="Scripts\plugins\flot\excanvas.js" />
@@ -910,6 +913,7 @@
     <Content Include="Templates\view\Partials\login.view.html" />
     <Content Include="Templates\view\Partials\upload-files.html" />
     <Content Include="Templates\view\pattern\index.html" />
+    <Content Include="Templates\view\position\position-index.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

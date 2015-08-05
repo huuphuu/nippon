@@ -3,7 +3,7 @@
 'use strict';
 angular.module('indexApp')
 // Controller ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    .controller('BodyController', function ($scope, toaster, myFactory) {
+    .controller('BodyController', function ($scope, toaster, alertFactory) {
         $scope.navigation = $adminCMS.data.navigation;
         $scope.currentUser = $adminCMS.data.user;
         $scope.sidebarNavigation = $adminCMS.data.navigation.sidebarNav;
@@ -11,12 +11,12 @@ angular.module('indexApp')
         $scope.serverList = $adminCMS.data.serverList;
         $scope.themeButton = 'btn-success';
     })
-    .controller('loginController', function ($scope, $location, myFactory) {
+    .controller('loginController', function ($scope, $location, alertFactory) {
         $scope.userInfo = { "userName": "thanh", "password": "123456" };
         $scope.signIn = function (user) {
             console.log("user", user);
 
-            //myFactory.userAuth(user).then(
+            //alertFactory.userAuth(user).then(
             //    function () {
             //        $location.path("/controlPanel/upload-files");
             //    },
@@ -25,7 +25,7 @@ angular.module('indexApp')
             //    })
 
             $location.path("/index");
-            //myFactory.userAuth(user).$promise.then(
+            //alertFactory.userAuth(user).$promise.then(
             //   function () {
             //       $location.path("/index");
             //   },
@@ -42,15 +42,15 @@ angular.module('indexApp')
             //}
         }
     })
-    .controller('DepartmentCtrl', function ($scope, coreService) {
+    .controller('DepartmentCtrl', function ($scope, coreService, alertFactory, dialogs) {
         $scope.gridInfo = {
             gridID: 'departmentgrid',
             table: null,
             cols: [
                   { name: 'ID', heading: 'ID', width: '0', isHidden: true },
                   { name: 'Name', heading: 'Name', width: '30%' },
-                  { name: 'Description', heading: 'Description', width: '40%' },
-                  { name: 'Status', heading: 'Status', width: '30%' },
+                  { name: 'Description', heading: 'Description', width: '70%' },
+                  { name: 'Status', heading: 'Status', width: '0', isHidden: true },
                   { name: 'StatusText', heading: 'Status', width: '0', isHidden: true }
             ],
             data: [],
@@ -58,10 +58,10 @@ angular.module('indexApp')
             searchQuery: '',
         },
          $scope.statusOptions = statusOptions;
-         $scope.layout = {
-             enableClear: false,
-             enableButtonOrther: false
-         }
+        $scope.layout = {
+            enableClear: false,
+            enableButtonOrther: false
+        }
         $scope.dataSeleted = { ID: 0, Name: "", Code: '', Description: "", Status: "0", Sys_ViewID: $scope.gridInfo.sysViewID };
         $scope.init = function () {
             window.setTimeout(function () {
@@ -74,6 +74,14 @@ angular.module('indexApp')
                 $scope.layout.enableClear = true;
                 $scope.layout.enableButtonOrther = true;
             }
+        }
+        $scope.actionConfirm = function (act) {
+            var dlg = dialogs.confirm('Confirmation', 'Confirmation required');
+            dlg.result.then(function (btn) {
+                $scope.actionEntry(act);
+            }, function (btn) {
+                //$scope.confirmed = 'You confirmed "No."';
+            });
         }
         $scope.actionEntry = function (act) {
             if (typeof act != 'undefined') {
@@ -109,6 +117,7 @@ angular.module('indexApp')
                                     break;
                             }
                             $scope.reset();
+                            dialogs.notify(data[0][0].Name, data[0][0].Description);
                         }
                     $scope.$apply();
 
@@ -121,8 +130,9 @@ angular.module('indexApp')
                 enableClear: false,
                 enableButtonOrther: false
             }
-           // $scope.$apply();
+            // $scope.$apply();
         }
+       
         $scope.searchTable = function () {
             var query = $scope.gridInfo.searchQuery;
             $scope.gridInfo.tableInstance.search(query).draw();
@@ -133,15 +143,205 @@ angular.module('indexApp')
             else
                 $scope.layout.enableClear = true;
 
-            if ($scope.dataSeleted.Name =='')
+            if ($scope.dataSeleted.Name == '')
                 $scope.layout.enableButtonOrther = false;
             else
                 $scope.layout.enableButtonOrther = true;
 
-           // $scope.$apply();
+            // $scope.$apply();
         }
+
+        $scope.launch = function (which) {
+            switch (which) {
+                case 'error':
+                    dialogs.error();
+                    break;
+                case 'wait':
+                    var dlg = dialogs.wait(undefined, undefined, _progress);
+                    _fakeWaitProgress();
+                    break;
+                case 'customwait':
+                    var dlg = dialogs.wait('Custom Wait Header', 'Custom Wait Message', _progress);
+                    _fakeWaitProgress();
+                    break;
+                case 'notify':
+                    dialogs.notify();
+                    break;
+                case 'confirm':
+                    var dlg = dialogs.confirm();
+                    dlg.result.then(function (btn) {
+                        $scope.confirmed = 'You confirmed "Yes."';
+                    }, function (btn) {
+                        $scope.confirmed = 'You confirmed "No."';
+                    });
+                    break;
+                case 'custom':
+                    var dlg = dialogs.create('/dialogs/custom.html', 'customDialogCtrl', {}, { size: 'lg', keyboard: true, backdrop: false, windowClass: 'my-class' });
+                    dlg.result.then(function (name) {
+                        $scope.name = name;
+                    }, function () {
+                        if (angular.equals($scope.name, ''))
+                            $scope.name = 'You did not enter in your name!';
+                    });
+                    break;
+                case 'custom2':
+                    var dlg = dialogs.create('/dialogs/custom2.html', 'customDialogCtrl2', $scope.custom, { size: 'lg' });
+                    break;
+            }
+        }// end launch
+       // $scope.launch('error');
+
     })
-    .controller('EmployeeCtrl', function ($scope, $location, myFactory) {
+    .controller('PositionCtrl', function ($scope, coreService, alertFactory, dialogs) {
+        $scope.gridInfo = {
+             table: null,
+            cols: [
+                  { name: 'ID', heading: 'ID', width: '0', isHidden: true },
+                  { name: 'Name', heading: 'Name', width: '30%' },
+                  { name: 'Description', heading: 'Description', width: '70%' },
+                  { name: 'Status', heading: 'Status', width: '0', isHidden: true },
+                  { name: 'StatusText', heading: 'Status', width: '0', isHidden: true }
+            ],
+            data: [],
+            sysViewID: 4,
+            searchQuery: '',
+        },
+         $scope.statusOptions = statusOptions;
+        $scope.layout = {
+            enableClear: false,
+            enableButtonOrther: false
+        }
+        $scope.dataSeleted = { ID: 0, Name: "", Code: '', Description: "", Status: "0", Sys_ViewID: $scope.gridInfo.sysViewID };
+        $scope.init = function () {
+            window.setTimeout(function () {
+                $(window).trigger("resize")
+            }, 200);
+        }
+        $scope.setData = function (data) {
+            if (typeof data != 'undefined') {
+                $scope.dataSeleted = data;
+                $scope.layout.enableClear = true;
+                $scope.layout.enableButtonOrther = true;
+            }
+        }
+        $scope.actionConfirm = function (act) {
+            var dlg = dialogs.confirm('Confirmation', 'Confirmation required');
+            dlg.result.then(function (btn) {
+                $scope.actionEntry(act);
+            }, function (btn) {
+                //$scope.confirmed = 'You confirmed "No."';
+            });
+        }
+        $scope.actionEntry = function (act) {
+            if (typeof act != 'undefined') {
+                var entry = angular.copy($scope.dataSeleted);
+                entry.Action = act;
+                entry.Sys_ViewID = $scope.gridInfo.sysViewID;
+                coreService.actionEntry(entry, function (data) {
+                    if (data[0].length > 0)
+                        if (data[0][0]) {
+                            switch (act) {
+                                case 'INSERT':
+                                    entry.ID = data[0][0].ID;
+                                    $scope.gridInfo.data.unshift(entry);
+                                    break;
+                                case 'UPDATE':
+                                    angular.forEach($scope.gridInfo.data, function (item, key) {
+                                        if (entry.ID == item.ID) {
+                                            $scope.gridInfo.data[key] = angular.copy(entry);
+
+                                        }
+                                    });
+                                    break;
+                                case 'DELETE':
+                                    var index = -1;
+                                    var i = 0;
+                                    angular.forEach($scope.gridInfo.data, function (item, key) {
+                                        if (entry.ID == item.ID)
+                                            index = i;
+                                        i++;
+                                    });
+                                    if (index > -1)
+                                        $scope.gridInfo.data.splice(index, 1);
+                                    break;
+                            }
+                            $scope.reset();
+                            dialogs.notify(data[0][0].Name, data[0][0].Description);
+                        }
+                    $scope.$apply();
+
+                });
+            }
+        }
+        $scope.reset = function (data) {
+            $scope.dataSeleted = { ID: 0, Name: '', Code: '', Description: "", Status: "0", Sys_ViewID: $scope.gridInfo.sysViewID };
+            $scope.layout = {
+                enableClear: false,
+                enableButtonOrther: false
+            }
+            // $scope.$apply();
+        }
+
+        $scope.searchTable = function () {
+            var query = $scope.gridInfo.searchQuery;
+            $scope.gridInfo.tableInstance.search(query).draw();
+        };
+        $scope.changeText = function () {
+            if ($scope.dataSeleted.Name == '' && $scope.dataSeleted.Description == '')
+                $scope.layout.enableClear = false;
+            else
+                $scope.layout.enableClear = true;
+
+            if ($scope.dataSeleted.Name == '')
+                $scope.layout.enableButtonOrther = false;
+            else
+                $scope.layout.enableButtonOrther = true;
+
+            // $scope.$apply();
+        }
+
+        $scope.launch = function (which) {
+            switch (which) {
+                case 'error':
+                    dialogs.error();
+                    break;
+                case 'wait':
+                    var dlg = dialogs.wait(undefined, undefined, _progress);
+                    _fakeWaitProgress();
+                    break;
+                case 'customwait':
+                    var dlg = dialogs.wait('Custom Wait Header', 'Custom Wait Message', _progress);
+                    _fakeWaitProgress();
+                    break;
+                case 'notify':
+                    dialogs.notify();
+                    break;
+                case 'confirm':
+                    var dlg = dialogs.confirm();
+                    dlg.result.then(function (btn) {
+                        $scope.confirmed = 'You confirmed "Yes."';
+                    }, function (btn) {
+                        $scope.confirmed = 'You confirmed "No."';
+                    });
+                    break;
+                case 'custom':
+                    var dlg = dialogs.create('/dialogs/custom.html', 'customDialogCtrl', {}, { size: 'lg', keyboard: true, backdrop: false, windowClass: 'my-class' });
+                    dlg.result.then(function (name) {
+                        $scope.name = name;
+                    }, function () {
+                        if (angular.equals($scope.name, ''))
+                            $scope.name = 'You did not enter in your name!';
+                    });
+                    break;
+                case 'custom2':
+                    var dlg = dialogs.create('/dialogs/custom2.html', 'customDialogCtrl2', $scope.custom, { size: 'lg' });
+                    break;
+            }
+        }// end launch
+        // $scope.launch('error');
+
+    })
+    .controller('EmployeeCtrl', function ($scope, $location, alertFactory) {
         $scope.gridInfo = {
             gridID: 'Employeegrid',
             cols: [{ name: 'Name', heading: 'Name', width: '30%' },
@@ -157,7 +357,7 @@ angular.module('indexApp')
             }, 200);
         }
     })
-    .controller('UserCtrl', function ($scope, $location, myFactory) {
+    .controller('UserCtrl', function ($scope, $location, alertFactory) {
         $scope.gridInfo = {
             gridID: 'usergrid',
             cols: [
@@ -175,7 +375,7 @@ angular.module('indexApp')
                 $(window).trigger("resize")
             }, 200);
 
-            //myFactory.userAuth(user).then(
+            //alertFactory.userAuth(user).then(
             //    function () {
             //        $location.path("/controlPanel/upload-files");
             //    },
@@ -184,7 +384,7 @@ angular.module('indexApp')
             //    })
 
             $location.path("/index");
-            //myFactory.userAuth(user).$promise.then(
+            //alertFactory.userAuth(user).$promise.then(
             //   function () {
             //       $location.path("/index");
             //   },
@@ -201,7 +401,7 @@ angular.module('indexApp')
             //}
         }
     })
-    .controller('OfficerCtrl', function ($scope, $location, myFactory) {
+    .controller('OfficerCtrl', function ($scope, $location, alertFactory) {
         $scope.gridInfo = {
             gridID: 'Employeegrid',
             cols: [{ name: 'Name', heading: 'Name', width: '30%' },
@@ -229,7 +429,7 @@ angular.module('indexApp')
         };
 
     })
-    .controller('uploadController', function ($scope, FileUploader, toaster, myFactory) {
+    .controller('uploadController', function ($scope, FileUploader, toaster, alertFactory) {
         // Uploader Plugin Code
 
         var uploader = $scope.uploader = new FileUploader({
@@ -287,7 +487,7 @@ angular.module('indexApp')
         // CALLBACKS
         uploader.previewItem = function (fileItem, serverPath) {
             var path = fileItem.file.serverPath.replace(/[\\]/g, '/');
-            myFactory.popupNotification({
+            alertFactory.popupNotification({
                 popupType: 'open',  //confirm, alert, open
                 popupStatus: 'info', //success, info, warning, danger
                 title: fileItem.file.name,
@@ -377,24 +577,12 @@ angular.module('indexApp')
 
 
 //Factory //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    .factory('myFactory', ['$window', '$compile', '$http', '$q', '$resource', function ($window, $compile, $http, $q, $resource) {
-        var myFactory = {};
+    .factory('alertFactory', ['$window', '$compile', '$http', '$q', '$resource', function ($window, $compile, $http, $q, $resource) {
+        var alertFactory = {};
 
-        //myFactory.userAuth = function (user) {
-        //    var deferred = $q.defer();
-        //    $http.post('/api/userAuth/post/', user)
-        //    .success(function () {
-        //        deferred.resolve();
-        //    })
-        //    .error(function () {
-        //        deferred.reject();
-        //    })
-        //    return deferred.promise;
-        //}
-        myFactory.userAuth = function (user) {
-            return $resource('/api/userAuth').save(user);
-        }
-        myFactory.popupNotification = function (options) {
+
+
+        alertFactory.popupNotification = function (options) {
             //Bootstrap modal settings
             var modalSettings = {
                 backdrop: 'static', //set to 'static' to dismiss close modal by clicking on overlay background
@@ -409,7 +597,8 @@ angular.module('indexApp')
                 title: '',
                 message: '',
                 htmlTemplate: '', //insert html template
-                iframe: ''
+                iframe: '',
+                callback: ''
             };
 
             if (options && Object.keys(options).length > 0) {
@@ -431,18 +620,18 @@ angular.module('indexApp')
 
                 switch (popupType) {
                     case 'confirm':
-                        template = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'
+                        template = '<div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel" aria-hidden="true">'
                                   + '<div class="modal-dialog">'
                                     + '<div class="modal-content">'
                                       + '<div class="modal-header alert-' + popupStatus + '">'
                                         + '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
-                                        + '<h4 class="modal-title" id="myModalLabel">' + title + '</h4>'
+                                        + '<h4 class="modal-title" id="alertModalLabel">' + title + '</h4>'
                                       + '</div>'
                                       + '<div class="modal-body">'
                                              + '<p style="display:inline;"> ' + message + '</p>'
                                       + '</div>'
                                       + '<div class="modal-footer">'
-                                        + '<button type="button" class="btn btn-' + popupStatus + '">OK</button>'
+                                        + '<button type="button" ng-click="' + popupSettings.callback + '()" class="btn btn-' + popupStatus + '">OK</button>'
                                         + '<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>'
                                       + '</div>'
                                     + '</div>'
@@ -452,12 +641,12 @@ angular.module('indexApp')
                         break;
 
                     case 'alert':
-                        template = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'
+                        template = '<div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel" aria-hidden="true">'
                                   + '<div class="modal-dialog">'
                                     + '<div class="modal-content">'
                                       + '<div class="modal-header alert-' + popupStatus + '">'
                                         + '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
-                                        + '<h4 class="modal-title" id="myModalLabel">' + title + '</h4>'
+                                        + '<h4 class="modal-title" id="alertModalLabel">' + title + '</h4>'
                                       + '</div>'
                                       + '<div class="modal-body">'
                                              + '<p style="display:inline;"> ' + message + '</p>'
@@ -473,12 +662,12 @@ angular.module('indexApp')
                         break;
 
                     case 'open':
-                        template = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'
+                        template = '<div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel" aria-hidden="true">'
                                   + '<div class="modal-dialog">'
                                     + '<div class="modal-content">'
                                       + '<div class="modal-header alert-' + popupStatus + '">'
                                         + '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
-                                        + '<h4 class="modal-title" id="myModalLabel">' + title + '</h4>'
+                                        + '<h4 class="modal-title" id="alertModalLabel">' + title + '</h4>'
                                       + '</div>'
                                       + '<div class="modal-body">'
                                             + '<p style="display:inline;"> ' + message + '</p>'
@@ -492,12 +681,12 @@ angular.module('indexApp')
                         break;
 
                     default:
-                        template = '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'
+                        template = '<div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel" aria-hidden="true">'
                                   + '<div class="modal-dialog">'
                                     + '<div class="modal-content">'
                                       + '<div class="modal-header alert-' + popupStatus + '">'
                                         + '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
-                                        + '<h4 class="modal-title" id="myModalLabel">Modal title</h4>'
+                                        + '<h4 class="modal-title" id="alertModalLabel">Modal title</h4>'
                                       + '</div>'
                                       + '<div class="modal-body">'
                                              + message
@@ -509,20 +698,19 @@ angular.module('indexApp')
                                     + '</div>'
                                   + '</div>'
                                 + '</div>';
-                        console.log("template: default");
                         break;
 
 
                 }
                 var $body = angular.element(document.querySelector('body'));
-                $body.find('#myModal').remove();
+                $body.find('#alertModal').remove();
                 $body.append(template);
                 $compile(template)($body.scope());
             }//end If
-            $('#myModal').modal(modalSettings);
+            $('#alertModal').modal(modalSettings);
         }
 
-        return myFactory;
+        return alertFactory;
     }])
 
 
@@ -716,7 +904,21 @@ angular.module('indexApp')
             }
         };
     })
-.controller('WithOptionsCtrl', WithOptionsCtrl);
+    .config(['dialogsProvider', '$translateProvider', function (dialogsProvider) {
+        dialogsProvider.useBackdrop('static');
+        dialogsProvider.useEscClose(false);
+        dialogsProvider.useCopy(false);
+        dialogsProvider.setSize('sm');
+
+
+    }])
+
+.controller('WithOptionsCtrl', WithOptionsCtrl)
+
+
+
+
+
 function WithOptionsCtrl(DTOptionsBuilder, DTColumnDefBuilder, $scope, coreService) {
     //  console.log('$scope--------------------------------', $scope, gridService);
     var vm = this;
@@ -760,5 +962,3 @@ function WithOptionsCtrl(DTOptionsBuilder, DTColumnDefBuilder, $scope, coreServi
         $scope.gridInfo.tableInstance.search(query).draw();
     };
 }
-
-

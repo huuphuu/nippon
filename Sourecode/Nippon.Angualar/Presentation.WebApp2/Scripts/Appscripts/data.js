@@ -61,6 +61,7 @@ $adminCMS.data = {
                 "childs": [
                     { "name": "Account", "url": "account", "cssIcon": "fa fa-flag-o", "childs": "" },
                     { "name": "Employee", "url": "employee", "cssIcon": "fa fa-flag-o", "childs": "" },
+                    { "name": "Position", "url": "position", "cssIcon": "fa fa-flag-o", "childs": "" },
                     { "name": "Department", "url": "department", "cssIcon": "fa fa-flag-o", "childs": "" },
                      { "name": "Office", "url": "office", "cssIcon": "fa fa-flag-o", "childs": "" },
                     { "name": "Supplier", "url": "supplier", "cssIcon": "fa fa-flag-o", "childs": "" }

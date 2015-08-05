@@ -361,13 +361,16 @@ angular.module('indexApp')
              enableButtonOrther: false
          }
         $scope.dataSeleted = { ID: 0, Name: "", Code: '', Description: "", Status: "0", Sys_ViewID: $scope.gridInfo.sysViewID };
-        $scope.country = {};
-        $scope.countries = [ ];
-
+        $scope.department = {};
+        $scope.departments = [];
+        $scope.position = {};
+        $scope.positions = [];
         coreService.getList(1, function (data) {
-            $scope.countries = data[1];
+            $scope.departments = data[1];
         });
-
+        coreService.getList(1, function (data) {
+            $scope.positions = data[1];
+        });
         $scope.init = function () {
             window.setTimeout(function () {
                 $(window).trigger("resize")

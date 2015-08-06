@@ -28,8 +28,8 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
              url: '/position',
              templateUrl: '/Templates/view/position/position-index.html'
          })
-        .state('office', {
-            url: '/office',
+        .state('area', {
+            url: '/area',
             templateUrl: '/Templates/view/office/office-index.html'
         })
 

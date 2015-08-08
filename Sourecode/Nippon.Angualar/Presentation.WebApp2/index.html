@@ -16,16 +16,15 @@
     <script src="Scripts/angularjs/angular-local-storage.min.js"></script>
     <script src="Scripts/angularjs/angular-animate.min.js"></script>
    
-    <script src="Scripts/services/loading-bar.min.js"></script>
+    <script src="Scripts/Appscripts/Authentication/loading-bar.min.js"></script>
    <!-- <script src="Scripts/services/authComplete.js"></script>-->
     <!-- Load services -->
     <script src="Scripts/Appscripts/Authentication/angularAuthApp.js"></script>
     <!-- Load services -->
-    <script src="Scripts/services/authInterceptorService.js?v=2"></script>
-    <script src="Scripts/services/authService.js?v=2"></script>
+    <script src="Scripts/Appscripts/Authentication/authInterceptorService.js?v=2"></script>
+    <script src="Scripts/Appscripts/Authentication/authService.js?v=2"></script>
 
-    <script src="Scripts/services/tokensManagerService.js?v=2"></script>
-    <script src="Scripts/Appscripts/Authentication/loginController.js"></script>
+    <script src="Scripts/Appscripts/Authentication/tokensManagerService.js?v=2"></script>
      <script src="Scripts/Appscripts/loginApp.js"></script>
 </head>
 <body>
@@ -38,7 +37,7 @@
             </div>
             <form>
                 <input type="text" class="text" ng-model="loginData.userName" value="USERNAME" placeholder="USERNAME">
-                <input type="password" value="Password" ng-model="loginData.password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}">
+                <input type="password" value="Password" ng-model="loginData.password"  placeholder="PASSWORD" ng-keyup="$event.keyCode == 13 ? login() : null">
                 <div class="submit">
                     <input type="button" ng-click="login()" value="LOGIN">
                 </div>

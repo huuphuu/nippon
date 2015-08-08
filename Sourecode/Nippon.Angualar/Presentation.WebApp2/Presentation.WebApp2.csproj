@@ -89,6 +89,7 @@
     <Content Include="Scripts\angularjs\angular-animate.min.js" />
     <Content Include="Scripts\angularjs\angular-cookies.min.js" />
     <Content Include="Scripts\angularjs\angular-loader.min.js" />
+    <Content Include="Scripts\angularjs\angular-local-storage.min.js" />
     <Content Include="Scripts\angularjs\angular-messages.min.js" />
     <Content Include="Scripts\angularjs\angular-resource.min.js" />
     <Content Include="Scripts\angularjs\angular-route.min.js" />
@@ -105,6 +106,12 @@
     <Content Include="Scripts\angularjs\plugins\toaster\toaster.js" />
     <Content Include="Scripts\Appscripts\app.js" />
     <Content Include="Scripts\Appscripts\Controller\AreaController.js" />
+    <Content Include="Scripts\Appscripts\Controller\PositionController.js" />
+    <Content Include="Scripts\Appscripts\Controller\UserControler.js" />
+    <Content Include="Scripts\Appscripts\Factory\AlertFactory.js" />
+    <Content Include="Scripts\Appscripts\Controller\DataGridController.js" />
+    <Content Include="Scripts\Appscripts\Controller\DepartmentController.js" />
+    <Content Include="Scripts\Appscripts\Controller\EmployeeController.js" />
     <Content Include="Scripts\Appscripts\core.app.js" />
     <Content Include="Scripts\Appscripts\data.js" />
     <Content Include="Scripts\Appscripts\datademo.js" />
@@ -850,6 +857,14 @@
     <Content Include="Scripts\plugins\ui-select-master\select.css" />
     <Content Include="Scripts\plugins\ui-select-master\select.js" />
     <Content Include="Scripts\plugins\ui-select-master\selectize.default.css" />
+    <Content Include="Scripts\Appscripts\Authentication\angularAuthApp.js" />
+    <Content Include="Scripts\services\authComplete.js" />
+    <Content Include="Scripts\services\authInterceptorService.js" />
+    <Content Include="Scripts\services\authService.js" />
+    <Content Include="Scripts\services\loading-bar.min.js" />
+    <Content Include="Scripts\services\ordersService.js" />
+    <Content Include="Scripts\services\tokensManagerService.js" />
+    <Content Include="Services\AppService.asmx" />
     <Content Include="Style\bootstrap\css\bootstrap.css" />
     <Content Include="Style\bootstrap\css\bootstrap.min.css" />
     <Content Include="Style\bootstrap\fonts\glyphicons-halflings-regular.svg" />
@@ -896,6 +911,7 @@
     <Content Include="Templates\directive\form\data-table.html" />
     <Content Include="Templates\directive\form\left-action.html" />
     <Content Include="Templates\directive\form\right-action.html" />
+    <Content Include="Templates\directive\grid\angular-data-table-group.html" />
     <Content Include="Templates\directive\grid\angular-data-table.html" />
     <Content Include="Templates\directive\header\nav\header-Navbar-Menu-dropdown.html" />
     <Content Include="Templates\directive\header\nav\header-Navbar-Menu.html" />
@@ -922,6 +938,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AppService.asmx.cs">
+      <DependentUpon>AppService.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\img\credit\Thumbs.db" />

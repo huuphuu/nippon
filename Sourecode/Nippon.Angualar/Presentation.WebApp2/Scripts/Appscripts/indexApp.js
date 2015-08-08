@@ -952,42 +952,12 @@ angular.module('indexApp')
         return {
             //   restrict: 'EA',
             replace: true,
-            templateUrl: '/Templates/directive/form/data-table.html',
+            templateUrl: '/Templates/directive/grid/angular-data-table-group.html',
+            scope: {
+                gridInfo: '=',
+                rootScope: '='
+            },
             controller: function ($scope, gridService) {
-
-                var gridID = "#GridContent";
-                gridID = "#" + $scope.gridInfo.gridID;
-
-                gridService.getList($scope.gridInfo.sysViewID, function (data) {
-                    $scope.gridInfo.data = data[1];
-
-
-                    window.setTimeout(function () {
-                        $scope.gridInfo.table = $(gridID).DataTable({
-                            "paging": true,
-                            "lengthChange": false,
-                            "info": true,
-                            "autoWidth": true,
-                            "pageLength": 9
-                        });
-                        $(gridID + ' tbody').on('click', 'tr', function () {
-                            if ($(this).hasClass('selected')) {
-                                $(this).removeClass('selected');
-                            }
-                            else {
-                                $scope.gridInfo.table.$('tr.selected').removeClass('selected');
-                                $(this).addClass('selected');
-                                $scope.setData($scope.gridInfo.table.row(this).data());
-                            }
-                        });
-                        $('#txtSearchGrid').on('keyup', function () {
-                            $scope.gridInfo.table.search(this.value).draw();
-                        });
-                        $scope.$apply();
-                    }, 500);
-                });
-
-
 
             }
         };

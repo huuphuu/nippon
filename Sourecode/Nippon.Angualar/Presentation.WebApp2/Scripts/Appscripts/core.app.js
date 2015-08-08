@@ -101,7 +101,7 @@ var coreApp;
             angular.forEach(data, function (value, key) {
                 if (typeof value != "function" && typeof value != "object") {
                     // value = html.decode(value);
-                    inputs.push($.string.Format('{0}="{1}" ', key, (value)));
+                    inputs.push($.string.Format('{0}="{1}" ', key, objThis.html.encode(value)));
                 }
             });
             ret = $.string.Format('<{0} {1}/>', tagName, inputs.join(' '));

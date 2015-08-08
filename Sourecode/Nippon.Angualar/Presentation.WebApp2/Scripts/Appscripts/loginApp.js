@@ -11,11 +11,13 @@
 
     $scope.login = function () {
         authService.login($scope.loginData).then(function (response) {
-            console.log(response)
-            $location.path('/orders');
+           // console.log(response)
+            //$location.path('/orders');
+            window.location.href = '/app.html';
 
         },
          function (err) {
+             console.log('err', err);
              $scope.message = err.error_description;
          });
     };

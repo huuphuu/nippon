@@ -1,21 +1,28 @@
 ﻿'use strict';
 
-var app = angular.module('indexApp', ['toaster', 'angularMoment', 'ngSanitize','ui.router', 'angularFileUpload', 'ngCookies', 'ngResource', 'angularGrid', 'app.service', 'datatables', 'ui.bootstrap', 'dialogs.main', 'ui.select']);
+var app = angular.module('indexApp', ['toaster', 'angularMoment', 'ngSanitize', 'ui.router', 'angularFileUpload', 'ngCookies', 'ngResource', 'angularGrid', 'app.service', 'datatables', 'ui.bootstrap', 'dialogs.main', 'ui.select']);
 
 //ui.router
 app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
-    $urlRouterProvider.otherwise('/account');
+    $urlRouterProvider.otherwise('/nonepermission');
 
     $stateProvider
-      //.state('login', {
-      //    url: "",
-      //    templateUrl: "/Templates/view/login.html"          
-      //})
-        .state('account', {
-            url: '/account',
-            templateUrl: '/Templates/view/account/account-index.html'
-        })
+             .state('account', {
+                 url: '/account',
+                 templateUrl: '/Templates/view/account/account-index.html',
+                 resolve: {
+                     "check": function (accessFac, $location, $route) {   //function to be resolved, accessFac and $location Injected
+                      //   console.log($route)
+                        // debugger;
+                         if (accessFac.checkPermission()) {    //check if the user has permission -- This happens before the page loads
+
+                         } else {
+                             $location.path('/nonepermission');				//redirect user to home if it does not have permission.
+                           }
+                     }
+                 }
+             })
         .state('employee', {
             url: '/employee',
             templateUrl: '/Templates/view/employee/employee-index.html'
@@ -32,28 +39,22 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/area',
             templateUrl: '/Templates/view/office/office-index.html'
         })
+        .state('nonepermission', {
+            url: '/nonepermission',
+            templateUrl: '/Templates/view/nonepermission/nonepermission-index.html'
+        })
+    
 
-            .state('uploadFiles', {
-                url: '/upload-files',
-                templateUrl: '/Templates/view/Partials/upload-files.html'
-            })
-            .state('listFiles', {
-                url: '/list-files',
-                templateUrl: '/Templates/view/Partials/list-files.html'
-            });
-    //if (window.history && window.history.pushState) {
-    //    $locationProvider.html5Mode(true);
-    //}
 })
 
-    var statusOptions = [
-            {
-                name: 'DeActive',
-                value: '1'
-            },
-    {
-        name: 'Active',
-        value: '0'
-    }
-    ];
+var statusOptions = [
+        {
+            name: 'DeActive',
+            value: '1'
+        },
+{
+    name: 'Active',
+    value: '0'
+}
+];
 

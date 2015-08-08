@@ -1,5 +1,5 @@
-﻿
-app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuthSettings', function ($scope, $location, authService, ngAuthSettings) {
+﻿angular.module('AngularAuthApp')
+.controller('loginController', ['$scope', '$location', 'authService', 'ngAuthSettings', function ($scope, $location, authService, ngAuthSettings) {
 
     $scope.loginData = {
         userName: "",
@@ -10,9 +10,8 @@ app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuth
     $scope.message = "";
 
     $scope.login = function () {
-
         authService.login($scope.loginData).then(function (response) {
-
+            console.log(response)
             $location.path('/orders');
 
         },

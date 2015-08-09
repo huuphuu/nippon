@@ -1,5 +1,5 @@
 ﻿
-var app = angular.module('AngularAuthApp', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar']);
+var app = angular.module('AngularAuthApp', ['ngRoute', 'ui.bootstrap','LocalStorageModule', 'angular-loading-bar']);
 var serviceBase = 'http://nippon.vn/api/';
 //var serviceBase = 'http://ngauthenticationapi.azurewebsites.net/';
 app.constant('ngAuthSettings', {

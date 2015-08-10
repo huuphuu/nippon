@@ -1,4 +1,4 @@
-﻿angular.module('loginApp')
+﻿angular.module('loginApp', ['angular-md5'])
 .controller('loginController', function ($scope, $location, coreService, modalFactory) {
     $scope.loginData = {
         userName: "",

@@ -19,5 +19,9 @@ namespace Datalayer.DataObject.Core
         {
             return CallFunction(CStoreProcedure.ExecuteAction, clientKey, inputValue);
         }
+        public DataSet Login(string clientKey, string inputValue)
+        {
+            return CallFunction(CStoreProcedure.Login, clientKey, inputValue);
+        }
     }
 }

@@ -9,5 +9,6 @@ namespace Datalayer.DataObject.SQL
     {
         public const int GetContextData = 1;
         public const int ExecuteAction = 2;
+        public const int Login =3;
     }
 }

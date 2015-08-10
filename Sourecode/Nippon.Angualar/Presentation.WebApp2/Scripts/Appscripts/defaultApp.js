@@ -1,5 +1,5 @@
-﻿angular.module('loginApp', ['angular-md5'])
-.controller('loginController', function ($scope, $location, coreService, modalFactory) {
+﻿angular.module('loginApp', ['ngRoute', 'ui.bootstrap', 'LocalStorageModule', 'angular-md5', 'app.service'])
+.controller('loginController', function ($scope, $location, coreService, localStorageService, modalFactory, md5) {
     $scope.loginData = {
         userName: "",
         password: "",
@@ -9,16 +9,35 @@
     $scope.message = "";
 
     $scope.login = function () {
-
-    //    md5.createHash();
-        coreService.callAction('login',$scope.loginData, function (data) {
+        var inputData = {
+            UserName: $scope.loginData.userName,
+            Password: $scope.loginData.password
+        }
+        coreService.callServer('Core/CoreService.asmx', 'Login', inputData, function (data) {
             //vm.gridInfo.data = data[1];
+            var response = data[1][0];
+            var loginInfo = { isAuth: false };
+            console.log(data[2][0])
+            if (parseInt(data[1][0].Result) > 0) {
+                data[1][0].isAuth = true;
+                localStorageService.set('authorizationData', data[1][0]);
+                window.location.href = '/app.html';
+            }
+            else {
+                localStorageService.set('authorizationData', loginInfo);
+
+                modalFactory.showAlert({
+                    id: 'ClientAccess',
+                    type: 'danger',
+                    message: 'User Name or Password is not correct'
+                });
+            }
             $scope.$apply();
 
         });
     }
 
-  
+
 })
 
 .factory('modalFactory', function ($http, $compile, $rootScope, $timeout, $location) {
@@ -110,7 +129,7 @@
     return modalFactory;
 })
 
-.factory('authService', ['$http', '$q', 'localStorageService',  function ($http, $q, localStorageService) {
+.factory('authService', ['$http', '$q', 'localStorageService', function ($http, $q, localStorageService) {
 
     var serviceBase = ngAuthSettings.apiServiceBaseUri;
     var authServiceFactory = {};

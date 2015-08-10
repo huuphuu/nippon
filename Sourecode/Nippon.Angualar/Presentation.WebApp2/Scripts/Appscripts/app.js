@@ -11,17 +11,17 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
              .state('account', {
                  url: '/account',
                  templateUrl: '/Templates/view/account/account-index.html',
-                 resolve: {
-                     "check": function (accessFac, $location, $route) {   //function to be resolved, accessFac and $location Injected
-                      //   console.log($route)
-                        // debugger;
-                         if (accessFac.checkPermission()) {    //check if the user has permission -- This happens before the page loads
-
-                         } else {
-                             $location.path('/nonepermission');				//redirect user to home if it does not have permission.
-                           }
-                     }
-                 }
+                 //resolve: {
+                 //    "check": function (accessFac, $location, $route) {   //function to be resolved, accessFac and $location Injected
+                 //     //   console.log($route)
+                 //        debugger;
+                 //        if (accessFac.checkPermission()) {    //check if the user has permission -- This happens before the page loads
+                 //            return true;
+                 //        } else {
+                 //            window.location.href = '/index.html';			//redirect user to home if it does not have permission.
+                 //          }
+                 //    }
+                 //}
              })
         .state('employee', {
             url: '/employee',
@@ -46,6 +46,22 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     
 
 })
+.factory('accessFac', function ($locationProvider, localStorageService) {
+    var obj = {}
+    this.access = false;
+    obj.getPermission = function () {    //set the permission to true
+        this.access = true;
+        var authData = localStorageService.get('authorizationData');
+        return authData;
+    }
+    obj.checkPermission = function () {
+        debugger;
+        var authData = localStorageService.get('authorizationData');
+       
+        return authData.isAuth == true;
+    }
+    return obj;
+});
 
 var statusOptions = [
         {

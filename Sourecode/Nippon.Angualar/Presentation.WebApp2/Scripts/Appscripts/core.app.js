@@ -169,7 +169,15 @@ var coreApp;
                     }
                 }, callback);
             };
-
+            this.execute2 = function (url, fnName, inputValue, callback) {
+                return a.callAjax({
+                    url: url + '/' + fnName,
+                    data: {
+                        clientKey: a.systemConfig.clientKey,
+                        inputValue: a.html.encode(inputValue)
+                    }
+                }, callback);
+            };
             this.getContextData = function (inputValue, callback) {
                 return this.execute('GetContextData', inputValue, callback);
             };
@@ -180,6 +188,10 @@ var coreApp;
             this.actionEntry = function (data, callback) {
                 var inputValue = a.objectToXML('InputValue', { UserID: 0 }) + a.objectToXML('RequestParams', data);
                 return this.execute('ExecuteAction ', inputValue, callback);
+            };
+            this.callServer = function (url, fnName, data, callback) {
+                var inputValue = a.objectToXML('InputValue', data);
+                return this.execute2(url, fnName, inputValue, callback);
             };
         },
         //gird infomation

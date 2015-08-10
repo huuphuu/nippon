@@ -29,6 +29,7 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, $scope, coreService
     }
     vm.setData = function (item) {
         var row = angular.copy(item);
+        console.log('setData',row)
         if (angular.isFunction(vm.rootScope.setData)) {
             vm.rootScope.setData(row);
         }

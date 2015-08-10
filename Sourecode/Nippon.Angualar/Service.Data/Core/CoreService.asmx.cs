@@ -29,5 +29,10 @@ namespace Service.Data.Core
         {
             return new CCoreService().ExecuteAction(clientKey, inputValue);
         }
+        [WebMethod]
+        public string Login(string clientKey, string inputValue)
+        {
+            return new CCoreService().Login(clientKey, inputValue);
+        }
     }
 }

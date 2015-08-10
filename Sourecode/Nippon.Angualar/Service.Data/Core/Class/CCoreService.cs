@@ -22,5 +22,12 @@ namespace Service.Data.Core.Class
                 new dlg_CallFunction((c, i) => new CCoreDao().ExecuteAction(c, i)));
 
         }
+
+        public string Login(string clientKey, string inputValue)
+        {
+            return CallCSVService(clientKey, inputValue,
+                new dlg_CallFunction((c, i) => new CCoreDao().Login(c, i)));
+
+        }
     }
 }

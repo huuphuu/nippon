@@ -41,7 +41,10 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/nonepermission',
             templateUrl: '/Templates/view/nonepermission/nonepermission-index.html'
         })
-    
+         .state('project', {
+             url: '/project',
+             templateUrl: '/Templates/view/project/project-index.html'
+         })
 
 })
 

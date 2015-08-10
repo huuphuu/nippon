@@ -69,12 +69,12 @@ $adminCMS.data = {
                 ]
             },
             {
-                "name": "Server",
+                "name": "Project Management",
                 "url": "#",
-                "cssIcon": "fa fa-laptop",
+                "cssIcon": "fa  fa-street-view",
                 "labelCss": "fa fa-angle-left",
                 "childs": [
-                    { "name": "List Servers", "url": "db1", "cssIcon": "fa fa-flag-o", "childs": "" },
+                    { "name": "Project", "url": "project", "cssIcon": "fa fa-flag-o", "childs": "" },
                 ]
             },
         ]

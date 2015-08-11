@@ -10,16 +10,16 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider
              .state('account', {
                  url: '/account',
-                 templateUrl: '/Templates/view/account/account-index.html',
-                 resolve: {
-                     "check": function (accessFac, $location) {   //, $route, localStorageService function to be resolved, accessFac and $location Injected
-                         if (accessFac.checkPermission()) {    //check if the user has permission -- This happens before the page loads
-                             // return true;
-                         } else {
-                             window.location.href = '/index.html';			//redirect user to home if it does not have permission.
-                         }
-                     }
-                 }
+                 templateUrl: '/Templates/view/account/account-index.html'
+                 //,resolve: {
+                 //    "check": function (accessFac, $location) {   //, $route, localStorageService function to be resolved, accessFac and $location Injected
+                 //        if (accessFac.checkPermission()) {    //check if the user has permission -- This happens before the page loads
+                 //            // return true;
+                 //        } else {
+                 //            window.location.href = '/index.html';			//redirect user to home if it does not have permission.
+                 //        }
+                 //    }
+                 //}
              })
         .state('employee', {
             url: '/employee',
@@ -45,9 +45,26 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
              url: '/project',
              templateUrl: '/Templates/view/project/project-index.html'
          })
-       
+
 })
 
+app.run(function ($rootScope, $location, accessFac) {
+    // Register listener to watch route changes. 
+    $rootScope.$on('$stateChangeStart', function (event, next, current) {
+        //if (!AuthenticationModel.isSignedIn() && next.requireAuthentication === true) {
+        //    $location.path('/signin');
+        //}
+        console.log('gohere');
+        if (accessFac.checkPermission()) {    //check if the user has permission -- This happens before the page loads
+            // return true;
+        } else {
+            window.location.href = '/index.html';			//redirect user to home if it does not have permission.
+        }
+
+    });
+
+
+});
 
 var statusOptions = [
         {

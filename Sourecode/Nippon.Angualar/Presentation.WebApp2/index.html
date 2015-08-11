@@ -33,12 +33,17 @@
     <script src="Scripts/angularjs/angular-ui-router.min.js"></script>
     <script src="Scripts/angularjs/angular-local-storage.min.js"></script>
     <script src="Scripts/angularjs/angular-animate.min.js"></script>
+    <script src="Scripts/angularjs/angular-resource.min.js"></script>
+    <script src="Scripts/angularjs/angular-touch.min.js"></script>
+    <script src="Scripts/angularjs/angular-sanitize.min.js"></script>
     <script src="Scripts/plugins/bootstrap.ui/ui-bootstrap-tpls-0.13.2.min.js"></script>
-  
+    <!--angular-dialogs-->
+    <script src="Scripts/plugins/dialog/dialogs.js"></script>
+
     <!-- <script src="Scripts/services/authComplete.js"></script>-->
     <!-- Load services -->
-      <script src="Scripts/Appscripts/core.app.js"></script>
- 
+    <script src="Scripts/Appscripts/core.app.js"></script>
+
     <script src="Scripts/Appscripts/defaultApp.js"></script>
 </head>
 <body>
@@ -65,6 +70,40 @@
     </div>
     <!-----//end-main---->
 
+      <style>
+        .modal {
+            display: block;
+        }
 
+        /* Custom dialog/modal headers */
+
+        .dialog-header-error {
+            background-color: #d2322d;
+        }
+
+        .dialog-header-wait {
+            background-color: #428bca;
+        }
+
+        .dialog-header-notify {
+            background-color: #eeeeee;
+        }
+
+        .dialog-header-confirm {
+            background-color: #333333;
+        }
+
+            .dialog-header-error span, .dialog-header-error h4,
+            .dialog-header-wait span, .dialog-header-wait h4,
+            .dialog-header-confirm span, .dialog-header-confirm h4 {
+                color: #ffffff;
+            }
+
+        /* Ease Display */
+
+        .pad {
+            padding: 25px;
+        }
+    </style>
 </body>
 </html>

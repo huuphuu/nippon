@@ -1,14 +1,11 @@
-﻿angular.module('loginApp', ['ngRoute', 'ui.bootstrap', 'LocalStorageModule', 'angular-md5', 'app.service'])
-.controller('loginController', function ($scope, $location, coreService, localStorageService, modalFactory, md5) {
+﻿angular.module('loginApp', ['ngRoute', 'ui.bootstrap', 'ngResource','LocalStorageModule', 'angular-md5', 'app.service','ngSanitize', 'dialogs.main'])
+.controller('loginController', function ($scope, $location, coreService, localStorageService, modalFactory, md5, dialogs) {
     $scope.loginData = {
         userName: "",
         password: "",
         useRefreshTokens: false
     };
-
-    $scope.message = "";
-
-    $scope.login = function () {
+     $scope.login = function () {
         var inputData = {
             UserName: $scope.loginData.userName,
             Password: $scope.loginData.password
@@ -25,22 +22,14 @@
                     window.location.href = '/app.html';
                 } else {
                     localStorageService.set('authorizationData', loginInfo);
+                    dialogs.error('Error', 'User Name or Password is not correct', { size: "md", animation: 'fadein' });
 
-                    modalFactory.showAlert({
-                        id: 'ClientAccess',
-                        type: 'danger',
-                        message: 'User Name or Password is not correct'
-                    });
                 }
-            } else {
-                modalFactory.showAlert({
-                    id: 'ClientAccess',
-                    type: 'danger',
-                    message: 'User Name or Password is not correct'
-                });
-            }
-            $scope.$apply();
+            } else
+                dialogs.error('Error', 'User Name or Password is not correct', { size: "md", animation: 'fadein' });
 
+           
+            $scope.$apply();
         });
     }
 

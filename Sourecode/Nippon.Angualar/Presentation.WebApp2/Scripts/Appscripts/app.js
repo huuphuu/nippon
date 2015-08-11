@@ -14,10 +14,10 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
                  resolve: {
                      "check": function (accessFac, $location) {   //, $route, localStorageService function to be resolved, accessFac and $location Injected
                          if (accessFac.checkPermission()) {    //check if the user has permission -- This happens before the page loads
-                            // return true;
+                             // return true;
                          } else {
                              window.location.href = '/index.html';			//redirect user to home if it does not have permission.
-                           }
+                         }
                      }
                  }
              })
@@ -45,7 +45,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
              url: '/project',
              templateUrl: '/Templates/view/project/project-index.html'
          })
-
+       
 })
 
 

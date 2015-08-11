@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app.html" />
+    <Content Include="favicon.ico" />
     <Content Include="Images\img\avatar.png" />
     <Content Include="Images\img\avatar04.png" />
     <Content Include="Images\img\avatar2.png" />
@@ -623,6 +624,7 @@
     <Content Include="Scripts\plugins\daterangepicker\moment.js" />
     <Content Include="Scripts\plugins\daterangepicker\moment.min.js" />
     <Content Include="Scripts\plugins\dialog\dialog.css" />
+    <Content Include="Scripts\plugins\dialog\dialogs.js" />
     <Content Include="Scripts\plugins\dialog\dialogs.min.js" />
     <Content Include="Scripts\plugins\fastclick\fastclick.js" />
     <Content Include="Scripts\plugins\fastclick\fastclick.min.js" />

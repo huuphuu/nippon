@@ -108,6 +108,30 @@ var coreApp;
 
             return ret;
         },
+        objectToXMLEx: function (tagName, data) {
+            var objThis = this;
+            var inputs = [],
+                ret = '';
+            var childInput = "";
+            angular.forEach(data, function (value, key) {
+                if (key.indexOf("$") >=0) return;
+                if (typeof value != "function" && typeof value != "object") {
+                    // value = html.decode(value);
+                    inputs.push($.string.Format('{0}="{1}" ', key, objThis.html.encode(value)));
+                } else if (angular.isArray(value)) {
+                    angular.forEach(value, function(item,notuse) {
+                        childInput += objThis.objectToXMLEx(key, item);
+                        console.log("array",key, item);
+                    });
+                }else if (angular.isObject(value)) {
+                        childInput = objThis.objectToXMLEx(key, value);
+                    }
+            });
+            ret = $.string.Format('<{0} {1}>', tagName, inputs.join(' '));
+            ret += childInput;
+            ret += $.string.Format('</{0}>', tagName);
+            return ret;
+        },
         ajax: function (options) {
             options.timeout = 3600000;
             options.url = location.origin + '/service.data/' + options.url;
@@ -185,8 +209,13 @@ var coreApp;
                 var inputValue = a.objectToXML('InputValue', { UserID: 0 }) + a.objectToXML('RequestParams', { Sys_ViewID: viewID }); //$.string.Format('<InputValue UserID=""/><RequestParams Sys_ViewID="{0}"/>', viewID);
                 return this.execute('GetContextData ', inputValue, callback);
             };
+            this.getListEx = function (option, callback) {
+                var inputValue = a.objectToXML('InputValue', { UserID: 0 }) + a.objectToXML('RequestParams', option); //$.string.Format('<InputValue UserID=""/><RequestParams Sys_ViewID="{0}"/>', viewID);
+                return this.execute('GetContextData ', inputValue, callback);
+            };
             this.actionEntry = function (data, callback) {
-                var inputValue = a.objectToXML('InputValue', { UserID: 0 }) + a.objectToXML('RequestParams', data);
+                var inputValue = a.objectToXMLEx('InputValue', { UserID: 0 }) + a.objectToXMLEx('RequestParams', data);
+                console.log("inputValue", inputValue);
                 return this.execute('ExecuteAction ', inputValue, callback);
             };
             this.callServer = function (url, fnName, data, callback) {

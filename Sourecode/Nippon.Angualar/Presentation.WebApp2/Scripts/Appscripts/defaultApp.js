@@ -15,17 +15,24 @@
         }
         coreService.callServer('Core/CoreService.asmx', 'Login', inputData, function (data) {
             //vm.gridInfo.data = data[1];
-            var response = data[1][0];
-            var loginInfo = { isAuth: false };
-            console.log(data[2][0])
-            if (parseInt(data[1][0].Result) > 0) {
-                data[1][0].isAuth = true;
-                localStorageService.set('authorizationData', data[1][0]);
-                window.location.href = '/app.html';
-            }
-            else {
-                localStorageService.set('authorizationData', loginInfo);
+            if (data != undefined && data.length > 1) {
+                var response = data[1][0];
+                var loginInfo = { isAuth: false };
+                //console.log(data[2][0])
+                if (parseInt(data[1][0].Result) > 0) {
+                    data[2][0].isAuth = true;
+                    localStorageService.set('authorizationData', data[2][0]);
+                    window.location.href = '/app.html';
+                } else {
+                    localStorageService.set('authorizationData', loginInfo);
 
+                    modalFactory.showAlert({
+                        id: 'ClientAccess',
+                        type: 'danger',
+                        message: 'User Name or Password is not correct'
+                    });
+                }
+            } else {
                 modalFactory.showAlert({
                     id: 'ClientAccess',
                     type: 'danger',

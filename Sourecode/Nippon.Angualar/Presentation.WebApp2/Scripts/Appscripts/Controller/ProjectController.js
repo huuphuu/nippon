@@ -5,11 +5,11 @@
         table: null,
         cols: [
               { name: 'ID', heading: 'ID', width: '0', isHidden: true },
-              { name: 'ZOrder', heading: '#', width: '10px' },
+              { name: 'ZOrder', heading: '#', width: '1px' },
               { name: 'Status', heading: 'Status', width: '100px' },
               { name: 'Agent', heading: 'Agent', width: '100px' },
               { name: 'Address', heading: 'Address', width: '200px' },
-              { name: 'Market', heading: 'Market', width: '100px' },
+              { name: 'Market', heading: 'Market' },
 			  { name: 'Phone', heading: 'Phone', width: '100px', isHidden: true },
 			  { name: 'PIC', heading: 'PIC', width: '100px', isHidden: true },
 			  { name: 'TurnOver', heading: 'TurnOver', width: '100px', isHidden: true },

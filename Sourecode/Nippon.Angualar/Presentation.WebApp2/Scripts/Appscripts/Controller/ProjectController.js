@@ -1,29 +1,49 @@
 ﻿angular.module('indexApp')
-.controller('ProjectCtrl', function ($scope, coreService, alertFactory, dialogs) {
+.controller('ProjectCtrl', function ($scope,$timeout, coreService, alertFactory, dialogs) {
     $scope.gridInfo = {
-        gridID: 'departmentgrid',
+        gridID: 'projecttgrid',
         table: null,
         cols: [
               { name: 'ID', heading: 'ID', width: '0', isHidden: true },
-              { name: 'Name', heading: 'Name', width: '30%' },
-              { name: 'Description', heading: 'Description', width: '70%' },
-              { name: 'Status', heading: 'Status', width: '0', isHidden: true },
-              { name: 'StatusText', heading: 'Status', width: '0', isHidden: true }
+              { name: 'ZOrder', heading: '#', width: '10px' },
+              { name: 'Status', heading: 'Status', width: '100px' },
+              { name: 'Agent', heading: 'Agent', width: '100px' },
+              { name: 'Address', heading: 'Address', width: '200px' },
+              { name: 'Market', heading: 'Market', width: '100px' },
+			  { name: 'Phone', heading: 'Phone', width: '100px', isHidden: true },
+			  { name: 'PIC', heading: 'PIC', width: '100px', isHidden: true },
+			  { name: 'TurnOver', heading: 'TurnOver', width: '100px', isHidden: true },
+			  { name: 'Bussiness Volumn', heading: 'Bussiness Volumn', width: '100px', isHidden: true }
         ],
+        showColMin: 6,
         data: [],
         sysViewID: 1,
         searchQuery: '',
     },
-     $scope.statusOptions = statusOptions;
+    $scope.statusOptions = statusOptions;
     $scope.layout = {
         enableClear: false,
-        enableButtonOrther: false
+        enableButtonOrther: false,
+        isFull: false
     }
+    $scope.setFullSreen = function () {
+        var $grid = $scope.gridInfo;
+        var table = $grid.tableInstance;
+       
+
+        for (var i = $grid.showColMin ; i < $grid.cols.length ; i++) {
+            $grid.cols[i].isHidden = $scope.layout.isFull;
+            console.log( $grid.cols[i].name)
+        }
+
+
+      
+        $scope.layout.isFull = !$scope.layout.isFull;
+    }
+
     $scope.dataSeleted = { ID: 0, Name: "", Code: '', Description: "", Status: "0", Sys_ViewID: $scope.gridInfo.sysViewID };
     $scope.init = function () {
-        window.setTimeout(function () {
-            $(window).trigger("resize")
-        }, 200);
+
     }
     $scope.setData = function (data) {
         if (typeof data != 'undefined') {
@@ -108,44 +128,6 @@
         // $scope.$apply();
     }
 
-    $scope.launch = function (which) {
-        switch (which) {
-            case 'error':
-                dialogs.error();
-                break;
-            case 'wait':
-                var dlg = dialogs.wait(undefined, undefined, _progress);
-                _fakeWaitProgress();
-                break;
-            case 'customwait':
-                var dlg = dialogs.wait('Custom Wait Header', 'Custom Wait Message', _progress);
-                _fakeWaitProgress();
-                break;
-            case 'notify':
-                dialogs.notify();
-                break;
-            case 'confirm':
-                var dlg = dialogs.confirm();
-                dlg.result.then(function (btn) {
-                    $scope.confirmed = 'You confirmed "Yes."';
-                }, function (btn) {
-                    $scope.confirmed = 'You confirmed "No."';
-                });
-                break;
-            case 'custom':
-                var dlg = dialogs.create('/dialogs/custom.html', 'customDialogCtrl', {}, { size: 'lg', keyboard: true, backdrop: false, windowClass: 'my-class' });
-                dlg.result.then(function (name) {
-                    $scope.name = name;
-                }, function () {
-                    if (angular.equals($scope.name, ''))
-                        $scope.name = 'You did not enter in your name!';
-                });
-                break;
-            case 'custom2':
-                var dlg = dialogs.create('/dialogs/custom2.html', 'customDialogCtrl2', $scope.custom, { size: 'lg' });
-                break;
-        }
-    }// end launch
-    // $scope.launch('error');
+
 
 })

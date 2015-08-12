@@ -5,7 +5,11 @@
         table: null,
         cols: [
               { name: 'ID', heading: 'ID', width: '0', isHidden: true },
-              { name: 'ZOrder', heading: '#', width: '1px' },
+              {
+                  name: 'ZOrder', heading: '#', width: '1px', actionClick: function (data) {
+                      console.log('actionClick', data)
+                  }
+              },
               { name: 'Status', heading: 'Status', width: '100px' },
               { name: 'Agent', heading: 'Agent', width: '100px' },
               { name: 'Address', heading: 'Address', width: '200px' },

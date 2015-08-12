@@ -1,6 +1,6 @@
 ﻿angular.module('indexApp')
 .controller('dataGridCtrl', dataGridsCtrl)
-function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder,DTColumnDefBuilder, $scope, coreService) {
+function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnDefBuilder, $scope, coreService) {
     //  console.log('$scope--------------------------------', $scope, gridService);
     var vm = this;
     vm.gridData = [];
@@ -13,7 +13,7 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder,DTColumnDefBuilder, 
         .withOption("autowidth", false)
     //  .withLanguageSource('Scripts/plugins/datatables/LanguageSource.json');
 
-   
+
     vm.init = function (gridInfo, rootScope) {
         vm.gridInfo = gridInfo;
         vm.rootScope = rootScope;
@@ -35,8 +35,14 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder,DTColumnDefBuilder, 
         DTColumnDefBuilder.newColumnDef(2).notSortable()
         ];
     }
-    vm.setData = function (item) {
+    vm.setData = function (item, col) {
         var row = angular.copy(item);
+        if (typeof col.actionClick != 'undefined') {
+            col.actionClick(item)
+            return false;
+        }
+
+
         if (angular.isFunction(vm.rootScope.setData)) {
             vm.rootScope.setData(row);
         }
@@ -50,4 +56,5 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder,DTColumnDefBuilder, 
 
         $scope.gridInfo.tableInstance.search(query).draw();
     };
+
 }

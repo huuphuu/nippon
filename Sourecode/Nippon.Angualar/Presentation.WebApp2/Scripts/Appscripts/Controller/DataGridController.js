@@ -36,15 +36,8 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnDefBuilder,
         ];
     }
     vm.setData = function (item, col) {
-        var row = angular.copy(item);
-        if (typeof col.actionClick != 'undefined') {
-            col.actionClick(item)
-            return false;
-        }
-
-
         if (angular.isFunction(vm.rootScope.setData)) {
-            vm.rootScope.setData(row);
+            vm.rootScope.setData(row, col);
         }
     }
     vm.dtInstanceCallback = function (dtInstance) {

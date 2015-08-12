@@ -36,6 +36,7 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnDefBuilder,
         ];
     }
     vm.setData = function (item, col) {
+        var row = angular.copy(item);
         if (angular.isFunction(vm.rootScope.setData)) {
             vm.rootScope.setData(row, col);
         }

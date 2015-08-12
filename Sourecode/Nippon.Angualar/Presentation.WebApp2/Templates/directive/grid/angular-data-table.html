@@ -4,14 +4,14 @@
         <!-- /.box-header -->
         <form class="form-horizontal row ng-pristine ng-valid">
             <div class="box-body" ng-controller="dataGridCtrl as vm" ng-init="vm.init(gridInfo, rootScope)">
-                <table datatable="ng" class="table table-bordered table-striped box" dt-options="vm.dtOptions" dt-column-defs="vm.dtColumnDefs" dt-instance="vm.dtInstanceCallback">
+                <table datatable="ng" class="table table-bordered table-striped box hover" dt-options="vm.dtOptions" dt-column-defs="vm.dtColumnDefs" dt-instance="vm.dtInstanceCallback">
                     <thead>
-                        <th data-ng-repeat="c in vm.gridInfo.cols" ng-width="{{c.width}}" ng-hide="{{c.isHidden}}">{{ c.heading }}
+                        <th data-ng-repeat="(i, c) in vm.gridInfo.cols" width="{{c.width}}" ng-hide="vm.gridInfo.cols[i].isHidden">{{ c.heading }}
                         </th>
                     </thead>
                     <tbody>
                         <tr data-ng-repeat="item in  vm.gridInfo.data">
-                            <td data-ng-repeat="c in vm.gridInfo.cols" ng-width="{{c.width}}" ng-hide="{{c.isHidden}}" class="Pointer" ng-click="vm.setData(item)">{{ item[c.name] }}
+                            <td data-ng-repeat="(i, c) in vm.gridInfo.cols" width="{{c.width}}" ng-hide="vm.gridInfo.cols[i].isHidden" class="Pointer" ng-click="vm.setData(item)">{{ item[c.name] }}
                             </td>
                         </tr>
                     </tbody>

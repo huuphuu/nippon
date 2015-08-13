@@ -1,0 +1,26 @@
+﻿<div class="form-group col-md-12">
+    <div class="col-sm-2">
+        <label for="exampleInputEmail1"></label>
+    </div>
+
+    <div class="input-group col-sm-6">
+        <input type="text" class="form-control ng-pristine ng-untouched ng-valid" placeholder="Enter words to search" ng-model="gridInfo.searchQuery" ng-change="searchTable()"><span class="input-group-btn">
+            <button type="button" class="btn  col-xs-12" ng-class="themeButton" ng-click="search();">
+                <span class="glyphicon glyphicon-search"></span>
+                Search
+            </button>
+        </span>
+    </div>
+    <div class="col-sm-1  pull-right padding-left-0">
+        <button class="btn col-sm-12 pull-right " ng-class="themeButton" ng-click="setFullSreen()">
+            <span class="glyphicon" ng-hide="layout.isFull">>></span>
+            <span class="glyphicon" ng-hide="!layout.isFull"><<</span>
+        </button>
+    </div>
+    <div class="col-sm-3 pull-right padding-right-10">
+        <button class="btn col-xs-12" ng-class="themeButton">
+            <span class="glyphicon glyphicon-print"></span>
+            Print</button>
+    </div>
+
+</div>

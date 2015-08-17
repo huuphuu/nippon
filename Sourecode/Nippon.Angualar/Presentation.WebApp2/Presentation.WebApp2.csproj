@@ -379,6 +379,8 @@
     <Content Include="Scripts\plugins\datatables\dataTables.bootstrap.css" />
     <Content Include="Scripts\plugins\datatables\dataTables.bootstrap.js" />
     <Content Include="Scripts\plugins\datatables\dataTables.bootstrap.min.js" />
+    <Content Include="Scripts\plugins\datatables\angular-datatables.colvis.js" />
+    <Content Include="Scripts\plugins\datatables\dataTables.colVis.js" />
     <Content Include="Scripts\plugins\datatables\extensions\AutoFill\css\dataTables.autoFill.css" />
     <Content Include="Scripts\plugins\datatables\extensions\AutoFill\css\dataTables.autoFill.min.css" />
     <Content Include="Scripts\plugins\datatables\extensions\AutoFill\examples\columns.html" />
@@ -941,6 +943,11 @@
     <Content Include="Templates\view\Partials\upload-files.html" />
     <Content Include="Templates\view\pattern\index.html" />
     <Content Include="Templates\view\position\position-index.html" />
+    <Content Include="Templates\view\project\project-botton-right.html" />
+    <Content Include="Templates\view\project\project-index.html" />
+    <Content Include="Templates\view\project\project-popup.html" />
+    <Content Include="Templates\view\project\project-top-left.html" />
+    <Content Include="Templates\view\project\project-top-right.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

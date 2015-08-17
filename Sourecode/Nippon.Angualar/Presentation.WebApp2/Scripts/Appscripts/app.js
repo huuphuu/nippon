@@ -5,7 +5,7 @@ var app = angular.module('indexApp', ['toaster', 'angularMoment', 'ngSanitize', 
 //ui.router
 app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
-    $urlRouterProvider.otherwise('/department');
+    $urlRouterProvider.otherwise('/project');
 
     $stateProvider
              .state('account', {
@@ -51,10 +51,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 app.run(function ($rootScope, $location, accessFac) {
     // Register listener to watch route changes. 
     $rootScope.$on('$stateChangeStart', function (event, next, current) {
-        //if (!AuthenticationModel.isSignedIn() && next.requireAuthentication === true) {
-        //    $location.path('/signin');
-        //}
-        console.log('gohere');
+        
         if (accessFac.checkPermission()) {    //check if the user has permission -- This happens before the page loads
             // return true;
         } else {

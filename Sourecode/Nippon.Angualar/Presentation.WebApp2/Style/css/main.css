@@ -18,6 +18,16 @@
     padding-right: 4px!important;
 }
 
+.padding-left-0 {
+    padding-left: 0px!important;
+}
+.padding-left-22 {
+    padding-left: 21px!important;
+}
+.padding-0 {
+    padding-right: 0px!important;
+}
+
 .padding-right-19 {
     padding-right: 19px!important;
     padding-left: 12px;
@@ -43,7 +53,32 @@
 table.dataTable tbody tr.selected {
     background-color: #bbbbbb;
 }
+
 .selectize-control > .selectize-dropdown {
-      top: 36px;
+    top: 36px;
+}
+
+.projectForm {
+}
+
+    .projectForm label {
+        text-align: left!important;
+        font-size:13px;
+    }
+    .projectForm label.checkbox5 {
+      
+        padding-left: 5px;
+        font-weight:bold;
+    }
+        .projectForm label.heading {
+            font-size:17px;
+        }
+
+    .projectForm .firstGroup {
+        border: 1px solid #ccc;
     }
 
+    .projectForm .childGroup {
+        border: 1px solid #ccc;
+        border-top-width: 0px;
+    }

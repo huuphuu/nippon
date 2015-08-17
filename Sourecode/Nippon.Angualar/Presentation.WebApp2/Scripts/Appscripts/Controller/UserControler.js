@@ -110,6 +110,8 @@
          window.setTimeout(function () {
              $(window).trigger("resize")
          }, 200);
+
+         $scope.reset(null);
      }
 
      $scope.changeText = function () {

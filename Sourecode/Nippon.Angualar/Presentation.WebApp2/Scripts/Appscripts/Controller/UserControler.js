@@ -60,12 +60,12 @@
                      if (data[1][0]) {
                          switch (act) {
                              case 'INSERT':
-                                 entry.ID = data[1][0].ID;
+                                 entry.ID = data[1][0].Result;
                                  $scope.gridInfo.data.unshift(entry);
                                  break;
                              case 'UPDATE':
                                  angular.forEach($scope.gridInfo.data, function (item, key) {
-                                     if (entry.ID == item.ID) {
+                                     if (entry.ID == item.Result) {
                                          $scope.gridInfo.data[key] = angular.copy(entry);
 
                                      }
@@ -102,7 +102,7 @@
          // $scope.$apply();
      }
      $scope.layout = {
-         enableClear: false,
+         enableClear: true,
          enableButtonOrther: false
      }
     
@@ -113,12 +113,12 @@
      }
 
      $scope.changeText = function () {
-         if ($scope.dataSeleted.Name == '' && $scope.dataSeleted.Description == '')
+         if ($scope.dataSeleted.UserName == '')
              $scope.layout.enableClear = false;
          else
              $scope.layout.enableClear = true;
 
-         if ($scope.dataSeleted.Name == '')
+         if ($scope.dataSeleted.UserName == '')
              $scope.layout.enableButtonOrther = false;
          else
              $scope.layout.enableButtonOrther = true;

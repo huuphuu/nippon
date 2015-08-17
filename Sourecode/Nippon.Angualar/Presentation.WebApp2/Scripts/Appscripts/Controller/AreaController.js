@@ -4,10 +4,10 @@
         gridID: 'areagridid',
         table: null,
         cols: [
-              { name: 'ID', heading: 'ID', width: '0', isHidden: true },
-              { name: 'Code', heading: 'Tên viết tắt', width: '30%' },
-              { name: 'Name', heading: 'Tên đầy đủ', width: '70%' },
-              { name: 'ManagerEmployeeName', heading: 'Người quản lý', width: '70%' }
+              { name: 'ID', heading: 'ID', width: '10px',isHidden:true },
+               { name: 'Code', heading: 'Tên viết tắt', width: '30%', backColor: true },
+              { name: 'Name', heading: 'Tên đầy đủ', width: '30%' },
+              { name: 'ManagerEmployeeName', heading: 'Người quản lý', width: '40%' }
         ],
         data: [],
         sysViewID: 2,
@@ -114,6 +114,6 @@
 
         // $scope.$apply();
     }
-   
-   
+
+
 })

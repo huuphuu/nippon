@@ -11,7 +11,10 @@
                     </thead>
                     <tbody>
                         <tr data-ng-repeat="item in  vm.gridInfo.data">
-                            <td data-ng-repeat="(i, col) in vm.gridInfo.cols" width="{{c.width}}" ng-hide="vm.gridInfo.cols[i].isHidden" class="Pointer" ng-click="vm.setData(item,col)">{{ item[col.name] }}
+                            <td data-ng-repeat="(i, col) in vm.gridInfo.cols" width="{{c.width}}" ng-hide="vm.gridInfo.cols[i].isHidden"  ng-style="{'background-color':(vm.gridInfo.cols[i].backColor?item.BackColor:'')}" class="Pointer vm.gridInfo.cols[i].backColor" ng-click="vm.setData(item,col)">{{ item[col.name] }}
+
+
+
                             </td>
                         </tr>
                     </tbody>

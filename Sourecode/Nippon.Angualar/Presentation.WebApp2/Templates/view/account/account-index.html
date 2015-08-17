@@ -25,19 +25,26 @@
                     <div class="form-group">
                         <label for="inputEmail3" class="col-sm-3 control-label">Login Name</label>
                         <div class="col-sm-9 padding-right-19">
-                            <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                            <input ng-model="dataSeleted.UserName" type="text" class="form-control" id="inputEmail3" placeholder="Email">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputPassword3" class="col-sm-3 control-label">Password</label>
                         <div class="col-sm-9 padding-right-19 ">
-                            <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                            <input ng-model="dataSeleted.Password"  type="password" class="form-control" id="inputPassword3" placeholder="Password">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-3 control-label">Email</label>
+                        <label for="employee" class="col-sm-3 control-label">Employee</label>
                         <div class="col-sm-9 padding-right-19">
-                            <input type="email" class="form-control" id="Email1" placeholder="Email">
+                            <ui-select ng-model="dataSeleted.EmployeeID" theme="selectize" ng-disabled="disabled"  title="Choose a employee">
+                                <ui-select-match placeholder="Select or search a employee in the list...">{{$select.selected.Name}}</ui-select-match>
+                                <ui-select-choices repeat="item.ID as item in employeelist | filter: $select.search">
+                                  <span ng-bind-html="item.Name | highlight: $select.search"></span>
+                                  <small ng-bind-html="item.Code | highlight: $select.search"></small>
+                                </ui-select-choices>
+                              </ui-select>
+                            </ui-select>
                         </div>
                     </div>
 
@@ -60,31 +67,31 @@
                                 <th style="width: 13%" class="text-center">Delete</th>
                                 <th style="width: 13%" class="text-center">Orther</th>
                             </tr>
-                            <tr>
-                                <td>User Mangager</td>
+                            <tr ng-repeat="role in roles">
+                                <td>{{role.Name}}</td>
                                 <td class="text-center">
                                     <label>
-                                        <input type="checkbox" class="minimal" checked />
+                                        <input type="checkbox"  class="minimal" ng-model="role.IsView" ng-true-value="'True'" ng-false-value="'False'"/>
                                     </label>
                                 </td>
                                 <td class="text-center">
                                     <label>
-                                        <input type="checkbox" class="minimal" checked />
+                                        <input type="checkbox" class="minimal" ng-model="role.IsInsert" ng-true-value="'True'" ng-false-value="'False'" />
                                     </label>
                                 </td>
                                 <td class="text-center">
                                     <label>
-                                        <input type="checkbox" class="minimal" checked />
+                                        <input type="checkbox" class="minimal" ng-model="role.IsUpdate" ng-true-value="'True'" ng-false-value="'False'" />
                                     </label>
                                 </td>
                                 <td class="text-center">
                                     <label>
-                                        <input type="checkbox" class="minimal" checked />
+                                        <input type="checkbox" class="minimal" ng-model="role.IsDelete" ng-true-value="'True'" ng-false-value="'False'" />
                                     </label>
                                 </td>
                                 <td class="text-center">
                                     <label>
-                                        <input type="checkbox" class="minimal" checked />
+                                        <input type="checkbox" class="minimal" ng-model="role.IsSpecial" ng-true-value="'True'" ng-false-value="'False'" />
                                     </label>
                                 </td>
                             </tr>

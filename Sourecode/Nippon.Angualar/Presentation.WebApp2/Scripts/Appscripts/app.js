@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-var app = angular.module('indexApp', ['toaster', 'angularMoment', 'ngSanitize', 'ui.router', 'angularFileUpload', 'LocalStorageModule', 'ngCookies', 'ngResource', 'angularGrid', 'app.service', 'datatables', 'ui.bootstrap', 'dialogs.main', 'ui.select']);
+var app = angular.module('indexApp', ['toaster', 'angularMoment', 'ngSanitize', 'ui.router', 'angularFileUpload', 'LocalStorageModule', 'ngCookies', 'ngResource', 'angularGrid', 'app.service', 'datatables', 'ui.bootstrap', 'dialogs.main', 'ui.select','minicolors']);
 
 //ui.router
 app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {

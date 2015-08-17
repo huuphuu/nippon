@@ -35,7 +35,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
          })
         .state('area', {
             url: '/area',
-            templateUrl: '/Templates/view/office/office-index.html'
+            templateUrl: '/Templates/view/area/area-index.html'
         })
         .state('nonepermission', {
             url: '/nonepermission',

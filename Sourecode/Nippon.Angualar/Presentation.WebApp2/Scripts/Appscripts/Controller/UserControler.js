@@ -5,7 +5,7 @@
          table: null,
          cols: [
              { name: 'UserName', heading: 'Login Name', width: '20%', isHidden: false },
-             { name: 'EmployeeName', heading: 'Full Name', wdth: '20%', isHidden: false },
+             { name: 'EmployeeName', heading: 'Employee Name', wdth: '20%', isHidden: false },
              { name: 'StatusName', heading: 'Status', width: '30%' }
          ],
 
@@ -21,9 +21,10 @@
          $scope.employeelist = data[1];
      });
      $scope.loadUserRoles = function (userId) {
-         console.log("loadUserRoles");
+        
          coreService.getListEx({ Sys_ViewID: 9, UserID: userId }, function (data) {
              $scope.roles = data[1];
+             $scope.$apply();
              //console.log("user roles::", data);
          });
      }
@@ -109,5 +110,17 @@
          window.setTimeout(function () {
              $(window).trigger("resize")
          }, 200);
+     }
+
+     $scope.changeText = function () {
+         if ($scope.dataSeleted.Name == '' && $scope.dataSeleted.Description == '')
+             $scope.layout.enableClear = false;
+         else
+             $scope.layout.enableClear = true;
+
+         if ($scope.dataSeleted.Name == '')
+             $scope.layout.enableButtonOrther = false;
+         else
+             $scope.layout.enableButtonOrther = true;
      }
  })

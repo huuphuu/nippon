@@ -6,8 +6,8 @@
         cols: [
               { name: 'ID', heading: 'ID', width: '10px',isHidden:true },
                { name: 'Code', heading: 'Tên viết tắt', width: '30%', backColor: true },
-              { name: 'Name', heading: 'Tên đầy đủ', width: '30%' },
-              { name: 'ManagerEmployeeName', heading: 'Người quản lý', width: '40%' }
+              { name: 'Name', heading: 'Tên đầy đủ', width: '50%' },
+              { name: 'ManagerEmployeeName', heading: 'Người quản lý', width: '20%' }
         ],
         data: [],
         sysViewID: 2,
@@ -31,6 +31,11 @@
         window.setTimeout(function () {
             $(window).trigger("resize")
         }, 200);
+
+        $scope.customSettings = {
+            letterCase: 'uppercase'
+        };
+
     }
     $scope.setData = function (data) {
         if (typeof data != 'undefined') {

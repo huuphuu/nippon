@@ -75,7 +75,7 @@
     </li>-->
     <li class="user-footer" ng-if="nav.type == 4">
         <div class="pull-left">
-            <a ng-href="{{currentUser.profile.profileUrl}}" class="btn btn-default btn-flat">Profile</a>
+            <a ng-click="changePassword()" class="btn btn-default btn-flat">Change Password</a>
         </div>
         <div class="pull-right">
             <a ng-click="signOut()" class="btn btn-default btn-flat">Sign out</a>

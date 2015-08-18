@@ -1,5 +1,5 @@
 ﻿angular.module('indexApp')
-.controller('ProjectCtrl', function ($scope, $timeout, coreService, alertFactory, dialogs) {
+.controller('ProjectCtrl', function ($scope, projectService, coreService, alertFactory, dialogs) {
     $scope.gridInfo = {
         gridID: 'projecttgrid',
         table: null,
@@ -7,7 +7,7 @@
               { name: 'ID', heading: 'ID', width: '0', isHidden: true },
               { name: 'ZOrder', heading: '#', width: '1px' },
               { name: 'Status', heading: 'Status', width: '100px' },
-              { name: 'Agent', heading: 'Agent', width: '100px' },
+              { name: 'AgentName', heading: 'Agent', width: '100px' },
               { name: 'Address', heading: 'Address', width: '200px' },
               { name: 'Market', heading: 'Market' },
 			  { name: 'Phone', heading: 'Phone', width: '100px', isHidden: true },
@@ -17,7 +17,7 @@
         ],
         showColMin: 6,
         data: [],
-        sysViewID: 1,
+        sysViewID: 5,
         searchQuery: '',
     },
     $scope.statusOptions = statusOptions;
@@ -133,7 +133,9 @@
     }
 
     $scope.openDialog = function () {
-        var dlg = dialogs.create('/templates/view/project/project-popup.html', 'projectDialogCtrl', $scope, { size: 'lg', keyboard: false, backdrop: false });
+        projectService.dataSelected = $scope.dataSeleted;
+        projectService.gridData = $scope.gridInfo.data;
+        var dlg = dialogs.create('/templates/view/project/project-popup.html', 'projectDialogCtrl', projectService, { size: 'lg', keyboard: false, backdrop: false });
         dlg.result.then(function (name) {
             $scope.name = name;
         }, function () {
@@ -142,14 +144,15 @@
         });
     }
 
-    $scope.openDialog();
-
 })
-.controller('projectDialogCtrl', function ($scope, $modalInstance, data) {
+.controller('projectDialogCtrl', function ($scope, $modalInstance, projectService) {
     //-- Variables --//
-    console.log('projectDialogCtrl', data)
+    //console.log('projectDialogCtrl', data)
+    $scope.dataSelected = projectService.dataSelected;
+    //console.log("init:data", $scope.dataSelected);
+    //console.log("init:data", projectService.dataSelected);
     $scope.user = { name: '' };
-    $scope.title = data.layout.titlePopup;
+    //$scope.title = data.layout.titlePopup;
     //-- Methods --//
 
     $scope.cancel = function () {
@@ -157,6 +160,11 @@
     }; // end cancel
 
     $scope.save = function () {
+        var act = "INSERT";
+        //console.log("save:data", $scope.dataSelected);
+        //console.log("save:projectService", projectService.dataSelected);
+        if ($scope.dataSelected.ID != undefined && $scope.dataSelected.ID > 0) act = "UPDATE";
+        projectService.actionEntry(act);
         $modalInstance.close($scope.user.name);
     }; // end save
 

@@ -94,6 +94,56 @@ var coreApp;
             }
             return null;
         },
+        ///npn: Ham goi rieng cho action
+        // data: {Success:true, Message:{Name:'OK',Description:'OK'}, Result:1}
+        callAjaxAction: function (options, callback) {
+            if (options) {
+                var defOptions = {
+                    type: 'POST',
+                    dataType: "xml",
+                    success: function (data, textStatus, jqXHR) {
+                        if (data) {
+                            data = coreApp.xml.getContent(data);
+                            data = data.CSV2JSON2();
+                            //Data nhan duoc la 1 array 2 chieu
+                            //data[0] la ket qua trang thai request
+                            //data[1] ket qua ham tra ve, neu data[0] false thi data[1] co the khong co
+                            var result = {};
+                            if (data == undefined || data.length == 0 || data[0].length == 0) {
+                                result.Message = { Name: "Error", Description: "Unknow error: no data received." };
+                                result.Success = false;
+                            } else if (data[0][0].Result != '' && data[0][0].Result > 0) { //Neu data[0] OK
+                                if (data.length > 1 && data[1].length > 0) {
+                                    if (data[1][0].Result != '' && data[1][0].Result > 0) { //Neu data[1] OK
+                                        result.Message = data[1][0];
+                                        result.Result = data[1][0].Result;
+                                        result.Success = true;
+                                    } else {
+                                        result.Message = data[1][0];
+                                        result.Success = false;
+                                    }
+                                } else {
+                                    result.Message = { Name: "Error", Description: "Unknow error: Request ok." };
+                                    result.Success = false;
+                                }
+
+                            } else {
+                                result.Message = data[0][0];
+                                result.Success = false;
+                            }
+                            if (typeof callback == 'function') {
+                                callback(result);
+                            }
+                        }
+                    }
+                };
+
+                $.extend(defOptions, options, true);
+
+                return this.ajax(defOptions);
+            }
+            return null;
+        },
         objectToXML: function (tagName, data) {
             var objThis = this;
             var inputs = [],
@@ -202,6 +252,15 @@ var coreApp;
                     }
                 }, callback);
             };
+            this.executeAction = function (fnName, inputValue, callback) {
+                return a.callAjaxAction({
+                    url: 'Core/CoreService.asmx/' + fnName,
+                    data: {
+                        clientKey: a.systemConfig.clientKey,
+                        inputValue: a.html.encode(inputValue)
+                    }
+                }, callback);
+            };
             this.getContextData = function (inputValue, callback) {
                 return this.execute('GetContextData', inputValue, callback);
             };
@@ -215,8 +274,13 @@ var coreApp;
             };
             this.actionEntry = function (data, callback) {
                 var inputValue = a.objectToXMLEx('InputValue', { UserID: 0 }) + a.objectToXMLEx('RequestParams', data);
-                console.log("inputValue", inputValue);
+                //console.log("inputValue", inputValue);
                 return this.execute('ExecuteAction ', inputValue, callback);
+            };
+            this.actionEntry2 = function (data, callback) {
+                var inputValue = a.objectToXMLEx('InputValue', { UserID: 0 }) + a.objectToXMLEx('RequestParams', data);
+                //console.log("inputValue", inputValue);
+                return this.executeAction('ExecuteAction ', inputValue, callback);
             };
             this.callServer = function (url, fnName, data, callback) {
                 var inputValue = a.objectToXML('InputValue', data);

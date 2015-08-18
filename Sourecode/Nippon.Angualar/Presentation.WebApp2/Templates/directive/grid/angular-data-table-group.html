@@ -14,10 +14,10 @@
                             <td data-ng-repeat="(i, col) in vm.gridInfo.cols" width="{{c.width}}" ng-hide="vm.gridInfo.cols[i].isHidden" class="Pointer " ng-click="vm.setData(item,col)">
 
                                 <div ng-if="vm.gridInfo.cols[i].backColor">
-                                    <div style="width: 13%; float: left" ng-if="item.ParentID=='0'">{{item.ID}}</div>
+                                    <div style="width: 13%; float: left" ng-if="item.ParentID=='0'">{{item.RowNumber}}</div>
                                     <div style="width: 87%; float: left" ng-style="{'background-color':(vm.gridInfo.cols[i].backColor?item.BackColor:'')}"  ng-if="item.ParentID=='0'">{{ item[col.name] }}</div>
 
-                                    <div style="width: 20%; float: left" ng-if="item.ParentID!='0'">{{item.ID}}</div>
+                                    <div style="width: 20%; float: left" ng-if="item.ParentID!='0'">{{item.RowNumber}}</div>
                                     <div style="width: 80%; float: left" ng-style="{'background-color':(vm.gridInfo.cols[i].backColor?item.BackColor:'')}"  ng-if="item.ParentID!='0'">{{ item[col.name] }}</div>
                                 </div>
                                 <div ng-if="!vm.gridInfo.cols[i].backColor">
@@ -27,7 +27,7 @@
                         </tr>
                     </tbody>
                 </table>
-
+                
             </div>
         </form>
         <!-- /.box-body -->

@@ -68,17 +68,17 @@
             <small>Member since {{currentUser.profile.beMemberSince}}</small>
         </p>
     </li>
-    <li class="user-body" ng-if="nav.type == 4">
+   <!-- <li class="user-body" ng-if="nav.type == 4">
         <div ng-repeat="menu in currentUser.profile.userBody" class="col-xs-{{12 / currentUser.profile.userBody.length}} text-center">
             <a ng-href="{{menu.url}}">{{menu.text}}</a>
         </div>
-    </li>
+    </li>-->
     <li class="user-footer" ng-if="nav.type == 4">
         <div class="pull-left">
             <a ng-href="{{currentUser.profile.profileUrl}}" class="btn btn-default btn-flat">Profile</a>
         </div>
         <div class="pull-right">
-            <a href="#" class="btn btn-default btn-flat">Sign out</a>
+            <a ng-click="signOut()" class="btn btn-default btn-flat">Sign out</a>
         </div>
     </li>
 </ul>

@@ -10,7 +10,7 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnDefBuilder,
          .withOption("pagingType", 'simple_numbers')
          .withOption("pageLength", 9)
          .withOption("searching", true)
-        .withOption("autowidth", false)
+        .withOption("autowidth", false);
     //  .withLanguageSource('Scripts/plugins/datatables/LanguageSource.json');
 
 
@@ -18,22 +18,28 @@ function dataGridsCtrl(DTOptionsBuilder, DTColumnDefBuilder, DTColumnDefBuilder,
         vm.gridInfo = gridInfo;
         vm.rootScope = rootScope;
         coreService.getList($scope.gridInfo.sysViewID, function (data) {
-            vm.gridInfo.data = data[1];
+            vm.gridInfo.data = angular.copy(data[1]);
             $scope.$apply();
 
         });
 
-        //angular.forEach(data, function (value, key) {
-        //    if (typeof value != "function" && typeof value != "object") {
-        //        // value = html.decode(value);
-        //        inputs.push($.string.Format('{0}="{1}" ', key, objThis.html.encode(value)));
-        //    }
-        //});
+        angular.forEach($scope.gridInfo.cols, function (value, key) {
+            if (typeof value != "function" && typeof value != "object") {
+                // value = html.decode(value);
+                inputs.push($.string.Format('{0}="{1}" ', key, objThis.html.encode(value)));
+            }
+        });
+        vm.dtColumnDefs = [];
+        var x, k = 0, cols = $scope.gridInfo.cols, arr = new Array();
+        for (x in cols) {
+            if (typeof cols[x].isSort == 'undefined')
+                cols[x].isSort = true;
+            if (cols[x].isSort == false)
+                vm.dtColumnDefs.push(DTColumnDefBuilder.newColumnDef(k++).notSortable());
+            else
+                vm.dtColumnDefs.push(DTColumnDefBuilder.newColumnDef(k++));
+        }
 
-        vm.dtColumnDefs = [
-     //   DTColumnDefBuilder.newColumnDef(1).notSortable(),
-        DTColumnDefBuilder.newColumnDef(2).notSortable()
-        ];
     }
     vm.setData = function (item, col) {
         var row = angular.copy(item);

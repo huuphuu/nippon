@@ -1,13 +1,13 @@
 ﻿angular.module('indexApp')
-.controller('AreaCtrl', function ($scope, coreService, alertFactory, dialogs) {
+.controller('AreaCtrl', function ($scope, coreService, alertFactory, dialogs, coreService) {
     $scope.gridInfo = {
         gridID: 'areagridid',
         table: null,
         cols: [
-              { name: 'ID', heading: 'ID', width: '10px',isHidden:true },
-               { name: 'Code', heading: 'Tên viết tắt', width: '30%', backColor: true },
-              { name: 'Name', heading: 'Tên đầy đủ', width: '50%' },
-              { name: 'ManagerEmployeeName', heading: 'Người quản lý', width: '20%' }
+              { name: 'RowNumber', heading: 'RowNumber', width: '10px', isHidden: true},
+               { name: 'Code', heading: 'Tên viết tắt', width: '30%', backColor: true, isSort: false },
+              { name: 'Name', heading: 'Tên đầy đủ', width: '50%', isSort: false, isSort: false },
+              { name: 'ManagerEmployeeName', heading: 'Người quản lý', width: '20%', isSort: false }
         ],
         data: [],
         sysViewID: 2,
@@ -60,31 +60,12 @@
             coreService.actionEntry(entry, function (data) {
                 if (data[0].length > 0)
                     if (data[0][0]) {
-                        switch (act) {
-                            case 'INSERT':
-                                entry.ID = data[0][0].ID;
-                                $scope.gridInfo.data.unshift(entry);
-                                break;
-                            case 'UPDATE':
-                                angular.forEach($scope.gridInfo.data, function (item, key) {
-                                    if (entry.ID == item.ID) {
-                                        $scope.gridInfo.data[key] = angular.copy(entry);
+                        coreService.getList($scope.gridInfo.sysViewID, function (data) {
+                            $scope.gridInfo.data = angular.copy(data[1]);
+                            $scope.$apply();
 
-                                    }
-                                });
-                                break;
-                            case 'DELETE':
-                                var index = -1;
-                                var i = 0;
-                                angular.forEach($scope.gridInfo.data, function (item, key) {
-                                    if (entry.ID == item.ID)
-                                        index = i;
-                                    i++;
-                                });
-                                if (index > -1)
-                                    $scope.gridInfo.data.splice(index, 1);
-                                break;
-                        }
+                        });
+
                         $scope.reset();
                         dialogs.notify(data[0][0].Name, data[0][0].Description);
                     }

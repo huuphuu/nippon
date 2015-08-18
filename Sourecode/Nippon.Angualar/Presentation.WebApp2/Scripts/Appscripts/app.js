@@ -27,7 +27,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
         })
         .state('department', {
             url: '/department',
-            templateUrl: '/Templates/view/department/department-index.html'
+            templateUrl: ''
         })
          .state('position', {
              url: '/position',

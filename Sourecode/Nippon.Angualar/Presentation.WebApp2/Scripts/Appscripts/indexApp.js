@@ -1,15 +1,69 @@
 ﻿'use strict';
 angular.module('indexApp')
 // Controller ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    .controller('BodyController', function ($scope, toaster, alertFactory) {
+    .controller('BodyController', function ($scope, toaster, coreService, accessFac) {
         $scope.navigation = $adminCMS.data.navigation;
         $scope.currentUser = $adminCMS.data.user;
-        $scope.sidebarNavigation = $adminCMS.data.navigation.sidebarNav;
+        // $scope.sidebarNavigation = $adminCMS.data.navigation.sidebarNav;
+        $scope.sidebarNavigation = [];
+        // console.log('$adminCMS.data.navigation.sidebarNav', $adminCMS.data.navigation.sidebarNav)
+        var userInfo = accessFac.getUserInfo();
+        coreService.userID = userInfo.ID;
+        coreService.getList(10, function (data) {
+            var pData = $scope.buildNavigation(data[1]);
+            $scope.sidebarNavigation = pData;
+            console.log(pData);
+            setTimeout(function () {
+                $.AdminLTE.tree('.sidebar');
+            }, 100);
+        });
+
+
+
         $scope.server = $adminCMS.data.server;
         $scope.serverList = $adminCMS.data.serverList;
         $scope.themeButton = 'btn-success';
+
+        $scope.buildNavigation = function (data) {
+          
+            var tempData = angular.extend([], data),
+            masterArr = [],
+            childArr = [];
+            for (var i = 0; i < tempData.length; i++) {
+                tempData[i].name = tempData[i].Name;
+                tempData[i].url = tempData[i].Code.toLowerCase();//tempData[i].LinkURL == '' ? '#' : tempData[i].LinkURL;
+                tempData[i].cssIcon = tempData[i].CssIcon;
+                tempData[i].labelCss = tempData[i].LabelCss;
+                if (tempData[i].ParentID == "0") {
+                    tempData[i].url = '#';
+                    masterArr.push(tempData[i]);
+                }
+                else {
+                    childArr.push(tempData[i]);
+                }
+            }
+            for (var i = 0; i < childArr.length; i++) {
+             
+                addItemPosition(childArr[i]);
+            }
+            return masterArr;
+
+            function addItemPosition(item) {
+                for (var i = 0; i < masterArr.length; i++) {
+                    if (masterArr[i].ID == item.ParentID) {
+                        
+                        if (typeof masterArr[i].childs == 'undefined')
+                            masterArr[i].childs = new Array();
+                        masterArr[i].childs.push(item);
+                        break;
+                    }
+                }
+            }
+        }
+
+
     })
-   
+
 //Filter ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //Directive /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -51,9 +105,9 @@ angular.module('indexApp')
             },
             templateUrl: '/Templates/directive/navigation/navigation.html',
             link: function (scope, element, attrs) {
-                setTimeout(function () {
-                    $.AdminLTE.tree('.sidebar');
-                }, 100);
+                //setTimeout(function () {
+                //    $.AdminLTE.tree('.sidebar');
+                //}, 100);
             }
         };
     })
@@ -178,4 +232,7 @@ angular.module('indexApp')
 
 
     }])
+
+
+
 

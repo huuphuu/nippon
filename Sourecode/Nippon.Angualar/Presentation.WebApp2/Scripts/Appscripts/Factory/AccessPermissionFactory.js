@@ -11,11 +11,11 @@
             return false;
         return authData.isAuth == true;
     }
-    obj.getUserID = function () {
+    obj.getUserInfo = function () {
         var authData = localStorageService.get('authorizationData');			//returns the users permission level 
         if (authData == null)
-            return 0;
-        return authData.ID;
+            return null;
+        return authData;
     }
     return obj;
 });

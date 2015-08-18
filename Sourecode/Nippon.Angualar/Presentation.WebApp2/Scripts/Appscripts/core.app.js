@@ -234,6 +234,7 @@ var coreApp;
 (function (a) {
     a.service = {
         core: function () {
+            userID:0,
             this.execute = function (fnName, inputValue, callback) {
                 return a.callAjax({
                     url: 'Core/CoreService.asmx/' + fnName,
@@ -265,20 +266,20 @@ var coreApp;
                 return this.execute('GetContextData', inputValue, callback);
             };
             this.getList = function (viewID, callback) {
-                var inputValue = a.objectToXML('InputValue', { UserID: 0 }) + a.objectToXML('RequestParams', { Sys_ViewID: viewID }); //$.string.Format('<InputValue UserID=""/><RequestParams Sys_ViewID="{0}"/>', viewID);
+                var inputValue = a.objectToXML('InputValue', { UserID: this.userID }) + a.objectToXML('RequestParams', { Sys_ViewID: viewID }); //$.string.Format('<InputValue UserID=""/><RequestParams Sys_ViewID="{0}"/>', viewID);
                 return this.execute('GetContextData ', inputValue, callback);
             };
             this.getListEx = function (option, callback) {
-                var inputValue = a.objectToXML('InputValue', { UserID: 0 }) + a.objectToXML('RequestParams', option); //$.string.Format('<InputValue UserID=""/><RequestParams Sys_ViewID="{0}"/>', viewID);
+                var inputValue = a.objectToXML('InputValue', { UserID: this.userID }) + a.objectToXML('RequestParams', option); //$.string.Format('<InputValue UserID=""/><RequestParams Sys_ViewID="{0}"/>', viewID);
                 return this.execute('GetContextData ', inputValue, callback);
             };
             this.actionEntry = function (data, callback) {
-                var inputValue = a.objectToXMLEx('InputValue', { UserID: 0 }) + a.objectToXMLEx('RequestParams', data);
+                var inputValue = a.objectToXMLEx('InputValue', { UserID: this.userID }) + a.objectToXMLEx('RequestParams', data);
                 //console.log("inputValue", inputValue);
                 return this.execute('ExecuteAction ', inputValue, callback);
             };
             this.actionEntry2 = function (data, callback) {
-                var inputValue = a.objectToXMLEx('InputValue', { UserID: 0 }) + a.objectToXMLEx('RequestParams', data);
+                var inputValue = a.objectToXMLEx('InputValue', { UserID: this.userID }) + a.objectToXMLEx('RequestParams', data);
                 //console.log("inputValue", inputValue);
                 return this.executeAction('ExecuteAction ', inputValue, callback);
             };

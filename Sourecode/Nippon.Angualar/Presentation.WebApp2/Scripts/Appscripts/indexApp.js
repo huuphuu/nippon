@@ -9,10 +9,11 @@ angular.module('indexApp')
         // console.log('$adminCMS.data.navigation.sidebarNav', $adminCMS.data.navigation.sidebarNav)
         var userInfo = accessFac.getUserInfo();
         coreService.userID = userInfo.ID;
+        $scope.currentUser.profile.fullName = userInfo.FullName;
+        $scope.currentUser.profile.title = userInfo.UserName;
         coreService.getList(10, function (data) {
             var pData = $scope.buildNavigation(data[1]);
             $scope.sidebarNavigation = pData;
-            console.log(pData);
             setTimeout(function () {
                 $.AdminLTE.tree('.sidebar');
             }, 100);

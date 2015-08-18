@@ -1,7 +1,7 @@
 ﻿'use strict';
 angular.module('indexApp')
 // Controller ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    .controller('BodyController', function ($scope, toaster, coreService, accessFac) {
+    .controller('BodyController', function ($scope, toaster, coreService, accessFac, localStorageService) {
         $scope.navigation = $adminCMS.data.navigation;
         $scope.currentUser = $adminCMS.data.user;
         // $scope.sidebarNavigation = $adminCMS.data.navigation.sidebarNav;
@@ -63,6 +63,11 @@ angular.module('indexApp')
         }
 
 
+        $scope.signOut = function () {
+            debugger;
+            localStorageService.remove('authorizationData');
+            window.location.href = '/index.html';
+        }
     })
 
 //Filter ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -86,13 +91,19 @@ angular.module('indexApp')
             }
         };
     })
-    .directive('headerNavbarMenu', function () {
+    .directive('headerNavbarMenu', function (localStorageService) {
         return {
             restrict: 'EA',
             replace: true,
             scope: {
                 navigation: '=',
                 currentUser: '='
+            },
+            controller: function ($scope ) {
+                $scope.signOut = function () {
+                    localStorageService.remove('authorizationData');
+                    window.location.href = '/index.html';
+                }
             },
             templateUrl: '/Templates/directive/header/nav/header-Navbar-Menu.html'
         };

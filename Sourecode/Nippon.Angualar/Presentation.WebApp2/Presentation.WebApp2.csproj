@@ -116,6 +116,7 @@
     <Content Include="Scripts\Appscripts\Controller\AreaController.js" />
     <Content Include="Scripts\Appscripts\Controller\PositionController.js" />
     <Content Include="Scripts\Appscripts\Controller\ProjectController.js" />
+    <Content Include="Scripts\Appscripts\Controller\ProjectService.js" />
     <Content Include="Scripts\Appscripts\Controller\UserControler.js" />
     <Content Include="Scripts\Appscripts\defaultApp.js" />
     <Content Include="Scripts\Appscripts\Factory\AccessPermissionFactory.js" />

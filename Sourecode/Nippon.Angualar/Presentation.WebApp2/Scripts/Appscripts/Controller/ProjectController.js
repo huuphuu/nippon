@@ -20,12 +20,13 @@
         sysViewID: 5,
         searchQuery: '',
     },
+     $scope.steps = [{ title: 'Step 1:  Request', isOpen: true }, { title: 'Step 2 ' }, { title: 'Step 3' }, { title: 'Step 4 ' }, { title: 'Step  5' }, { title: 'Step 6:  Maketing check' }]
     $scope.statusOptions = statusOptions;
     $scope.layout = {
         enableClear: false,
         enableButtonOrther: false,
-        isFull: false, 
-        titlePopup:'Add New Project'
+        isFull: false,
+        titlePopup: 'Add New Project'
     }
     $scope.setFullSreen = function () {
         var $grid = $scope.gridInfo;
@@ -173,4 +174,10 @@
         //    $scope.save();
     };
 }) // end controller(customDialogCtrl)
-
+.directive('projectStep', function ($timeout) {
+    return {
+        restrict: 'EA',
+        replace: true,
+        templateUrl: '/Templates/view/project/project-Step.html'
+    };
+})

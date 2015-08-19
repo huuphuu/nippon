@@ -17,7 +17,18 @@
             <!---Directive right-->
             <form class="form-inline row" ng-include="'/Templates/view/project/project-top-right.html'"></form>
 
-            <form class="form-horizontal row" ng-include="'/Templates/view/project/project-botton-right.html'">
+            <form class="form-inline row">
+                <div class="box-body row">
+                    <div class="form-group  col-md-12 margin-top-8">
+                        <accordion close-others="true">
+   
+    <accordion-group heading="{{group.title}}" ng-repeat="group in steps"   is-open="group.isOpen">
+     <project-step></project-step>
+    </accordion-group>
+   </accordion>
+                    </div>
+
+                </div>
             </form>
         </div>
 

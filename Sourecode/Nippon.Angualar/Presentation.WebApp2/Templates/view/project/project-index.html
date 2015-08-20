@@ -21,11 +21,10 @@
                 <div class="box-body row">
                     <div class="form-group  col-md-12 margin-top-8">
                         <accordion close-others="true">
-   
-    <accordion-group heading="{{group.title}}" ng-repeat="group in steps"   is-open="group.isOpen">
-     <project-step></project-step>
-    </accordion-group>
-   </accordion>
+                        <accordion-group heading="{{group.title}}" ng-repeat="group in steps"   is-open="group.isOpen">
+                         <project-step></project-step>
+                        </accordion-group>
+                       </accordion>
                     </div>
 
                 </div>

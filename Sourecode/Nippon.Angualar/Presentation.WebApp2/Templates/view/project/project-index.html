@@ -21,8 +21,16 @@
                 <div class="box-body row">
                     <div class="form-group  col-md-12 margin-top-8">
                         <accordion close-others="true">
-                        <accordion-group heading="{{group.title}}" ng-repeat="group in steps"   is-open="group.isOpen">
-                         <project-step></project-step>
+                        <accordion-group heading="" ng-repeat="group in steps"   is-open="group.isOpen">
+                             <accordion-heading>
+          {{group.title}}
+                                   <button type="button" class="btn pull-right" ng-class="themeButton" style="margin-top: -8px;" ng-show="!{{group.isFinish}}">  Done</button>
+                             <span ng-show="group.isFinish" class=" pull-right">{{group.finishDate}}</span>
+        </accordion-heading>
+
+                         <project-step>
+
+                         </project-step>
                         </accordion-group>
                        </accordion>
                     </div>

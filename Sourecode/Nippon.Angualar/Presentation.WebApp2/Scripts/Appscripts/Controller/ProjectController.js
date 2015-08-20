@@ -20,7 +20,7 @@
         sysViewID: 5,
         searchQuery: '',
     },
-     $scope.steps = [{ title: 'Step 1:  Request', isOpen: true }, { title: 'Step 2:  Survey ' }, { title: 'Step 3:  Design' }, { title: 'Step 4:  Approve' }, { title: 'Step 5: Install' }, { title: 'Step 6:  Maketing check' }]
+     $scope.steps = [{ title: 'Step 1:  Request', isFinish: true, finishDate: '2015-12-03' }, { title: 'Step 2:  Survey ', isOpen: true, isFinish: false }, { title: 'Step 3:  Design', isFinish: false }, { title: 'Step 4:  Approve', isFinish: false }, { title: 'Step 5: Install', isFinish: false }, { title: 'Step 6:  Maketing check', isFinish: false }]
     $scope.statusOptions = statusOptions;
     $scope.layout = {
         enableClear: false,

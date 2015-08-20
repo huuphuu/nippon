@@ -189,3 +189,6 @@ $adminCMS.data = {
             ]
         }
 };
+var layoutConfig={
+    skin: ' skin-green-light'
+}

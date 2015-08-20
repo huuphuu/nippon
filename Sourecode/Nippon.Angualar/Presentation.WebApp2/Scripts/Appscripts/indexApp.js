@@ -4,6 +4,7 @@ angular.module('indexApp')
     .controller('BodyController', function ($scope, toaster, coreService, accessFac, localStorageService) {
         $scope.navigation = $adminCMS.data.navigation;
         $scope.currentUser = $adminCMS.data.user;
+        $scope.skin = layoutConfig.skin;
         // $scope.sidebarNavigation = $adminCMS.data.navigation.sidebarNav;
         $scope.sidebarNavigation = [];
         // console.log('$adminCMS.data.navigation.sidebarNav', $adminCMS.data.navigation.sidebarNav)

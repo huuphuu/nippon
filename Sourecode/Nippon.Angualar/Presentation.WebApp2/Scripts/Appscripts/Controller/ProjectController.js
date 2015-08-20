@@ -178,6 +178,40 @@
     return {
         restrict: 'EA',
         replace: true,
-        templateUrl: '/Templates/view/project/project-Step.html'
+        templateUrl: '/Templates/view/project/project-Step.html',
+        controller: function ($scope) {
+            $scope.today = function () {
+                $scope.dt1 = new Date();
+                $scope.dt2 = new Date();
+                $scope.dt3 = new Date();
+            };
+            $scope.today();
+
+            $scope.clear = function () {
+                $scope.dt1 = null;
+            };
+
+            // Disable weekend selection
+            //$scope.disabled = function (date, mode) {
+            //    return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6));
+            //};
+
+            //$scope.toggleMin = function () {
+            //    $scope.minDate = $scope.minDate ? null : new Date();
+            //};
+            //$scope.toggleMin();
+
+          
+           
+            $scope.formats = [ 'shortDate','dd-MM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy'];
+            $scope.format = $scope.formats[1];
+
+            $scope.status = {
+                openedD1: false,
+                openedD2: false,
+                openedD3: false
+            };
+           
+        }
     };
 })

@@ -135,6 +135,10 @@
     <Content Include="Scripts\plugins\angular-grid\angular-grid.css" />
     <Content Include="Scripts\plugins\angular-grid\angular-grid.js" />
     <Content Include="Scripts\plugins\angular-grid\theme-fresh.css" />
+    <Content Include="Scripts\plugins\angular-minicolors-master\angular-minicolors.js" />
+    <Content Include="Scripts\plugins\angular-minicolors-master\jquery.minicolors.css" />
+    <Content Include="Scripts\plugins\angular-minicolors-master\jquery.minicolors.js" />
+    <Content Include="Scripts\plugins\angular-minicolors-master\jquery.minicolors.png" />
     <Content Include="Scripts\plugins\bootstrap-slider\bootstrap-slider.js" />
     <Content Include="Scripts\plugins\bootstrap-slider\slider.css" />
     <Content Include="Scripts\plugins\bootstrap-wysihtml5\bootstrap3-wysihtml5.all.js" />
@@ -881,6 +885,7 @@
     <Content Include="Style\bootstrap\js\npm.js" />
     <Content Include="Style\css\AdminLTE.css" />
     <Content Include="Style\css\AdminLTE.min.css" />
+    <Content Include="Style\css\build.css" />
     <Content Include="Style\css\Main.css" />
     <Content Include="Style\css\skins\skin-black-light.css" />
     <Content Include="Style\css\skins\skin-black-light.min.css" />
@@ -930,6 +935,7 @@
     <Content Include="Templates\Popup\Alert.html" />
     <Content Include="Templates\view\account\account-index.html" />
     <Content Include="Templates\view\account\index.html" />
+    <Content Include="Templates\view\area\area-index.html" />
     <Content Include="Templates\view\CP.index.html" />
     <Content Include="Templates\view\department\department-index.html" />
     <Content Include="Templates\view\employee\employee-index.html" />
@@ -947,8 +953,11 @@
     <Content Include="Templates\view\project\project-botton-right.html" />
     <Content Include="Templates\view\project\project-index.html" />
     <Content Include="Templates\view\project\project-popup.html" />
+    <Content Include="Templates\view\project\project-step.html" />
     <Content Include="Templates\view\project\project-top-left.html" />
     <Content Include="Templates\view\project\project-top-right.html" />
+    <Content Include="test\datetime\example.js" />
+    <Content Include="test\datetime\HtmlPage1.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

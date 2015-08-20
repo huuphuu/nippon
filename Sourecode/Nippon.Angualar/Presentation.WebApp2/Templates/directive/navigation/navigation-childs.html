@@ -2,9 +2,9 @@
     <li ng-repeat="item in menu">
         <a ui-sref="{{item.url}}" href="#">
             <i class="{{item.cssIcon}}"></i>
-                {{item.name}}
-            <i ng-class="{'fa fa-angle-left pull-right': item.childs.length > 1}"></i>
+            {{item.name}}
+           
         </a>
-        <navigation-multiple-menu menu="item.childs" ng-if="item.childs && item.childs.length > 0"></navigation-multiple-menu>
+
     </li>
-</ul>'
+</ul>

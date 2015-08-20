@@ -20,7 +20,7 @@
         sysViewID: 5,
         searchQuery: '',
     },
-     $scope.steps = [{ title: 'Step 1:  Request', isOpen: true }, { title: 'Step 2 ' }, { title: 'Step 3' }, { title: 'Step 4 ' }, { title: 'Step  5' }, { title: 'Step 6:  Maketing check' }]
+     $scope.steps = [{ title: 'Step 1:  Request', isOpen: true }, { title: 'Step 2:  Survey ' }, { title: 'Step 3:  Design' }, { title: 'Step 4:  Approve' }, { title: 'Step 5: Install' }, { title: 'Step 6:  Maketing check' }]
     $scope.statusOptions = statusOptions;
     $scope.layout = {
         enableClear: false,
@@ -190,18 +190,6 @@
             $scope.clear = function () {
                 $scope.dt1 = null;
             };
-
-            // Disable weekend selection
-            //$scope.disabled = function (date, mode) {
-            //    return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6));
-            //};
-
-            //$scope.toggleMin = function () {
-            //    $scope.minDate = $scope.minDate ? null : new Date();
-            //};
-            //$scope.toggleMin();
-
-          
            
             $scope.formats = [ 'shortDate','dd-MM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy'];
             $scope.format = $scope.formats[1];

@@ -23,7 +23,7 @@
             console.log(row, col)
         },
         setData: function (row, col) {
-            if (typeof data != 'undefined') {
+            if (typeof row != 'undefined') {
                 $scope.dataSeleted = row;
                 $scope.layout.enableClear = true;
                 $scope.layout.enableButtonOrther = true;

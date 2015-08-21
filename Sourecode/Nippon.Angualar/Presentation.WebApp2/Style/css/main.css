@@ -108,3 +108,7 @@ table#AreaGrid tbody td div{
    left: auto !important;
    right: 0px;
  }
+
+.dataTables_wrapper tr td{
+    cursor:pointer;
+}

@@ -27,7 +27,7 @@ angular.module('indexApp')
         $scope.themeButton = 'btn-success';
 
         $scope.buildNavigation = function (data) {
-          
+
             var tempData = angular.extend([], data),
             masterArr = [],
             childArr = [];
@@ -45,7 +45,7 @@ angular.module('indexApp')
                 }
             }
             for (var i = 0; i < childArr.length; i++) {
-             
+
                 addItemPosition(childArr[i]);
             }
             return masterArr;
@@ -53,7 +53,7 @@ angular.module('indexApp')
             function addItemPosition(item) {
                 for (var i = 0; i < masterArr.length; i++) {
                     if (masterArr[i].ID == item.ParentID) {
-                        
+
                         if (typeof masterArr[i].childs == 'undefined')
                             masterArr[i].childs = new Array();
                         masterArr[i].childs.push(item);
@@ -100,7 +100,7 @@ angular.module('indexApp')
                 navigation: '=',
                 currentUser: '='
             },
-            controller: function ($scope ) {
+            controller: function ($scope) {
                 $scope.signOut = function () {
                     localStorageService.remove('authorizationData');
                     window.location.href = '/index.html';
@@ -245,6 +245,116 @@ angular.module('indexApp')
 
 
     }])
+.directive('vmisTable', function () {
+    return {
+        restrict: "AE",
+        templateUrl: function (elem, attrs) {
+            return attrs["templateUrl"] || 'Templates/directive/grid/vmis-Table.html';
+        },
+        scope: {
+            gridInfo: '=vmisTable'
+        },
+        controller: function ($scope, $element, $attrs, $q, DTOptionsBuilder, DTColumnBuilder, $timeout) {
+            $scope.dtOptions = DTOptionsBuilder.newOptions()
+                                .withOption("paging", true)
+                        .withOption("pagingType", 'simple_numbers')
+         .withOption("pageLength", 2)
+         .withOption("searching", true)
+        .withOption("autowidth", true)
+      //.withOption('scrollY', '300px')
+         .withOption('scrollX', '100px')
+      //  .withOption('scrollCollapse', true)
+        .withFixedColumns({
+            leftColumns: 3,
+            rightColumns:0
+            });
+           // .withOption('rowCallback', rowCallback);
+            $scope.dtColumns = standardFields($scope.gridInfo.cols);
+            $scope.dtInstance = {}
+
+            $scope.searchTable = function () {
+                var query = $scope.searchQuery;
+                $scope.gridInfo.tableInstance.search(query).draw();
+            };
+
+            $timeout(function () {
+                $scope.$watch('gridInfo.data', function (data, oldData) {
+                    if (data) {
+                        $scope.dtInstance.dataTable.fnAddData(data);
+                        $scope.gridInfo.tableInstance = $scope.dtInstance.DataTable;
+                    }
+                }, true);
+
+                window.setTimeout(function () {
+                    $(window).trigger("resize")
+                }, 200);
+            }, 100);
+
+            function standardFields(fields) {
+                var columns = [];
+                for (var i = 0; i < fields.length; i++) {
+                    var field = fields[i];
+                    columns.push(standardField2Column(field));
+                }
+                return columns;
+            }
+            function rowCallback(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                // Unbind first in order to avoid any duplicate handler (see https://github.com/l-lin/angular-datatables/issues/87)
+                $('td', nRow).unbind('click');
+                $('td', nRow).bind('click', function () {
+                    $scope.$apply(function () {
+                        //vm.someClickHandler(aData);
+                    });
+                });
+
+                console.log('rowCallback', nRow, aData, iDisplayIndex, iDisplayIndexFull);
+                return nRow;
+            }
+
+            function standardField2Column(field) {
+                var col = DTColumnBuilder.newColumn(field.name);
+
+                col.withTitle(field.heading);
+                col.notSortable();
+
+                //switch (field.type) {
+                //    case controls.BUTTON:
+                //        col.notSortable();
+                //        col.renderWith(function (data, type, full, meta) {
+                //            return [
+                //            '<button type="button" class="btn btn-primary" ng-click="grid.appScope.action(row,col.filter)">',
+                //                '<span><i class="fa ', field.templateOptions.classIcon, '"></i>', field.templateOptions.placeholder, '</span>',
+                //            '</button>'
+                //            ].join('');
+                //        });
+                //        break;
+
+                //    case controls.CHECKBOX:
+                //        col.notSortable();
+                //        col.renderWith(function (data, type, full, meta) {
+                //            console.log('::CHECKBOX', data, type, full, meta);
+                //            return [
+                //                '<div class="checkbox checkbox-success">',
+                //                    '<input type="checkbox" id="chk-{{meta.row}}-{{meta.cold}}" ng-model="full[',
+                //                        'col.field]" />',
+                //                    '<label for="chk-{{meta.row}}-{{meta.cold}}"></label>',
+                //                '</div>'
+                //            ].join('');
+                //        });
+                //        break;
+
+                //    default:
+
+                //        break;
+                //}
+
+                return col;
+
+            }
+
+        }
+    }
+})
 
 
 

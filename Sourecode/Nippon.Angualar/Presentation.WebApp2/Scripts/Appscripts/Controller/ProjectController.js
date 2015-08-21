@@ -1,28 +1,34 @@
 ﻿angular.module('indexApp')
 .controller('ProjectCtrl', function ($scope, projectService, coreService, alertFactory, dialogs) {
-        $scope.gridInfo = {
-                gridID: 'projecttgrid',
-                table: null,
-                cols: [
-                    { name: 'ID', heading: 'ID', width: '0', isHidden: true },
-                    { name: 'ZOrder', heading: '#', width: '1px' },
-                    { name: 'Status', heading: 'Status', width: '100px' },
-                    { name: 'AgentName', heading: 'Agent', width: '100px' },
-                    { name: 'Address', heading: 'Address', width: '200px' },
-                    { name: 'Market', heading: 'Market' },
-                    { name: 'Phone', heading: 'Phone', width: '100px', isHidden: true },
-                    { name: 'PIC', heading: 'PIC', width: '100px', isHidden: true },
-                    { name: 'TurnOver', heading: 'TurnOver', width: '100px', isHidden: true },
-                    { name: 'Bussiness Volumn', heading: 'Bussiness Volumn', width: '100px', isHidden: true }
-                ],
-                showColMin: 6,
-                data: [],
-                sysViewID: 5,
-                searchQuery: '',
-            },
-            $scope.steps = [{ title: 'Step 1:  Request', Status: '0', finishDate: '2015-12-03' }, { title: 'Step 2:  Survey ', isOpen: true, Status: '0' }, { title: 'Step 3:  Design', Status: '0' }, { title: 'Step 4:  Approve', Status: '0' }, { title: 'Step 5: Install', Status: '0' }, { title: 'Step 6:  Maketing check', Status: '0' }];
-    $scope.loadSteps = function(projectId) {
-        coreService.getListEx({Sys_ViewID: 6,ProjectID: projectId}, function (data) {
+    $scope.gridInfo = {
+        gridID: 'projecttgrid',
+        table: null,
+        cols: [
+          
+            { name: 'ID', heading: '#', width: '1px' },
+            { name: 'Status', heading: 'Status', width: '1000px' },
+            { name: 'AgentName', heading: 'Agent', width: '100px' },
+            { name: 'AgentAddress', heading: 'Address', width: '200px' },
+            { name: 'ApprovedBy', heading: 'Market', width: '1000px' },
+            { name: 'CompetitorName', heading: 'Phone', width: '100px' },
+            { name: 'MasterDealerName', heading: 'PIC', width: '100px' },
+            { name: 'AttachedPhoto', heading: 'TurnOver', width: '100px' },
+            { name: 'NumberOfShopsign', heading: 'Bussiness Volumn', width: '100px' }
+        ],
+        showColMin: 6,
+        data: [],
+        sysViewID: 5,
+        searchQuery: '',
+    }
+    coreService.getList($scope.gridInfo.sysViewID, function (data) {
+        console.log(data)
+        $scope.gridInfo.data = angular.copy(data[1]);
+
+    });
+
+    $scope.steps = [{ title: 'Step 1:  Request', Status: '0', finishDate: '2015-12-03' }, { title: 'Step 2:  Survey ', isOpen: true, Status: '0' }, { title: 'Step 3:  Design', Status: '0' }, { title: 'Step 4:  Approve', Status: '0' }, { title: 'Step 5: Install', Status: '0' }, { title: 'Step 6:  Maketing check', Status: '0' }];
+    $scope.loadSteps = function (projectId) {
+        coreService.getListEx({ Sys_ViewID: 6, ProjectID: projectId }, function (data) {
             $scope.steps = data[1];
             console.log(data);
         });
@@ -53,6 +59,10 @@
 
 
         $scope.layout.isFull = !$scope.layout.isFull;
+
+        window.setTimeout(function () {
+            $(window).trigger("resize")
+        }, 200);
     }
 
     $scope.dataSeleted = { ID: 0, Name: "", Code: '', Description: "", Status: "0", Sys_ViewID: $scope.gridInfo.sysViewID };
@@ -205,8 +215,8 @@
             $scope.clear = function () {
                 $scope.dt1 = null;
             };
-           
-            $scope.formats = [ 'shortDate','dd-MM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy'];
+
+            $scope.formats = ['shortDate', 'dd-MM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy'];
             $scope.format = $scope.formats[1];
 
             $scope.status = {
@@ -214,7 +224,7 @@
                 openedD2: false,
                 openedD3: false
             };
-           
+
         }
     };
 })

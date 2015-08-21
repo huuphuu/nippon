@@ -264,10 +264,10 @@ angular.module('indexApp')
                                 .withOption('scrollX', '100px')
                                .withOption('scrollCollapse', true)
                                 .withOption('createdRow', createdRow)
-                                .withFixedColumns({
-                                    leftColumns: 3,
-                                    rightColumns: 0
-                                })
+                                //.withFixedColumns({
+                                //    leftColumns: 3,
+                                //    rightColumns: 0
+                                //})
                                .withOption('rowCallback', rowCallback);
 
             function rowCallback(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
@@ -277,6 +277,8 @@ angular.module('indexApp')
                 $('td', nRow).unbind('click');
                 $('td', nRow).bind('click', function () {
                     var col = $(this).attr('class').split(' ')[0];
+                    $("tr").removeClass('selected');
+                    $(this).parent().addClass('selected');
                     $scope.$apply(function () {
                         $scope.gridInfo.setData(aData, col);
                     });

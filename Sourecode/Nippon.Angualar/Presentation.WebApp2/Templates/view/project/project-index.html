@@ -23,9 +23,9 @@
                         <accordion close-others="true">
                         <accordion-group heading="" ng-repeat="group in steps"   is-open="group.isOpen">
                              <accordion-heading>
-          {{group.title}}
-                                   <button type="button" class="btn pull-right" ng-class="themeButton" style="margin-top: -8px;" ng-show="!{{group.isFinish}}" ng-click="stepDone($event)">  Done</button>
-                             <span ng-show="group.isFinish" class=" pull-right">{{group.finishDate}}</span>
+          {{group.StepName}}
+                                   <button type="button" class="btn pull-right" ng-class="themeButton" style="margin-top: -8px;" ng-show="{{group.Status=='1'}}" ng-click="stepDone($event)">  Done</button>
+                             <span ng-show="{{group.Status=='1'}}" class=" pull-right">{{group.CompleteDate}}</span>
         </accordion-heading>
 
                          <project-step>

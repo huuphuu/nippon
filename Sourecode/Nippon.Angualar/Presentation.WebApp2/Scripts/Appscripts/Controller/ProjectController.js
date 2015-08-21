@@ -183,7 +183,7 @@
 
     $scope.openDialogChart = function () {
         projectService.dataSelected = $scope.dataSeleted;
-        projectService.gridData = $scope.gridInfo.data;
+        projectService.viewID = 11;
         var dlg = dialogs.create('/templates/view/chart/baseline-index.html', 'baseLineChartCtrl', projectService, { size: 'lg', keyboard: false, backdrop: false });
         dlg.result.then(function (name) {
             $scope.name = name;

@@ -1,5 +1,5 @@
 ﻿angular.module('indexApp')
-.controller('baseLineChartCtrl', function ($scope, $modalInstance, projectService) {
+.controller('baseLineChartCtrl', function ($scope, $modalInstance, data) {
     //-- Variables --//
     //console.log('projectDialogCtrl', data)
     $scope.dataSelected = projectService.dataSelected;

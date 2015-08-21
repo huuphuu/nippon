@@ -276,11 +276,7 @@ angular.module('indexApp')
 
                 $('td', nRow).unbind('click');
                 $('td', nRow).bind('click', function () {
-                    console.log('rowCallback', $(this), nRow, aData, iDisplayIndex, iDisplayIndexFull);
-
                     var col = $(this).attr('class').split(' ')[0];
-
-
                     $scope.$apply(function () {
                         $scope.gridInfo.setData(aData, col);
                     });

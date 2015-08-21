@@ -954,6 +954,7 @@
     <Content Include="Templates\view\pattern\index.html" />
     <Content Include="Templates\view\position\position-index.html" />
     <Content Include="Templates\view\project\project-botton-right.html" />
+    <Content Include="Templates\view\project\project-chart.html" />
     <Content Include="Templates\view\project\project-index.html" />
     <Content Include="Templates\view\project\project-popup.html" />
     <Content Include="Templates\view\project\project-step.html" />

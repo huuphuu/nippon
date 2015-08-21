@@ -26,7 +26,7 @@
             if (typeof row != 'undefined') {
                 $scope.setData(row);
                 if (col == 'Status') {
-
+                    $scope.openDialogChart();
                 }
             }
         }
@@ -181,6 +181,18 @@
         });
     }
 
+    $scope.openDialogChart = function () {
+        projectService.dataSelected = $scope.dataSeleted;
+        projectService.gridData = $scope.gridInfo.data;
+        var dlg = dialogs.create('/templates/view/project/project-chart.html', 'projectDialogChartCtrl', projectService, { size: 'lg', keyboard: false, backdrop: false });
+        dlg.result.then(function (name) {
+            $scope.name = name;
+        }, function () {
+            if (angular.equals($scope.name, ''))
+                $scope.name = 'You did not enter in your name!';
+        });
+    }
+
 })
 .controller('projectDialogCtrl', function ($scope, $modalInstance, projectService) {
     //-- Variables --//
@@ -210,6 +222,22 @@
         //    $scope.save();
     };
 }) // end controller(customDialogCtrl)
+.controller('projectDialogChartCtrl', function ($scope, $modalInstance, projectService) {
+        //-- Variables --//
+        //console.log('projectDialogCtrl', data)
+        $scope.dataSelected = projectService.dataSelected;
+        //console.log("init:data", $scope.dataSelected);
+        //console.log("init:data", projectService.dataSelected);
+        $scope.title = 'Timeline Project';
+        //$scope.title = data.layout.titlePopup;
+        //-- Methods --//
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss('Canceled');
+        }; // end cancel
+
+        
+    })
 .directive('projectStep', function ($timeout) {
     return {
         restrict: 'EA',

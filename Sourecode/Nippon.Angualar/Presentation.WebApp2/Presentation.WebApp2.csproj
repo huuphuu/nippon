@@ -115,6 +115,7 @@
     <Content Include="Scripts\Appscripts\Authentication\ordersService.js" />
     <Content Include="Scripts\Appscripts\Authentication\tokensManagerService.js" />
     <Content Include="Scripts\Appscripts\Controller\AreaController.js" />
+    <Content Include="Scripts\Appscripts\Controller\BaseLineChartController.js" />
     <Content Include="Scripts\Appscripts\Controller\PositionController.js" />
     <Content Include="Scripts\Appscripts\Controller\ProjectController.js" />
     <Content Include="Scripts\Appscripts\Controller\ProjectService.js" />
@@ -939,6 +940,7 @@
     <Content Include="Templates\view\account\account-index.html" />
     <Content Include="Templates\view\account\index.html" />
     <Content Include="Templates\view\area\area-index.html" />
+    <Content Include="Templates\view\chart\baseline-index.html" />
     <Content Include="Templates\view\CP.index.html" />
     <Content Include="Templates\view\department\department-index.html" />
     <Content Include="Templates\view\employee\employee-index.html" />

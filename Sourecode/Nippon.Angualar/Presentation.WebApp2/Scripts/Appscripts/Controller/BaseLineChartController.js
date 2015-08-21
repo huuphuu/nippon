@@ -1,13 +1,14 @@
 ﻿angular.module('indexApp')
-.controller('baseLineChartCtrl', function ($scope, $modalInstance, data) {
+.controller('baseLineChartCtrl', function ($scope, $modalInstance, data, coreService) {
     //-- Variables --//
     //console.log('projectDialogCtrl', data)
-    $scope.dataSelected = projectService.dataSelected;
-    //console.log("init:data", $scope.dataSelected);
-    //console.log("init:data", projectService.dataSelected);
+    $scope.dataSelected = data.dataSelected;
     $scope.title = 'Timeline Project';
-    //$scope.title = data.layout.titlePopup;
-    //-- Methods --//
+    console.log(data.dataSelected.ID)
+    coreService.getViewData({ Sys_ViewID: 11, ProjectID: data.dataSelected.ID }, function (data) {
+        console.log(data);
+
+    });
 
     $scope.cancel = function () {
         $modalInstance.dismiss('Canceled');

@@ -265,6 +265,10 @@ var coreApp;
             this.getContextData = function (inputValue, callback) {
                 return this.execute('GetContextData', inputValue, callback);
             };
+            this.getViewData = function (objInput, callback) {
+                var inputValue = a.objectToXML('InputValue', { UserID: this.userID }) + a.objectToXML('RequestParams', objInput); //$.string.Format('<InputValue UserID=""/><RequestParams Sys_ViewID="{0}"/>', viewID);
+                return this.execute('GetContextData ', inputValue, callback);
+            };
             this.getList = function (viewID, callback) {
                 var inputValue = a.objectToXML('InputValue', { UserID: this.userID }) + a.objectToXML('RequestParams', { Sys_ViewID: viewID }); //$.string.Format('<InputValue UserID=""/><RequestParams Sys_ViewID="{0}"/>', viewID);
                 return this.execute('GetContextData ', inputValue, callback);

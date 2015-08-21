@@ -32,7 +32,6 @@
         }
     }
     coreService.getList($scope.gridInfo.sysViewID, function (data) {
-        console.log(data)
         $scope.gridInfo.data = angular.copy(data[1]);
 
     });

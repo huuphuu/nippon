@@ -1,32 +1,113 @@
-﻿var dataEmployee = [{ Name: 'Gecko', Email: 'Firefox 1.0', Phone: 'Win 98+ / OSX.2+' },
-                 { Name: 'Peter', Email: 'abc@yahoo.com', Phone: '0291798' },
-                 { Name: 'Mary', Email: 'Mary@yahoo..com', Phone: '98722554' },
-                 { Name: 'John', Email: 'John@yaho.con', Phone: 'MS8778' },
-                 { Name: 'Edision', Email: 'Edision@rewu.com', Phone: '17887121' },
-                 { Name: 'Cary', Email: 'cary@sopm.cm', Phone: '145' },
-                 { Name: 'Calop', Email: 'dasd@yahoo.cpm', Phone: '14578' },
-                 { Name: 'Cure', Email: 'asd@uah.c0m', Phone: '789164' },
-                 { Name: 'Cation', Email: 'philop@com', Phone: '1878' },
-                 { Name: 'Phu', Email: 'phu@gmail.com', Phone: '9778112' },
-                 { Name: 'Nam', Email: 'Smith@pms.com', Phone: '788912' },
-                 { Name: 'Tai', Email: 'philop@com', Phone: '1878' },
-                 { Name: 'Thanh', Email: 'phu@gmail.com', Phone: '9778112' },
-                 { Name: 'Katina', Email: 'Katina@pms.com', Phone: '788778912' }
-]
-var dataUser = [{ LoginName: 'Gecko', FullName: 'Firefox 1.0', LastLogin: 'Win 98+ / OSX.2+', Status: 'Active' },
-                {LoginName: 'Gecko', FullName: 'FirefoxFirefoxFirefoxFirefoxFirefoxFirefoxFirefoxFirefoxFirefox 1.0', LastLogin: 'Win 98+ / OSX.2+' ,Status:'Active'},
-                 { LoginName: 'Peter', FullName: 'abc@yahoo.com', LastLogin: '0291798', Status: 'Confirm' },
-                 { LoginName: 'Mary', FullName: 'Mary@yahoo..com', LastLogin: '98722554', Status: 'Pause' },
-                 { LoginName: 'John', FullName: 'John@yaho.con', LastLogin: 'MS8778', Status: 'New' },
-                 { LoginName: 'Edision', FullName: 'Edision@rewu.com', Phone: '17887121', Status: 'Active' },
-                 { LoginName: 'Cary', FullName: 'cary@sopm.cm', LastLogin: '145', Status: 'Active' },
-                 { LoginName: 'Calop', FullName: 'dasd@yahoo.cpm', LastLogin: '14578', Status: 'Active' },
-                 { LoginName: 'Cure', FullName: 'asd@uah.c0m', LastLogin: '789164', Status: 'Active' },
-                 { LoginName: 'Cation', FullName: 'philop@com', LastLogin: '1878', Status: 'Active' },
-                 { LoginName: 'Phu', FullName: 'phu@gmail.com', LastLogin: '9778112', Status: 'Active' },
-                 { LoginName: 'Nam', FullName: 'Smith@pms.com', LastLogin: '788912', Status: 'Active' },
-                 { LoginName: 'Tai', FullName: 'philop@com', LastLogin: '1878', Status: 'Active' },
-                 { LoginName: 'Thanh', FullName: 'phu@gmail.com', LastLogin: '9778112', Status: 'Active' },
-                 { LoginName: 'Katina', FullName: 'Katina@pms.com', LastLogin: '788778912', Status: 'Active' }
-]
-//  headerCode: ['LoginName', 'FullName', 'LastLogin', , 'Status'],
+﻿
+    [20/08/2015 17:14:23] Tan Tai Nguyen: .directive('vmisTable', function () {
+        return {
+            restrict: "AE",
+            templateUrl: function (elem, attrs) {
+                return attrs["templateUrl"] || 'views/core.form.table.html';
+            },
+            scope: {
+                view: '=vmisTable',
+                model: '=viewModel'
+            },
+            controller: function ($scope, $element, $attrs, $q, DTOptionsBuilder, DTColumnBuilder, $timeout) {
+                var controls = vmis.constant.CONTROLS_TYPE;
+                $scope.dtOptions = DTOptionsBuilder.newOptions();
+                $scope.dtColumns = standardFields($scope.view.fields);
+                $scope.dtInstance = {};
+
+                console.log('::vmisTable::controller', $scope.view.fields);
+
+                //vm.dtColumns = [
+                //    DTColumnBuilder.newColumn(null).withTitle(titleHtml).notSortable()
+                //        .renderWith(function (data, type, full, meta) {
+                //            vm.selected[full.id] = false;
+                //            return '<input type="checkbox" ng-model="showCase.selected[' + data.id + ']" ng-click="showCase.toggleOne(showCase.selected)">';
+                //        }),
+                //    DTColumnBuilder.newColumn('id').withTitle('ID'),
+                //    DTColumnBuilder.newColumn('firstName').withTitle('First name'),
+                //    DTColumnBuilder.newColumn('lastName').withTitle('Last name').notVisible()
+                //                ];
+
+
+                $timeout(function () {
+                    $scope.$watch('view.data.resultset', function (data, oldData) {
+                        if (data) {
+                            $scope.model[vmis.constant.ITEM_NAME] = data;
+                            $scope.dtInstance.dataTable.fnAddData(data);
+                        }
+                    }, true);
+                }, 100);
+
+                function standardFields(fields) {
+                    var columns = [];
+                    for (var i = 0; i < fields.length; i++) {
+                        var field = fields[i];
+                        columns.push(standardField2Column(field));
+                    }
+                    return columns;
+                }
+
+
+                function standardField2Column(field) {
+                    var col = DTColumnBuilder.newColumn(field.key);
+
+                    col.withTitle(field.templateOptions.label);
+                    col.withClass(field.className);
+                    col.notSortable();
+
+                    switch (field.type) {
+                        case controls.ICON_AND_TEXT:
+                            col.notSortable();
+                            col.renderWith(function (data, type, full, meta) {
+                                console.log(data)
+                                return [
+                                '<button type="button" class="btn btn-primary" ng-click="grid.appScope.action(row,col.filter)">',
+                                    '<span><i class="fa ', field.classIcon, '"></i>', field.templateOptions.placeholder, '</span>',
+                                '</button>'
+                                ].join('');
+                            });
+                            break;
+
+                        case controls.CHECKBOX:
+                            col.notSortable();
+                            col.renderWith(function (data, type, full, meta) {
+                                console.log('::CHECKBOX', data, type, full, meta);
+                                return [
+                                    '<div class="checkbox checkbox-success">',
+                                        '<input type="checkbox" id="chk-{{meta.row}}-{{meta.cold}}" ng-model="full[',
+                                            'col.field]" />',
+                                        '<label for="chk-{{meta.row}}-{{meta.cold}}"></label>',
+                                    '</div>'
+                                ].join('');
+                            });
+                            break;
+
+                        default:
+
+                            break;
+                    }
+                    return col;
+
+                }
+
+                function renderButton(data, type, full, meta) {
+                    return [
+                               '<button type="button" class="btn btn-primary" ng-click="grid.appScope.action(row,col.filter)">',
+                                   '<span><i class="fa ', field.templateOptions.classIcon, '"></i>', field.templateOptions.label, '</span>',
+                               '</button>'
+                    ].join('');
+                }
+
+                function renderCheckbox(data, type, full, meta) {
+                    console.log('checkbox', data, type, full, meta);
+                    return [
+                                '<div class="checkbox checkbox-success">',
+                                    '<input type="checkbox" id="chk-{{col.field}}-{{row.uid}}" ng-model="row.entity[col.field]" />',
+                                    '<label for="chk-{{col.field}}-{{row.uid}}">{{col.IsUpdate}}</label>',
+                                '</div>'
+                    ].join('');
+                }
+            }
+        }
+    })
+    

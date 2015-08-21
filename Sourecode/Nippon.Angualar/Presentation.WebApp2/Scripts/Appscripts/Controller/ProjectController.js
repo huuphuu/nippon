@@ -4,21 +4,32 @@
         gridID: 'projecttgrid',
         table: null,
         cols: [
-          
-            { name: 'ID', heading: '#', width: '1px' },
-            { name: 'Status', heading: 'Status', width: '1000px' },
+
+            { name: 'ID', heading: '#', width: '8px' },
+            { name: 'Status', heading: 'Status', width: '1000px', type: controls.ICON_AND_TEXT, classIcon: 'fa-pencil-square-o' },
             { name: 'AgentName', heading: 'Agent', width: '100px' },
             { name: 'AgentAddress', heading: 'Address', width: '200px' },
             { name: 'ApprovedBy', heading: 'Market', width: '1000px' },
             { name: 'CompetitorName', heading: 'Phone', width: '100px' },
             { name: 'MasterDealerName', heading: 'PIC', width: '100px' },
             { name: 'AttachedPhoto', heading: 'TurnOver', width: '100px' },
-            { name: 'NumberOfShopsign', heading: 'Bussiness Volumn', width: '100px' }
+            { name: 'NumberOfShopsign', heading: 'Volumn', width: '100px' }
         ],
         showColMin: 6,
         data: [],
         sysViewID: 5,
         searchQuery: '',
+        onClick: function (row, col) {
+            console.log(row, col)
+        },
+        setData: function (row, col) {
+            if (typeof data != 'undefined') {
+                $scope.dataSeleted = row;
+                $scope.layout.enableClear = true;
+                $scope.layout.enableButtonOrther = true;
+                $scope.loadSteps($scope.dataSeleted.ID);
+            }
+        }
     }
     coreService.getList($scope.gridInfo.sysViewID, function (data) {
         console.log(data)

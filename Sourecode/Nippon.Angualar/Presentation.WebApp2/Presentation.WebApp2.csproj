@@ -87,6 +87,7 @@
     <Content Include="Images\img\user8-128x128.jpg" />
     <Content Include="Images\user.png" />
     <Content Include="index.html" />
+    <Content Include="Scripts\angularjs\angular-animate.js" />
     <Content Include="Scripts\angularjs\angular-animate.min.js" />
     <Content Include="Scripts\angularjs\angular-cookies.min.js" />
     <Content Include="Scripts\angularjs\angular-loader.min.js" />
@@ -380,6 +381,7 @@
     <Content Include="Scripts\plugins\colorpicker\img\hue-horizontal.png" />
     <Content Include="Scripts\plugins\colorpicker\img\hue.png" />
     <Content Include="Scripts\plugins\colorpicker\img\saturation.png" />
+    <Content Include="Scripts\plugins\datatables\angular-datatables.fixedcolumns.js" />
     <Content Include="Scripts\plugins\datatables\angular-datatables.min.js" />
     <Content Include="Scripts\plugins\datatables\dataTables.bootstrap.css" />
     <Content Include="Scripts\plugins\datatables\dataTables.bootstrap.js" />
@@ -926,6 +928,7 @@
     <Content Include="Templates\directive\form\right-action.html" />
     <Content Include="Templates\directive\grid\angular-data-table-group.html" />
     <Content Include="Templates\directive\grid\angular-data-table.html" />
+    <Content Include="Templates\directive\grid\vmis-Table.html" />
     <Content Include="Templates\directive\header\nav\header-Navbar-Menu-dropdown.html" />
     <Content Include="Templates\directive\header\nav\header-Navbar-Menu.html" />
     <Content Include="Templates\directive\listFolderTreeView\listFolder-childs.html" />

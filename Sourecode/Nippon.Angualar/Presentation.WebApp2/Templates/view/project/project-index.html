@@ -9,7 +9,9 @@
 
             <div class="row">
                 <!---Directive left-action-->
-                <angular-grid-table grid-info="gridInfo" root-scope="this"></angular-grid-table>
+            <!--    <angular-grid-table grid-info="gridInfo" root-scope="this"></angular-grid-table>-->
+                
+                <div vmis-table="gridInfo" ></div>
             </div>
         </div>
 
@@ -24,7 +26,7 @@
                         <accordion-group heading="" ng-repeat="group in steps"   is-open="group.isOpen">
                              <accordion-heading>
           {{group.StepName}}
-                                   <button type="button" class="btn pull-right" ng-class="themeButton" style="margin-top: -8px;" ng-show="{{group.Status=='1'}}" ng-click="stepDone($event)">  Done</button>
+                                   <button type="button" class="btn pull-right" ng-class="themeButton" style="margin-top: -8px;" ng-show="{{group.Status!='1'}}" ng-click="stepDone($event)">  Done</button>
                              <span ng-show="{{group.Status=='1'}}" class=" pull-right">{{group.CompleteDate}}</span>
         </accordion-heading>
 

@@ -247,28 +247,53 @@ angular.module('indexApp')
     }])
 .directive('vmisTable', function () {
     return {
-        restrict: "AE",
+        // restrict: "AE",
         templateUrl: function (elem, attrs) {
             return attrs["templateUrl"] || 'Templates/directive/grid/vmis-Table.html';
         },
         scope: {
             gridInfo: '=vmisTable'
         },
-        controller: function ($scope, $element, $attrs, $q, DTOptionsBuilder, DTColumnBuilder, $timeout) {
+        controller: function ($scope, $element, $attrs, $q, DTOptionsBuilder, DTColumnBuilder, $timeout, $compile) {
             $scope.dtOptions = DTOptionsBuilder.newOptions()
                                 .withOption("paging", true)
-                        .withOption("pagingType", 'simple_numbers')
-         .withOption("pageLength", 2)
-         .withOption("searching", true)
-        .withOption("autowidth", true)
-      //.withOption('scrollY', '300px')
-         .withOption('scrollX', '100px')
-      //  .withOption('scrollCollapse', true)
-        .withFixedColumns({
-            leftColumns: 3,
-            rightColumns:0
-            });
-           // .withOption('rowCallback', rowCallback);
+                                .withOption("pagingType", 'simple_numbers')
+                                .withOption("pageLength", 9)
+                                .withOption("searching", true)
+                               .withOption("autowidth", true)
+                                .withOption('scrollX', '100px')
+                               .withOption('scrollCollapse', true)
+                                .withOption('createdRow', createdRow)
+                                .withFixedColumns({
+                                    leftColumns: 3,
+                                    rightColumns: 0
+                                })
+                               .withOption('rowCallback', rowCallback);
+
+            function rowCallback(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                // Unbind first in order to avoid any duplicate handler (see https://github.com/l-lin/angular-datatables/issues/87)
+
+
+                $('td', nRow).unbind('click');
+                $('td', nRow).bind('click', function () {
+                    console.log('rowCallback', $(this), nRow, aData, iDisplayIndex, iDisplayIndexFull);
+
+                    var col = $(this).attr('class').split(' ')[0];
+
+
+                    $scope.$apply(function () {
+                        $scope.gridInfo.setData(aData, col);
+                    });
+                });
+                return nRow;
+            }
+
+            function createdRow(row, data, dataIndex) {
+                // Recompiling so we can bind Angular directive to the DT
+                $compile(angular.element(row).contents())($scope);
+            }
+
+
             $scope.dtColumns = standardFields($scope.gridInfo.cols);
             $scope.dtInstance = {}
 
@@ -298,55 +323,47 @@ angular.module('indexApp')
                 }
                 return columns;
             }
-            function rowCallback(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-                // Unbind first in order to avoid any duplicate handler (see https://github.com/l-lin/angular-datatables/issues/87)
-                $('td', nRow).unbind('click');
-                $('td', nRow).bind('click', function () {
-                    $scope.$apply(function () {
-                        //vm.someClickHandler(aData);
-                    });
-                });
-
-                console.log('rowCallback', nRow, aData, iDisplayIndex, iDisplayIndexFull);
-                return nRow;
+            $scope.action = function (row, col) {
+                $scope.gridInfo.onClick(row, col)
             }
 
             function standardField2Column(field) {
                 var col = DTColumnBuilder.newColumn(field.name);
-
                 col.withTitle(field.heading);
                 col.notSortable();
+                if (typeof field.className == 'undefined')
+                    field.className = 'text-center';
+                col.withClass(field.name + " " + field.className);
+                switch (field.type) {
+                    case controls.ICON_AND_TEXT:
+                        col.notSortable();
+                        col.renderWith(function (data, type, full, meta) {
 
-                //switch (field.type) {
-                //    case controls.BUTTON:
-                //        col.notSortable();
-                //        col.renderWith(function (data, type, full, meta) {
-                //            return [
-                //            '<button type="button" class="btn btn-primary" ng-click="grid.appScope.action(row,col.filter)">',
-                //                '<span><i class="fa ', field.templateOptions.classIcon, '"></i>', field.templateOptions.placeholder, '</span>',
-                //            '</button>'
-                //            ].join('');
-                //        });
-                //        break;
+                            return [
+                               //'<i  ng-click="action(data,field)" class="fa ', field.classIcon, '">&nbsp;&nbsp;', data, '</i>'
+                                '<i  ng-click="action(', full.ID, ",\'", field.name, '\')" class="fa ', field.classIcon, '">&nbsp;&nbsp;', data, '</i>'
+                            ].join('');
+                        });
+                        break;
 
-                //    case controls.CHECKBOX:
-                //        col.notSortable();
-                //        col.renderWith(function (data, type, full, meta) {
-                //            console.log('::CHECKBOX', data, type, full, meta);
-                //            return [
-                //                '<div class="checkbox checkbox-success">',
-                //                    '<input type="checkbox" id="chk-{{meta.row}}-{{meta.cold}}" ng-model="full[',
-                //                        'col.field]" />',
-                //                    '<label for="chk-{{meta.row}}-{{meta.cold}}"></label>',
-                //                '</div>'
-                //            ].join('');
-                //        });
-                //        break;
+                        //case controls.CHECKBOX:
+                        //    col.notSortable();
+                        //    col.renderWith(function (data, type, full, meta) {
+                        //        console.log('::CHECKBOX', data, type, full, meta);
+                        //        return [
+                        //            '<div class="checkbox checkbox-success">',
+                        //                '<input type="checkbox" id="chk-{{meta.row}}-{{meta.cold}}" ng-model="full[',
+                        //                    'col.field]" />',
+                        //                '<label for="chk-{{meta.row}}-{{meta.cold}}"></label>',
+                        //            '</div>'
+                        //        ].join('');
+                        //    });
+                        //    break;
 
-                //    default:
+                    default:
 
-                //        break;
-                //}
+                        break;
+                }
 
                 return col;
 

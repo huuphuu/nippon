@@ -24,10 +24,10 @@
         },
         setData: function (row, col) {
             if (typeof row != 'undefined') {
-                $scope.dataSeleted = row;
-                $scope.layout.enableClear = true;
-                $scope.layout.enableButtonOrther = true;
-                $scope.loadSteps($scope.dataSeleted.ID);
+                $scope.setData(row);
+                if (col == 'Status') {
+
+                }
             }
         }
     }

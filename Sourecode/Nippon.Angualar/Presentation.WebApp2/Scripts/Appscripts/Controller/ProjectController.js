@@ -184,7 +184,7 @@
     $scope.openDialogChart = function () {
         projectService.dataSelected = $scope.dataSeleted;
         projectService.gridData = $scope.gridInfo.data;
-        var dlg = dialogs.create('/templates/view/project/project-chart.html', 'projectDialogChartCtrl', projectService, { size: 'lg', keyboard: false, backdrop: false });
+        var dlg = dialogs.create('/templates/view/project/project-chart.html', 'baseLineChartCtrl', projectService, { size: 'lg', keyboard: false, backdrop: false });
         dlg.result.then(function (name) {
             $scope.name = name;
         }, function () {
@@ -222,22 +222,7 @@
         //    $scope.save();
     };
 }) // end controller(customDialogCtrl)
-.controller('projectDialogChartCtrl', function ($scope, $modalInstance, projectService) {
-        //-- Variables --//
-        //console.log('projectDialogCtrl', data)
-        $scope.dataSelected = projectService.dataSelected;
-        //console.log("init:data", $scope.dataSelected);
-        //console.log("init:data", projectService.dataSelected);
-        $scope.title = 'Timeline Project';
-        //$scope.title = data.layout.titlePopup;
-        //-- Methods --//
 
-        $scope.cancel = function () {
-            $modalInstance.dismiss('Canceled');
-        }; // end cancel
-
-        
-    })
 .directive('projectStep', function ($timeout) {
     return {
         restrict: 'EA',

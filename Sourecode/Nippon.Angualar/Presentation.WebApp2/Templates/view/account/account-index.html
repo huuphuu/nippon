@@ -61,11 +61,11 @@
                         <tbody>
                             <tr>
                                 <th style="width: 35%">Function</th>
-                                <th style="width: 13%" class="text-center">View</th>
-                                <th style="width: 13%" class="text-center">Add</th>
-                                <th style="width: 13%" class="text-center">Edit</th>
-                                <th style="width: 13%" class="text-center">Delete</th>
-                                <th style="width: 13%" class="text-center">Orther</th>
+                                <th style="width: 13%" class="text-center" ng-click="checkRoleAll('IsView')">View</th>
+                                <th style="width: 13%" class="text-center" ng-click="checkRoleAll('IsInsert')">Add</th>
+                                <th style="width: 13%" class="text-center" ng-click="checkRoleAll('IsUpdate')">Edit</th>
+                                <th style="width: 13%" class="text-center" ng-click="checkRoleAll('IsDelete')">Delete</th>
+                                <th style="width: 13%" class="text-center" ng-click="checkRoleAll('IsSpecial')">Other</th>
                             </tr>
                             <tr ng-repeat="role in roles">
                                 <td>{{role.Name}}</td>

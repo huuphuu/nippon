@@ -1,5 +1,5 @@
 ﻿angular.module('indexApp')
- .controller('EmployeeCtrl', function ($scope, $location, alertFactory, coreService) {
+ .controller('EmployeeCtrl', function ($scope, coreService, alertFactory, dialogs) {
      $scope.gridInfo = {
          table: null,
          cols: [
@@ -26,7 +26,7 @@
      coreService.getList(1, function (data) {
          $scope.departments = data[1];
      });
-     coreService.getList(1, function (data) {
+     coreService.getList(4, function (data) {
          $scope.positions = data[1];
      });
      $scope.init = function () {
@@ -54,12 +54,11 @@
              var entry = angular.copy($scope.dataSeleted);
              entry.Action = act;
              entry.Sys_ViewID = $scope.gridInfo.sysViewID;
-             coreService.actionEntry(entry, function (data) {
-                 if (data[0].length > 0)
-                     if (data[0][0]) {
+             coreService.actionEntry2(entry, function (data) {
+                 if (data.Success){
                          switch (act) {
                              case 'INSERT':
-                                 entry.ID = data[0][0].ID;
+                                 entry.ID = data.Result;
                                  $scope.gridInfo.data.unshift(entry);
                                  break;
                              case 'UPDATE':
@@ -83,8 +82,9 @@
                                  break;
                          }
                          $scope.reset();
-                         dialogs.notify(data[0][0].Name, data[0][0].Description);
-                     }
+                         
+                 }
+                 dialogs.notify(data.Message.Name, data.Message.Description);
                  $scope.$apply();
 
              });

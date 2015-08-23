@@ -9,11 +9,25 @@
             { name: 'Status', heading: 'Status', width: '1000px', type: controls.ICON_AND_TEXT, classIcon: 'fa-pencil-square-o' },
             { name: 'AgentName', heading: 'Agent', width: '100px' },
             { name: 'AgentAddress', heading: 'Address', width: '200px' },
-            { name: 'ApprovedBy', heading: 'Market', width: '1000px' },
-            { name: 'CompetitorName', heading: 'Phone', width: '100px' },
-            { name: 'MasterDealerName', heading: 'PIC', width: '100px' },
-            { name: 'AttachedPhoto', heading: 'TurnOver', width: '100px' },
-            { name: 'NumberOfShopsign', heading: 'Volumn', width: '100px' }
+            { name: 'AgentPhone', heading: 'AgentPhone', width: '1000px' },
+            { name: 'AgentContactName', heading: 'AgentContactName', width: '100px' },
+            { name: 'ApprovedBy', heading: 'ApprovedBy', width: '100px' },
+            { name: 'AreaManagerID', heading: 'AreaManagerID', width: '100px' },
+            { name: 'AttachedPhoto', heading: 'AttachedPhoto', width: '100px' },
+            { name: 'CompetitorName', heading: 'CompetitorName', width: '100px' },
+            { name: 'ComplitionDate', heading: 'ComplitionDate', width: '100px' },
+            { name: 'DealerType', heading: 'DealerType', width: '100px' },
+            { name: 'EstimatedAnnualTurnover', heading: 'EstimatedAnnualTurnover', width: '100px' },
+            { name: 'HadCCM', heading: 'HadCCM', width: '100px' },
+            { name: 'HadCompetitorShopsign', heading: 'HadCompetitorShopsign', width: '100px' },
+            { name: 'IsCCM', heading: 'IsCCM', width: '100px' },
+            { name: 'IsShopsign', heading: 'IsShopsign', width: '100px' },
+            { name: 'MasterDealerName', heading: 'MasterDealerName', width: '100px' },
+            { name: 'NumberOfShelf', heading: 'NumberOfShelf', width: '100px' },
+            { name: 'NumberOfShopsign', heading: 'NumberOfShopsign', width: '100px' },
+            { name: 'RequestedBy', heading: 'RequestedBy', width: '100px' },
+            { name: 'ShopsignPlacement', heading: 'ShopsignPlacement', width: '100px' },
+            { name: 'ShopsignSize', heading: 'ShopsignSize', width: '100px' }
         ],
         showColMin: 6,
         data: [],
@@ -36,19 +50,14 @@
 
     });
 
-    $scope.steps = [{ title: 'Step 1:  Request', Status: '0', finishDate: '2015-12-03' }, { title: 'Step 2:  Survey ', isOpen: true, Status: '0' }, { title: 'Step 3:  Design', Status: '0' }, { title: 'Step 4:  Approve', Status: '0' }, { title: 'Step 5: Install', Status: '0' }, { title: 'Step 6:  Maketing check', Status: '0' }];
-    $scope.loadSteps = function (projectId) {
-        coreService.getListEx({ Sys_ViewID: 6, ProjectID: projectId }, function (data) {
-            $scope.steps = data[1];
-            console.log(data);
-        });
-    }
+    
     $scope.statusOptions = statusOptions;
-    $scope.stepDone = function ($event) {
+    $scope.stepDone = function ($event,item) {
+
         $event.preventDefault();
         $event.stopPropagation();
-
-        return false;
+            $scope.setComplete(item);
+        //return false;
     },
     $scope.layout = {
         enableClear: false,
@@ -75,12 +84,29 @@
         }, 200);
     }
 
+    //*****************************************
+    //  entry data
+    //*****************************************
+    $scope.steps = [{ title: 'Step 1:  Request', Status: '0', finishDate: '2015-12-03' }, { title: 'Step 2:  Survey ', isOpen: true, Status: '0' }, { title: 'Step 3:  Design', Status: '0' }, { title: 'Step 4:  Approve', Status: '0' }, { title: 'Step 5: Install', Status: '0' }, { title: 'Step 6:  Maketing check', Status: '0' }];
+    $scope.employeelist = [];
+    $scope.loadSteps = function (projectId) {
+        coreService.getListEx({ Sys_ViewID: 6, ProjectID: projectId }, function (data) {
+            $scope.steps = data[1];
+            //console.log(data);
+            $scope.$apply();
+        });
+    }
+    coreService.getListEx({ Sys_ViewID: 3}, function (data) {
+        $scope.employeelist = data[1];
+        console.log(data);
+        //$scope.$apply();
+    });
     $scope.dataSeleted = { ID: 0, Name: "", Code: '', Description: "", Status: "0", Sys_ViewID: $scope.gridInfo.sysViewID };
     $scope.init = function () {
         window.setTimeout(function () {
             $(window).trigger("resize");
         }, 200);
-        //$scope.loadSteps(0);
+        $scope.loadSteps(0);
     }
     $scope.setData = function (data) {
         if (typeof data != 'undefined') {
@@ -103,37 +129,59 @@
             var entry = angular.copy($scope.dataSeleted);
             entry.Action = act;
             entry.Sys_ViewID = $scope.gridInfo.sysViewID;
-            coreService.actionEntry(entry, function (data) {
-                if (data[0].length > 0)
-                    if (data[0][0]) {
-                        switch (act) {
-                            case 'INSERT':
-                                entry.ID = data[0][0].ID;
-                                $scope.gridInfo.data.unshift(entry);
-                                break;
-                            case 'UPDATE':
-                                angular.forEach($scope.gridInfo.data, function (item, key) {
-                                    if (entry.ID == item.ID) {
-                                        $scope.gridInfo.data[key] = angular.copy(entry);
+            entry.Steps = {};
+           
+            entry.Steps.Step = $scope.steps;
+            coreService.actionEntry2(entry, function(data) {
+                if (data.Success) {
+                    switch (act) {
+                    case 'INSERT':
+                        entry.ID = data.Result;
+                        projectService.gridData.unshift(entry);
+                        break;
+                    case 'UPDATE':
+                        angular.forEach(projectService.gridData, function(item, key) {
+                            if (entry.ID == item.ID) {
+                                projectService.gridData[key] = angular.copy(entry);
 
-                                    }
-                                });
-                                break;
-                            case 'DELETE':
-                                var index = -1;
-                                var i = 0;
-                                angular.forEach($scope.gridInfo.data, function (item, key) {
-                                    if (entry.ID == item.ID)
-                                        index = i;
-                                    i++;
-                                });
-                                if (index > -1)
-                                    $scope.gridInfo.data.splice(index, 1);
-                                break;
-                        }
-                        $scope.reset();
-                        dialogs.notify(data[0][0].Name, data[0][0].Description);
+                            }
+                        });
+                        break;
+                    case 'DELETE':
+                        var index = -1;
+                        var i = 0;
+                        angular.forEach(projectService.gridData, function(item, key) {
+                            if (entry.ID == item.ID)
+                                index = i;
+                            i++;
+                        });
+                        if (index > -1)
+                            projectService.gridData.splice(index, 1);
+                        break;
                     }
+                    //$scope.reset();
+                }
+                dialogs.notify(data.Message.Name, data.Message.Description);
+                $scope.$apply();
+
+            });
+        }
+    }
+    $scope.setComplete = function (item) {
+        if (typeof item != 'undefined') {
+            var entry = angular.copy(item);
+            entry.Action = "UPDATE::STEPCOMPLETE";
+            entry.ProjectID = $scope.dataSeleted.ID;
+            entry.Sys_ViewID = $scope.gridInfo.sysViewID;
+            coreService.actionEntry2(entry, function (data) {
+                if (data.Success) {
+                    item.CompleteDate = new Date();
+                    item.Status = '1';
+                   
+                } else {
+                    dialogs.notify(data.Message.Name, data.Message.Description);
+                }
+                //dialogs.notify(data.Message.Name, data.Message.Description);
                 $scope.$apply();
 
             });
@@ -150,6 +198,8 @@
         // $scope.$apply();
     }
 
+    //********************************************
+   
     $scope.searchTable = function () {
         var query = $scope.gridInfo.searchQuery;
         $scope.gridInfo.tableInstance.search(query).draw();
@@ -167,7 +217,7 @@
 
         // $scope.$apply();
     }
-
+   
     $scope.openDialog = function () {
         projectService.dataSelected = $scope.dataSeleted;
         projectService.gridData = $scope.gridInfo.data;
@@ -191,6 +241,7 @@
                 $scope.name = 'You did not enter in your name!';
         });
     }
+ 
 
 })
 .controller('projectDialogCtrl', function ($scope, $modalInstance, projectService) {

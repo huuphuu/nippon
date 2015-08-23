@@ -29,6 +29,22 @@
          });
      }
 
+     $scope.checkRoleAll = function (propertyName) {
+        
+         if ($scope.roles == undefined) return;
+         if ($scope.roles.length == 0) return;
+         var isCheckAll = true;
+         for (var i = 0; i < $scope.roles.length; i++) {
+             if ($scope.roles[i][propertyName] == 'False' || $scope.roles[i][propertyName] == '') {
+                 isCheckAll = false;
+                 break;
+             }
+         }
+         angular.forEach($scope.roles, function(item, key) {
+             item[propertyName] = isCheckAll ? 'False' : 'True';
+         });
+     }
+
 
     $scope.setData = function (data) {
          if (typeof data != 'undefined') {
@@ -65,7 +81,7 @@
                          break;
                      case 'UPDATE':
                          angular.forEach($scope.gridInfo.data, function(item, key) {
-                             if (entry.ID == item.Result) {
+                             if (entry.ID == item.ID) {
                                  $scope.gridInfo.data[key] = angular.copy(entry);
 
                              }

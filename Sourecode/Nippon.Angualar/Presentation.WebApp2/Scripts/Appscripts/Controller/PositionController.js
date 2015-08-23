@@ -45,6 +45,7 @@
             entry.Action = act;
             entry.Sys_ViewID = $scope.gridInfo.sysViewID;
             coreService.actionEntry2(entry, function (data) {
+               
                 if (data.Success) {
                         switch (act) {
                             case 'INSERT':

@@ -4,7 +4,15 @@
             <div class="form-group">
                 <label for="inputName1" class="col-sm-5">Nhân viên</label>
                 <div class="col-sm-7">
-                    <input ng-model="group.EmployeeName" type="text" class="form-control" id="inputName1" placeholder="Name">
+                   
+                    <ui-select ng-model="group.EmployeeID" theme="selectize" ng-disabled="disabled"  title="Choose a employee">
+                                <ui-select-match placeholder="Select or search a manager in the list...">{{$select.selected.Name}}</ui-select-match>
+                                <ui-select-choices repeat="item.ID as item in employeelist | filter: $select.search">
+                                  <span ng-bind-html="item.Name | highlight: $select.search"></span>
+                                  <small ng-bind-html="item.Code | highlight: $select.search"></small>
+                                </ui-select-choices>
+                              </ui-select>
+                            </ui-select>
                 </div>
             </div>
             <div class="form-group">

@@ -77,5 +77,6 @@ var statusOptions = [
 /****CONSTANT*******************/
 var controls = {
     BUTTON:'button',
-    ICON_AND_TEXT: 'button&text'
+    ICON_AND_TEXT: 'button&text',
+    LIST_ICON: 'listicon',
 }

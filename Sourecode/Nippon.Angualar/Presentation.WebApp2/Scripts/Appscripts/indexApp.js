@@ -321,8 +321,8 @@ angular.module('indexApp')
                 }
                 return columns;
             }
-            $scope.action = function (row, col) {
-                $scope.gridInfo.onClick(row, col)
+            $scope.actionClick = function (row, act) {
+                $scope.gridInfo.onActionClick(row, act)
             }
 
             function standardField2Column(field) {
@@ -333,30 +333,30 @@ angular.module('indexApp')
                     field.className = 'text-center';
                 col.withClass(field.name + " " + field.className);
                 switch (field.type) {
-                    case controls.ICON_AND_TEXT:
+                    //case controls.ICON_AND_TEXT:
+                    //    col.notSortable();
+                    //    col.renderWith(function (data, type, full, meta) {
+
+                    //        return [
+                    //           //'<i  ng-click="action(data,field)" class="fa ', field.classIcon, '">&nbsp;&nbsp;', data, '</i>'
+                    //            '<i  ng-click="action(', full.ID, ",\'", field.name, '\')" class="fa ', field.classIcon, '">&nbsp;&nbsp;', data, '</i>'
+                    //        ].join('');
+                    //    });
+                    //    break;
+
+                    case controls.LIST_ICON:
                         col.notSortable();
                         col.renderWith(function (data, type, full, meta) {
 
-                            return [
-                               //'<i  ng-click="action(data,field)" class="fa ', field.classIcon, '">&nbsp;&nbsp;', data, '</i>'
-                                '<i  ng-click="action(', full.ID, ",\'", field.name, '\')" class="fa ', field.classIcon, '">&nbsp;&nbsp;', data, '</i>'
-                            ].join('');
+                            var result = '';
+
+                            angular.forEach(field.listAction, function (value, key) {
+                                result += '<i  ng-click="actionClick(' + full.ID + ",\'" + value.action + '\')" class="fa ' + value.classIcon + '">&nbsp;&nbsp;' + '</i>';
+                            });
+
+                            return result;
                         });
                         break;
-
-                        //case controls.CHECKBOX:
-                        //    col.notSortable();
-                        //    col.renderWith(function (data, type, full, meta) {
-                        //        console.log('::CHECKBOX', data, type, full, meta);
-                        //        return [
-                        //            '<div class="checkbox checkbox-success">',
-                        //                '<input type="checkbox" id="chk-{{meta.row}}-{{meta.cold}}" ng-model="full[',
-                        //                    'col.field]" />',
-                        //                '<label for="chk-{{meta.row}}-{{meta.cold}}"></label>',
-                        //            '</div>'
-                        //        ].join('');
-                        //    });
-                        //    break;
 
                     default:
 

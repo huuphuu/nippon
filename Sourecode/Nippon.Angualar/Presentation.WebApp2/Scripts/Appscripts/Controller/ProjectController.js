@@ -6,10 +6,11 @@
         cols: [
 
             { name: 'ID', heading: '#', width: '8px' },
-            { name: 'Status', heading: 'Status', width: '1000px', type: controls.ICON_AND_TEXT, classIcon: 'fa-pencil-square-o' },
+            { name: 'Status', heading: 'Status', width: '10x' },
+            { name: 'Action', heading: 'Action', width: '100px', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }, { classIcon: ' fa-bar-chart', action: 'chart' }] },
             { name: 'AgentName', heading: 'Agent', width: '100px' },
             { name: 'AgentAddress', heading: 'Address', width: '200px' },
-            { name: 'AgentPhone', heading: 'AgentPhone', width: '1000px' },
+            { name: 'AgentPhone', heading: 'AgentPhone', width: '100px' },
             { name: 'AgentContactName', heading: 'AgentContactName', width: '100px' },
             { name: 'ApprovedBy', heading: 'ApprovedBy', width: '100px' },
             { name: 'AreaManagerID', heading: 'AreaManagerID', width: '100px' },
@@ -33,8 +34,18 @@
         data: [],
         sysViewID: 5,
         searchQuery: '',
-        onClick: function (row, col) {
-            console.log(row, col)
+        onActionClick: function (row, act) {
+            switch (act) {
+                case 'view':
+                    $scope.openDialog();
+                   break;
+                case 'chart':
+                    $scope.openDialogChart();
+
+                    break;
+
+
+            }
         },
         setData: function (row, col) {
             if (typeof row != 'undefined') {

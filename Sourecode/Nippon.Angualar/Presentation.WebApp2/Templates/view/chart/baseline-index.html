@@ -4,10 +4,14 @@
 </div>
 
 <div class="modal-body">
-     <div class="row">
-        <div class="col-md-12 ">
-            Hien chua co chart
-            </div></div>
+     <form class="form-horizontal row">
+          <div class="form-group" ng-repeat="item in data">
+                        <label for="txtAddress" class="col-sm-3 control-label">{{item.StepName}}</label>
+                        <div class="col-sm-9 padding-right-19 ">
+                            <input ng-model="dataSeleted.Address" type="text" class="form-control" id="txtAddress" placeholder="Address">
+                        </div>
+                    </div>
+     </form>
 
 </div>
 <div class="modal-footer">

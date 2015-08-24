@@ -45,37 +45,37 @@
             var entry = angular.copy($scope.dataSeleted);
             entry.Action = act;
             entry.Sys_ViewID = $scope.gridInfo.sysViewID;
-            coreService.actionEntry(entry, function (data) {
-                if (data[0].length > 0)
-                    if (data[0][0]) {
-                        switch (act) {
-                            case 'INSERT':
-                                entry.ID = data[0][0].ID;
-                                $scope.gridInfo.data.unshift(entry);
-                                break;
-                            case 'UPDATE':
-                                angular.forEach($scope.gridInfo.data, function (item, key) {
-                                    if (entry.ID == item.ID) {
-                                        $scope.gridInfo.data[key] = angular.copy(entry);
+            coreService.actionEntry2(entry, function (data) {
+                if (data.Success) {
+                    switch (act) {
+                        case 'INSERT':
+                            entry.ID = data.Result;
+                            $scope.gridInfo.data.unshift(entry);
+                            break;
+                        case 'UPDATE':
+                            angular.forEach($scope.gridInfo.data, function (item, key) {
+                                if (entry.ID == item.ID) {
+                                    $scope.gridInfo.data[key] = angular.copy(entry);
 
-                                    }
-                                });
-                                break;
-                            case 'DELETE':
-                                var index = -1;
-                                var i = 0;
-                                angular.forEach($scope.gridInfo.data, function (item, key) {
-                                    if (entry.ID == item.ID)
-                                        index = i;
-                                    i++;
-                                });
-                                if (index > -1)
-                                    $scope.gridInfo.data.splice(index, 1);
-                                break;
-                        }
-                        $scope.reset();
-                        dialogs.notify(data[0][0].Name, data[0][0].Description);
+                                }
+                            });
+                            break;
+                        case 'DELETE':
+                            var index = -1;
+                            var i = 0;
+                            angular.forEach($scope.gridInfo.data, function (item, key) {
+                                if (entry.ID == item.ID)
+                                    index = i;
+                                i++;
+                            });
+                            if (index > -1)
+                                $scope.gridInfo.data.splice(index, 1);
+                            break;
                     }
+                    $scope.reset();
+
+                }
+                dialogs.notify(data.Message.Name, data.Message.Description);
                 $scope.$apply();
 
             });

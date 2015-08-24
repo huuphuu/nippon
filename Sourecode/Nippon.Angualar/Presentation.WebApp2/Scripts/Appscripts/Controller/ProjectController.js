@@ -60,8 +60,8 @@
         $scope.gridInfo.data = angular.copy(data[1]);
 
     });
-  
-    
+
+    $scope.formDisabled = false;
     $scope.statusOptions = statusOptions;
     $scope.stepDone = function ($event,item) {
 

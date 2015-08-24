@@ -34,13 +34,13 @@
         data: [],
         sysViewID: 5,
         searchQuery: '',
-        onActionClick: function (row, act) {
+        onActionClick: function (rowID, act) {
             switch (act) {
                 case 'view':
                     $scope.openDialog();
                    break;
                 case 'chart':
-                    $scope.openDialogChart();
+                    $scope.openDialogChart(rowID);
 
                     break;
 
@@ -79,14 +79,9 @@
     $scope.setFullSreen = function () {
         var $grid = $scope.gridInfo;
         var table = $grid.tableInstance;
-
-
         for (var i = $grid.showColMin ; i < $grid.cols.length ; i++) {
             $grid.cols[i].isHidden = $scope.layout.isFull;
-            console.log($grid.cols[i].name)
         }
-
-
 
         $scope.layout.isFull = !$scope.layout.isFull;
 
@@ -241,10 +236,9 @@
         });
     }
 
-    $scope.openDialogChart = function () {
-        projectService.dataSelected = $scope.dataSeleted;
-        projectService.viewID = 11;
-        var dlg = dialogs.create('/templates/view/chart/baseline-index.html', 'baseLineChartCtrl', projectService, { size: 'lg', keyboard: false, backdrop: false });
+    $scope.openDialogChart = function (pID) {
+        var data = { viewID: 11, projectID: pID }
+        var dlg = dialogs.create('/templates/view/chart/baseline-index.html', 'baseLineChartCtrl', data, { size: 'lg', keyboard: false, backdrop: false });
         dlg.result.then(function (name) {
             $scope.name = name;
         }, function () {

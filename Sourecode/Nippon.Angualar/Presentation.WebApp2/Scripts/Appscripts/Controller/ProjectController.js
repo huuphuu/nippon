@@ -60,7 +60,7 @@
         $scope.gridInfo.data = angular.copy(data[1]);
 
     });
-
+  
     
     $scope.statusOptions = statusOptions;
     $scope.stepDone = function ($event,item) {
@@ -246,8 +246,7 @@
                 $scope.name = 'You did not enter in your name!';
         });
     }
- 
-
+     $scope.openDialogChart(1);
 })
 .controller('projectDialogCtrl', function ($scope, $modalInstance, projectService) {
     //-- Variables --//

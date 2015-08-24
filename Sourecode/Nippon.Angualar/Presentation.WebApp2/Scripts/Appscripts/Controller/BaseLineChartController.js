@@ -1,13 +1,12 @@
 ﻿angular.module('indexApp')
 .controller('baseLineChartCtrl', function ($scope, $modalInstance, data, coreService) {
-    //-- Variables --//
-    //console.log('projectDialogCtrl', data)
-    $scope.dataSelected = data.dataSelected;
     $scope.title = 'Timeline Project';
-    console.log(data.dataSelected.ID)
-    coreService.getViewData({ Sys_ViewID: 11, ProjectID: data.dataSelected.ID }, function (data) {
-        console.log(data);
-
+    if (typeof data == 'undefined')
+        data = { viewID: 11, ProjectID: 1 };
+    $scope.data = [];
+    coreService.getViewData({ Sys_ViewID: data.viewID, ProjectID: data.projectID }, function (pData) {
+        $scope.data = pData[1];
+        $scope.$apply();
     });
 
     $scope.cancel = function () {

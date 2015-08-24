@@ -4,14 +4,18 @@
 </div>
 
 <div class="modal-body">
-     <form class="form-horizontal row">
-          <div class="form-group" ng-repeat="item in data">
-                        <label for="txtAddress" class="col-sm-3 control-label">{{item.StepName}}</label>
-                        <div class="col-sm-9 padding-right-19 ">
-                            <input ng-model="dataSeleted.Address" type="text" class="form-control" id="txtAddress" placeholder="Address">
-                        </div>
-                    </div>
-     </form>
+    <form class="form-horizontal row">
+        <div class="form-group" ng-repeat="item in data">
+            <label for="txtAddress" class="col-sm-3 control-label">{{item.StepName}}</label>
+            <div class="col-sm-9 padding-right-19 ">
+                <div class="baselinechart">
+                    <div class="noneintersectionleft" style="width: 10%;">&nbsp;</div>
+                  <div class="intersection baseline-bar-info" style="width: 72%;">&nbsp;</div>
+                 <!--   <div class="noneintersectionright" style="width: 12%;">&nbsp;</div>-->
+                </div>
+            </div>
+        </div>
+    </form>
 
 </div>
 <div class="modal-footer">

@@ -129,6 +129,7 @@
     <Content Include="Scripts\Appscripts\core.app.js" />
     <Content Include="Scripts\Appscripts\data.js" />
     <Content Include="Scripts\Appscripts\datademo.js" />
+    <Content Include="Scripts\Appscripts\Filter\FilterApp.js" />
     <Content Include="Scripts\Appscripts\indexApp.js" />
     <Content Include="Scripts\Appscripts\loginApp.js" />
     <Content Include="Scripts\LTEScripts\app.js" />

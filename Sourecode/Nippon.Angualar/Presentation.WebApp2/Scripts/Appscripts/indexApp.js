@@ -65,7 +65,6 @@ angular.module('indexApp')
 
 
         $scope.signOut = function () {
-            debugger;
             localStorageService.remove('authorizationData');
             window.location.href = '/index.html';
         }

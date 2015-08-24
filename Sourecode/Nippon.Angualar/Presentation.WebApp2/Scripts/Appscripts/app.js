@@ -45,6 +45,10 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
              url: '/project',
              templateUrl: '/Templates/view/project/project-index.html'
          })
+     .state('test', {
+         url: '/test',
+         templateUrl: '/Templates/view/chart/baseline-index.html'
+     })
 
 })
 

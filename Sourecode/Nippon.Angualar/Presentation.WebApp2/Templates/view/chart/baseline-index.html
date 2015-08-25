@@ -8,15 +8,15 @@
         <div class="form-group" ng-repeat="item in data">
             <label for="txtAddress" class="col-sm-3 control-label">{{item.StepName}}</label>
             <div class="col-sm-9 padding-right-19 ">
-                <div class="space" style="width:{{item.space}}%; float:left; overflow:hidden">&nbsp;</div>
-                <div class="baselinechart" style="width:{{item.width}}%">
-                    <div class="noneintersectionleft" style="width: {{item.group1.width}}%">&nbsp;</div>
-                    <div class="intersection baseline-bar-info" style="width: {{item.group2.width}}%">&nbsp;</div>
-                    <div class="noneintersectionright" style="width: {{item.group3.width}}%">&nbsp;</div>
+                <div class="space" style="float: left; overflow: hidden" ng-style='{"width":item.space+"%"}'>&nbsp;</div>
+                <div class="baselinechart" ng-style='{"width":item.width+"%"}'>
+                    <div class="noneintersectionleft" ng-style='{"width":item.group1.width+"%"}'>&nbsp;</div>
+                    <div class="intersection baseline-bar-info" ng-style='{"width":item.group2.width+"%"}'>&nbsp;</div>
+                    <div class="noneintersectionright" ng-style='{"width":item.group3.width+"%"}'>&nbsp;</div>
                 </div>
             </div>
-</div>
-</form>
+        </div>
+    </form>
 
 </div>
 <div class="modal-footer">

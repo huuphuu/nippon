@@ -10,7 +10,6 @@
     });
 
     function modifyData(data) {
-        console.log(data)
         //
         //debugger;
         //$scope.$apply();
@@ -25,7 +24,8 @@
         var maxDate = $filter('getMaxDate')(data[0].IntendEndDate, data[0].CompleteDate);
         var totalDate = $filter('dateDiff')(minDate, maxDate);
         for (var i = 0; i < data.length; i++) {
-            angular.extend(data[i], getStepInfo(data[i], minDate, maxDate, totalDate));
+            if (i == 6)
+                angular.extend(data[i], getStepInfo(data[i], minDate, maxDate, totalDate));
         }
         console.log(data)
         $scope.data = data;
@@ -60,7 +60,7 @@
         //StartDate =min and enddate< intendStartDate==>ahead of schedule
         if (minStartDate == data.StartDate && data.CompleteDate < data.IntendStartDate) {
             longG1 = $filter('dateDiff')(data.StartDate, data.CompleteDate);
-            widthG1 = longG1 * 100 / total;
+            widthG1 = longG1 == 0 ? 0 : longG1 * 100 / total;
             g1 = {
                 css: 'baseline-bar-green',
                 long: longG1,
@@ -70,28 +70,39 @@
         else { //StartDate =min and intendStartDate< intendStartDate==>ahead of schedule
             if (minStartDate == data.StartDate && data.IntendStartDate == maxStartDate) {
                 longG1 = $filter('dateDiff')(data.StartDate, maxStartDate);
-                widthG1 = longG1 * 100 / total;
+                widthG1 = longG1 == 0 ? 0 : longG1 * 100 / total;
                 g1 = {
                     css: 'baseline-bar-green',
                     long: longG1,
                     width: widthG1
                 }
             }
-            else { //IntendStartDate =min and intendStartDate< intendStartDate==>ahead of schedule
-                if (minStartDate == data.IntendStartDate && data.StartDate == maxStartDate) {
-                    longG1 = $filter('dateDiff')(data.IntendStartDate, maxStartDate);
-                    widthG1 = longG1 * 100 / total;
+            else {
+                //IntendStartDate =min and intendStartDate< intendStartDate==>ahead of schedule
+                if (minStartDate == data.IntendStartDate && data.IntendEndDate == maxStartDate) {
+                    longG1 = $filter('dateDiff')(data.IntendEndDate, maxStartDate);
+                    widthG1 = longG1 == 0 ? 0 : longG1 * 100 / total;
                     g1 = {
-                        css: 'baseline-bar-red',
+                        css: ' ',
                         long: longG1,
                         width: widthG1
                     }
                 }
                 else {
                     //IntendStartDate =min and intendStartDate< intendStartDate==>ahead of schedule
-                    if (minStartDate == data.IntendStartDate && data.IntendEndDate == maxStartDate) {
-                        longG1 = $filter('dateDiff')(data.IntendEndDate, maxStartDate);
-                        widthG1 = longG1 * 100 / total;
+                    if (minStartDate == data.IntendStartDate && data.StartDate == maxStartDate && data.IntendEndDate >= data.StartDate) {
+                        longG1 = $filter('dateDiff')(data.IntendStartDate, maxStartDate);
+                        widthG1 = longG1 == 0 ? 0 : longG1 * 100 / total;
+                        g1 = {
+                            css: 'baseline-bar-red',
+                            long: longG1,
+                            width: widthG1
+                        }
+                    }
+                    else {
+                        //IntendStartDate =min and intendStartDate< intendStartDate==>ahead of schedule
+                        longG1 = $filter('dateDiff')(data.IntendStartDate, data.IntendEndDate);
+                        widthG1 = longG1 == 0 ? 0 : longG1 * 100 / total;
                         g1 = {
                             css: 'baseline-bar-red',
                             long: longG1,
@@ -107,7 +118,7 @@
         // IntendStartDate--IntendEndDate
         if (data.IntendStartDate < data.StartDate && data.CompleteDate < data.IntendEndDate) {
             longG2 = $filter('dateDiff')(data.StartDate, data.CompleteDate);
-            widthG2 = longG2 * 100 / total;
+            widthG2 = longG2 == 0 ? 0 : longG2 * 100 / total;
             g2 = {
                 css: 'baseline-bar-gray',
                 long: longG2,
@@ -118,7 +129,7 @@
             // IntendStartDate--CompletedDate
             if (maxStartDate < data.IntendEndDate && minEndDate < data.CompleteDate) {
                 longG2 = $filter('dateDiff')(maxStartDate, minEndDate);
-                widthG2 = longG2 * 100 / total;
+                widthG2 = longG2 == 0 ? 0 : longG2 * 100 / total;
                 g2 = {
                     css: 'baseline-bar-gray',
                     long: longG2,
@@ -128,8 +139,8 @@
             else {
                 // StartDate--IntendEndDate
                 if (maxStartDate == data.StartDate && minEndDate < data.IntendEndDate) {
-                    longG2 = $filter('dateDiff')(maxStartDate, minEndDate);
-                    widthG2 = longG2 * 100 / total;
+                    longG2 = $filter('dateDiff')(minEndDate, maxStartDate);
+                    widthG2 = longG2 == 0 ? 0 : longG2 * 100 / total;
                     g2 = {
                         css: 'baseline-bar-gray',
                         long: longG2,
@@ -139,8 +150,8 @@
                 else {
                     // StartDate--IntendEndDate
                     if (maxStartDate == data.StartDate && minEndDate < data.CompleteDate) {
-                        longG2 = $filter('dateDiff')(maxStartDate, minEndDate);
-                        widthG2 = longG2 * 100 / total;
+                        longG2 = $filter('dateDiff')(minEndDate.maxStartDate);
+                        widthG2 = longG2 == 0 ? 0 : longG2 * 100 / total;
                         g2 = {
                             css: 'baseline-bar-gray',
                             long: longG2,
@@ -151,7 +162,7 @@
                         // IntendStartDate--StartDate
                         if (data.IntendEndDate < data.StartDate) {
                             longG2 = $filter('dateDiff')(data.IntendEndDate, data.StartDate);
-                            widthG2 = longG2 * 100 / total;
+                            widthG2 = longG2 == 0 ? 0 : longG2 * 100 / total;
                             g2 = {
                                 css: 'baseline-bar-red',
                                 long: longG2,
@@ -162,7 +173,7 @@
                             // IntendStartDate--StartDate
                             if (data.CompleteDate < data.IntendStartDate) {
                                 longG2 = $filter('dateDiff')(data.CompleteDate, data.IntendStartDate);
-                                widthG2 = longG2 * 100 / total;
+                                widthG2 = longG2 == 0 ? 0 : longG2 * 100 / total;
                                 g2 = {
                                     css: 'baseline-bar-red',
                                     long: longG2,
@@ -179,9 +190,9 @@
         /************Block 3 T3-T4==>G3*****************************************/
         //IntendEndDate<StartDate
         if (data.IntendEndDate < data.StartDate) {
-            longG3 = $filter('dateDiff')(data.StartDate, data.CompleteDate);
-            widthG3 = longG3 * 100 / total;
-            g1 = {
+            longG3 = $filter('dateDiff')(data.IntendEndDate, data.CompleteDate);
+            widthG3 = longG3 == 0 ? 0 : longG3 * 100 / total;
+            g3 = {
                 css: 'baseline-bar-red',
                 long: longG3,
                 width: widthG3
@@ -190,7 +201,7 @@
         else { //CompleteDate <IntendStartDate
             if (data.CompleteDate < data.IntendStartDate) {
                 longG3 = $filter('dateDiff')(data.CompleteDate, data.IntendEndDate);
-                widthG3 = longG3 * 100 / total;
+                widthG3 = longG3 == 0 ? 0 : longG3 * 100 / total;
                 g3 = {
                     css: 'baseline-bar-grren',
                     long: longG3,
@@ -200,7 +211,7 @@
             else { //IntendStartDate =min and intendStartDate< intendStartDate==>ahead of schedule
                 if (minEndDate == data.CompleteDate && data.IntendEndDate == maxEndDate) {
                     longG3 = $filter('dateDiff')(minEndDate, maxEndDate);
-                    widthG3 = longG3 * 100 / total;
+                    widthG3 = longG3 == 0 ? 0 : longG3 * 100 / total;
                     g3 = {
                         css: 'baseline-bar-grren',
                         long: longG3,
@@ -211,7 +222,7 @@
                     //IntendStartDate =min and intendStartDate< intendStartDate==>ahead of schedule
                     if (minEndDate == data.IntendEndDate && data.CompleteDate == maxEndDate) {
                         longG3 = $filter('dateDiff')(minEndDate, maxEndDate);
-                        widthG3 = longG3 * 100 / total;
+                        widthG3 = longG3 == 0 ? 0 : longG3 * 100 / total;
                         g3 = {
                             css: 'baseline-bar-red',
                             long: longG3,

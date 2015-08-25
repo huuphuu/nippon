@@ -20,3 +20,12 @@
     }
 
 })
+
+.filter('getMaxDate', function () {
+    return function (d1, d2) {
+        if (d2 == '')
+            d2 = d1;
+        return Math.floor((new Date(d2) - new Date(d1)) / 86400000) > 0 ? d2 : d1;
+    }
+
+})

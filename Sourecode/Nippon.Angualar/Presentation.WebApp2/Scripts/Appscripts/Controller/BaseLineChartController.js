@@ -24,15 +24,8 @@
         var minDate = $filter('getMinDate')(data[0].IntendStartDate, data[0].StartDate);
         var maxDate = $filter('getMaxDate')(data[0].IntendEndDate, data[0].CompleteDate);
         var totalDate = $filter('dateDiff')(minDate, maxDate);
-        data[0].space = 0;
-        data[0].group1 = { isIntersection: false, width: 10 };
-        data[0].group2 = { isIntersection: true, width: 75 };
-        data[0].group3 = { isIntersection: false, width: 15 };
-        data[0].width = 100;
-
-        for (var i = 1; i < data.length; i++) {
-      //  for (var i = 1; i < 4; i++) {
-                 angular.extend(data[i], getStepInfo(data[i], minDate, maxDate, totalDate));
+        for (var i = 0; i < data.length; i++) {
+            angular.extend(data[i], getStepInfo(data[i], minDate, maxDate, totalDate));
         }
         console.log(data)
         $scope.data = data;
@@ -43,6 +36,13 @@
     }
 
     function getStepInfo(data, minDate, maxDate, totalDate) {
+        //CompleteDate or CompleteDate === null
+        if (data.StartDate == '' || data.CompleteDate == '')
+            return {
+                group1: { width: 0 },
+                group2: { width: 0 },
+                group3: { width: 0 }
+            }
         var minStartDate = $filter('getMinDate')(data.IntendStartDate, data.StartDate);
         var maxStartDate = $filter('getMaxDate')(data.IntendStartDate, data.StartDate);
         var minEndDate = $filter('getMinDate')(data.IntendEndDate, data.CompleteDate);
@@ -51,30 +51,177 @@
         var width = total * 100 / totalDate;
         var space = $filter('dateDiff')(minDate, minStartDate) * 100 / totalDate;
 
-        var g1Long = $filter('dateDiff')(minStartDate,maxStartDate);
-        var g3Long = Math.abs($filter('dateDiff')(minEndDate, maxEndDate));
-        var g1 = { long: g1Long, isIntersection: false, width: Math.abs(g1Long) * 100 / total };
-        if (data.IntendStartDate > data.StartDate) {/*Overdue*/
-            g1.isIntersection = true;
-            g1.width = 0;
+        var g1 = {}, longG1, widthG1;
+        var g2 = {}, longG2, widthG3;
+        var g3 = {}, longG3, widthG3;
+        //baseline-bar-red baseline-bar-gray baseline-bar-green
+
+        /************Block 1 T1-T2==>G1*****************************************/
+        //StartDate =min and enddate< intendStartDate==>ahead of schedule
+        if (minStartDate == data.StartDate && data.CompleteDate < data.IntendStartDate) {
+            longG1 = $filter('dateDiff')(data.StartDate, data.CompleteDate);
+            widthG1 = longG1 * 100 / total;
+            g1 = {
+                css: 'baseline-bar-green',
+                long: longG1,
+                width: widthG1
+            }
         }
-        var g3 = { long: g3Long, isIntersection: false, width: Math.abs(g3Long) * 100 / total };
-        if (data.CompleteDate < data.IntendEndDate) {/*Overdue*/
-            g3.isIntersection = true;
-            g3.width = 0;
+        else { //StartDate =min and intendStartDate< intendStartDate==>ahead of schedule
+            if (minStartDate == data.StartDate && data.IntendStartDate == maxStartDate) {
+                longG1 = $filter('dateDiff')(data.StartDate, maxStartDate);
+                widthG1 = longG1 * 100 / total;
+                g1 = {
+                    css: 'baseline-bar-green',
+                    long: longG1,
+                    width: widthG1
+                }
+            }
+            else { //IntendStartDate =min and intendStartDate< intendStartDate==>ahead of schedule
+                if (minStartDate == data.IntendStartDate && data.StartDate == maxStartDate) {
+                    longG1 = $filter('dateDiff')(data.IntendStartDate, maxStartDate);
+                    widthG1 = longG1 * 100 / total;
+                    g1 = {
+                        css: 'baseline-bar-red',
+                        long: longG1,
+                        width: widthG1
+                    }
+                }
+                else {
+                    //IntendStartDate =min and intendStartDate< intendStartDate==>ahead of schedule
+                    if (minStartDate == data.IntendStartDate && data.IntendEndDate == maxStartDate) {
+                        longG1 = $filter('dateDiff')(data.IntendEndDate, maxStartDate);
+                        widthG1 = longG1 * 100 / total;
+                        g1 = {
+                            css: 'baseline-bar-red',
+                            long: longG1,
+                            width: widthG1
+                        }
+                    }
+                }
+            }
+
         }
 
-        var isSection = true;
-        if (data.IntendEndDate < data.StartDate)
-            isSection = false;
+        /************Block 2 T3-T2==>G2*****************************************/
+        // IntendStartDate--IntendEndDate
+        if (data.IntendStartDate < data.StartDate && data.CompleteDate < data.IntendEndDate) {
+            longG2 = $filter('dateDiff')(data.StartDate, data.CompleteDate);
+            widthG2 = longG2 * 100 / total;
+            g2 = {
+                css: 'baseline-bar-gray',
+                long: longG2,
+                width: widthG2
+            }
+        }
+        else {
+            // IntendStartDate--CompletedDate
+            if (maxStartDate < data.IntendEndDate && minEndDate < data.CompleteDate) {
+                longG2 = $filter('dateDiff')(maxStartDate, minEndDate);
+                widthG2 = longG2 * 100 / total;
+                g2 = {
+                    css: 'baseline-bar-gray',
+                    long: longG2,
+                    width: widthG2
+                }
+            }
+            else {
+                // StartDate--IntendEndDate
+                if (maxStartDate == data.StartDate && minEndDate < data.IntendEndDate) {
+                    longG2 = $filter('dateDiff')(maxStartDate, minEndDate);
+                    widthG2 = longG2 * 100 / total;
+                    g2 = {
+                        css: 'baseline-bar-gray',
+                        long: longG2,
+                        width: widthG2
+                    }
+                }
+                else {
+                    // StartDate--IntendEndDate
+                    if (maxStartDate == data.StartDate && minEndDate < data.CompleteDate) {
+                        longG2 = $filter('dateDiff')(maxStartDate, minEndDate);
+                        widthG2 = longG2 * 100 / total;
+                        g2 = {
+                            css: 'baseline-bar-gray',
+                            long: longG2,
+                            width: widthG2
+                        }
+                    }
+                    else {
+                        // IntendStartDate--StartDate
+                        if (data.IntendEndDate < data.StartDate) {
+                            longG2 = $filter('dateDiff')(data.IntendEndDate, data.StartDate);
+                            widthG2 = longG2 * 100 / total;
+                            g2 = {
+                                css: 'baseline-bar-red',
+                                long: longG2,
+                                width: widthG2
+                            }
+                        }
+                        else {
+                            // IntendStartDate--StartDate
+                            if (data.CompleteDate < data.IntendStartDate) {
+                                longG2 = $filter('dateDiff')(data.CompleteDate, data.IntendStartDate);
+                                widthG2 = longG2 * 100 / total;
+                                g2 = {
+                                    css: 'baseline-bar-red',
+                                    long: longG2,
+                                    width: widthG2
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
-        if (g1.width == 0)
-            maxStartDate = minStartDate;
-        if (g3.width == 0)
-            minEndDate = maxEndDate;
-        var g2Long = Math.abs($filter('dateDiff')(maxStartDate, minEndDate));
-        var g2 = { long: g2Long, isIntersection: isSection, width: Math.abs(g2Long) * 100 / total };
-       
+
+        /************Block 3 T3-T4==>G3*****************************************/
+        //IntendEndDate<StartDate
+        if (data.IntendEndDate < data.StartDate) {
+            longG3 = $filter('dateDiff')(data.StartDate, data.CompleteDate);
+            widthG3 = longG3 * 100 / total;
+            g1 = {
+                css: 'baseline-bar-red',
+                long: longG3,
+                width: widthG3
+            }
+        }
+        else { //CompleteDate <IntendStartDate
+            if (data.CompleteDate < data.IntendStartDate) {
+                longG3 = $filter('dateDiff')(data.CompleteDate, data.IntendEndDate);
+                widthG3 = longG3 * 100 / total;
+                g3 = {
+                    css: 'baseline-bar-grren',
+                    long: longG3,
+                    width: widthG3
+                }
+            }
+            else { //IntendStartDate =min and intendStartDate< intendStartDate==>ahead of schedule
+                if (minEndDate == data.CompleteDate && data.IntendEndDate == maxEndDate) {
+                    longG3 = $filter('dateDiff')(minEndDate, maxEndDate);
+                    widthG3 = longG3 * 100 / total;
+                    g3 = {
+                        css: 'baseline-bar-grren',
+                        long: longG3,
+                        width: widthG3
+                    }
+                }
+                else {
+                    //IntendStartDate =min and intendStartDate< intendStartDate==>ahead of schedule
+                    if (minEndDate == data.IntendEndDate && data.CompleteDate == maxEndDate) {
+                        longG3 = $filter('dateDiff')(minEndDate, maxEndDate);
+                        widthG3 = longG3 * 100 / total;
+                        g3 = {
+                            css: 'baseline-bar-red',
+                            long: longG3,
+                            width: widthG3
+                        }
+                    }
+                }
+            }
+
+        }
 
 
         // var group1 = $filter('dateDiff')(dataIntendStartDate, maxEndDate) * 100 / totalDate;

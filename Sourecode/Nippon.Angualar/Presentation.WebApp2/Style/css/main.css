@@ -165,13 +165,15 @@ table#AreaGrid tbody td {
     background-size: 40px 40px;
     height: 27px;
     float: left;
-    background-color: #fcc;
+    background-color: #d9534f;
 }
 
 .baselinechart div {
     text-align: center;
     font-weight: bold;
     overflow: hidden;
+    -webkit-animation: progress-bar-stripes 2s linear infinite;
+    animation: progress-bar-stripes 2s linear infinite;
 }
 
 .baseline-bar-gray {

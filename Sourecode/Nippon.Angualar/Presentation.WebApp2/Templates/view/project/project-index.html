@@ -3,7 +3,7 @@
 <!-- Main content -->
 <section class="content">
     <div class="row ng-scope" ng-controller="ProjectCtrl" ng-init="init()">
-        <div ng-class="{true: 'col-md-12', false: 'col-md-7 col-sm-8'}[layout.isFull]">
+        <div ng-class="{true: 'col-md-12', false: 'col-md-8 '}[layout.isFull]">
             <!---Directive left-action-->
             <form class="form-inline row slide-animate" ng-include="'/Templates/view/project/project-top-left.html'"></form>
 
@@ -15,7 +15,7 @@
             </div>
         </div>
 
-        <div class="col-md-5 col-sm-4" ng-show="!layout.isFull">
+        <div class="col-md-4 " ng-show="!layout.isFull">
             <!---Directive right-->
             <form class="form-inline row" ng-include="'/Templates/view/project/project-top-right.html'"></form>
 

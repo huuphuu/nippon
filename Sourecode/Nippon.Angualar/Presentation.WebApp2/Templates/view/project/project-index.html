@@ -9,9 +9,10 @@
 
             <div class="row">
                 <!---Directive left-action-->
-            <!--    <angular-grid-table grid-info="gridInfo" root-scope="this"></angular-grid-table>-->
-                
-                <div vmis-table="gridInfo" ></div>
+                <!--    <angular-grid-table grid-info="gridInfo" root-scope="this"></angular-grid-table>-->
+                <div class="form-group">
+                    <div vmis-table="gridInfo"></div>
+                </div>
             </div>
         </div>
 
@@ -21,7 +22,7 @@
 
             <form class=" row">
                 <div class="box-body row">
-                    <div class="form-group  col-md-12 margin-top-8">
+                    <div class="form-group  col-md-12" style="margin-top:-3px;">
                         <accordion close-others="true">
                         <accordion-group heading="" ng-repeat="group in steps"   is-open="group.isOpen">
                              <accordion-heading>

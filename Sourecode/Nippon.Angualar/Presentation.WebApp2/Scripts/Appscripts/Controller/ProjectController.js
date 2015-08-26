@@ -1,5 +1,5 @@
 ﻿angular.module('indexApp')
-.controller('ProjectCtrl', function ($scope, projectService, coreService,authoritiesService, alertFactory, dialogs) {
+.controller('ProjectCtrl', function ($scope, projectService, coreService, authoritiesService, alertFactory, dialogs, $filter) {
     $scope.gridInfo = {
         gridID: 'projecttgrid',
         table: null,
@@ -99,14 +99,13 @@
     $scope.employeelist = [];
     $scope.loadSteps = function (projectId) {
         coreService.getListEx({ Sys_ViewID: 6, ProjectID: projectId }, function (data) {
-            $scope.steps = data[1];
+            $scope.steps =converDatetoView( data[1]);
             //console.log(data);
             $scope.$apply();
         });
     }
     coreService.getListEx({ Sys_ViewID: 3}, function (data) {
         $scope.employeelist = data[1];
-        console.log(data);
         //$scope.$apply();
     });
     $scope.dataSeleted = { ID: 0, Name: "", Code: '', Description: "", Status: "0", Sys_ViewID: $scope.gridInfo.sysViewID };
@@ -139,7 +138,7 @@
             entry.Sys_ViewID = $scope.gridInfo.sysViewID;
             entry.Steps = {};
            
-            entry.Steps.Step = $scope.steps;
+            entry.Steps.Step = converDatetoDB();
             coreService.actionEntry2(entry, function(data) {
                 if (data.Success) {
                     switch (act) {
@@ -175,6 +174,41 @@
             });
         }
     }
+    function converDatetoDB(obj) {
+         var entry = angular.copy($scope.steps);
+        angular.forEach(entry, function (item, key) {
+            if (item.IntendStartDate instanceof Date) {
+                item.IntendStartDate = $filter('date')(item.IntendStartDate, "yyyy-MM-dd")
+            }
+            if (item.CompleteDate instanceof Date) {
+                item.CompleteDate = $filter('date')(item.CompleteDate, "yyyy-MM-dd")
+            }
+            if (item.IntendEndDate instanceof Date) {
+                item.IntendEndDate = $filter('date')(item.IntendEndDate, "yyyy-MM-dd")
+            }
+            if (item.StartDate instanceof Date) {
+                item.StartDate = $filter('date')(item.StartDate, "yyyy-MM-dd")
+            }
+        });
+        return entry;
+    }
+    function converDatetoView(entry) {
+         angular.forEach(entry, function (item, key) {
+            if (item.IntendStartDate instanceof Date) {
+                item.IntendStartDate = new Date(item.IntendStartDate);
+            }
+            if (item.CompleteDate instanceof Date) {
+                item.CompleteDate = new Date(item.CompleteDate);
+            }
+            if (item.IntendEndDate instanceof Date) {
+                item.IntendEndDate = new Date(item.IntendEndDate);
+            }
+            if (item.StartDate instanceof Date) {
+                item.StartDate = new Date(item.StartDate);
+            }
+        });
+        return entry;
+    }
     $scope.setComplete = function (item) {
         if (typeof item != 'undefined') {
             var entry = angular.copy(item);
@@ -206,6 +240,8 @@
         // $scope.$apply();
     }
 
+
+   
     //********************************************
    
     $scope.searchTable = function () {
@@ -248,7 +284,7 @@
                 $scope.name = 'You did not enter in your name!';
         });
     }
-     $scope.openDialogChart(1);
+  //   $scope.openDialogChart(1);
 })
 .controller('projectDialogCtrl', function ($scope, $modalInstance, projectService) {
     //-- Variables --//

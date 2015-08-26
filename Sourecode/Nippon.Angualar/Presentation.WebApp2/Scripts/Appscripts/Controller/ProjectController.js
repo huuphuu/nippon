@@ -194,16 +194,16 @@
     }
     function converDatetoView(entry) {
          angular.forEach(entry, function (item, key) {
-            if (item.IntendStartDate instanceof Date) {
+            if (item.IntendStartDate !='') {
                 item.IntendStartDate = new Date(item.IntendStartDate);
             }
-            if (item.CompleteDate instanceof Date) {
+            if (item.CompleteDate != '') {
                 item.CompleteDate = new Date(item.CompleteDate);
             }
-            if (item.IntendEndDate instanceof Date) {
+            if (item.IntendEndDate != '') {
                 item.IntendEndDate = new Date(item.IntendEndDate);
             }
-            if (item.StartDate instanceof Date) {
+            if (item.StartDate != '') {
                 item.StartDate = new Date(item.StartDate);
             }
         });

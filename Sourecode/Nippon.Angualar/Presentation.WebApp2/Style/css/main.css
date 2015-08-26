@@ -130,10 +130,18 @@ table#AreaGrid tbody td {
     float: left;
 }
 
-.noneintersectionleft, .noneintersectionright {
+.noneintersectionleft {
     float: left;
     display: inline-block;
     height: 27px;
+    border-right: solid 1px;
+}
+
+.noneintersectionright {
+    float: left;
+    display: inline-block;
+    height: 27px;
+    border-left: solid 1px;
 }
 
 .baseline-bar-info {
@@ -149,7 +157,7 @@ table#AreaGrid tbody td {
     box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
 }
 
-.baseline-bar-red{
+.baseline-bar-red {
     background-image: -webkit-linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
     background-image: -o-linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
     background-image: linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
@@ -159,13 +167,14 @@ table#AreaGrid tbody td {
     float: left;
     background-color: #fcc;
 }
-.baselinechart div{
-    text-align:center;
-    font-weight:bold;
-    overflow:hidden;
+
+.baselinechart div {
+    text-align: center;
+    font-weight: bold;
+    overflow: hidden;
 }
 
-.baseline-bar-gray{
+.baseline-bar-gray {
     background-image: -webkit-linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
     background-image: -o-linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
     background-image: linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
@@ -186,5 +195,3 @@ table#AreaGrid tbody td {
     float: left;
     background-color: #00a650;
 }
-
-

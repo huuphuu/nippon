@@ -24,7 +24,6 @@
         var maxDate = $filter('getMaxDate')(data[0].IntendEndDate, data[0].CompleteDate);
         var totalDate = $filter('dateDiff')(minDate, maxDate);
         for (var i = 0; i < data.length; i++) {
-            if (i == 6)
                 angular.extend(data[i], getStepInfo(data[i], minDate, maxDate, totalDate));
         }
         console.log(data)

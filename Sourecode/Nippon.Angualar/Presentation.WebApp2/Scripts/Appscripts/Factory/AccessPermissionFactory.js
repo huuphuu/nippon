@@ -17,6 +17,9 @@
             return null;
         return authData;
     }
+    obj.getAuthorities = function (viewID) {
+
+    }
     return obj;
 });
 /*

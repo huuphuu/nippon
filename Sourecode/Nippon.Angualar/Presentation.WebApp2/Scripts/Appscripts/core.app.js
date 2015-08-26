@@ -309,7 +309,22 @@ var coreApp;
                 return this.execute('GetContextData ', inputValue, callback);
             };
         },
-
+        authorities: function () {
+            this.listRight = null,
+            this.set = function (data) {
+                this.listRight = data;
+            };
+            this.get = function (viewID) {
+                if (this.listRight == null)
+                    return null;
+                if (typeof viewID == 'undefined')
+                    return this.listRight;
+                for (var i = 0; i < this.listRight.length; i++)
+                    if (this.listRight[i].ViewID == viewID)
+                        return this.listRight[i];
+                
+            };
+        }
     }
 })(coreApp);
 //-----------------------------------------------------------------------------
@@ -318,6 +333,7 @@ var coreApp;
 angular.module('app.service', [])
     .service('coreService', coreApp.service.core)
     .service('gridService', coreApp.service.grid)
+    .service('authoritiesService', coreApp.service.authorities)
 //.service('securitiesService', coreApp.service.securities)
 
 //.service('porfolioService', coreApp.service.portfolio)

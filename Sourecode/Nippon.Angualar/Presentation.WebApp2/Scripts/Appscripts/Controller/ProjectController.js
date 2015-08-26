@@ -1,5 +1,5 @@
 ﻿angular.module('indexApp')
-.controller('ProjectCtrl', function ($scope, projectService, coreService, alertFactory, dialogs) {
+.controller('ProjectCtrl', function ($scope, projectService, coreService,authoritiesService, alertFactory, dialogs) {
     $scope.gridInfo = {
         gridID: 'projecttgrid',
         table: null,
@@ -61,6 +61,8 @@
 
     });
 
+    var listRight = authoritiesService.get($scope.gridInfo.sysViewID);
+    console.log('listRight', listRight);
     $scope.formDisabled = false;
     $scope.statusOptions = statusOptions;
     $scope.stepDone = function ($event,item) {

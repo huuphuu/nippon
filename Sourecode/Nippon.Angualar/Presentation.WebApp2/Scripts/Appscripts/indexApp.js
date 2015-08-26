@@ -1,7 +1,7 @@
 ﻿'use strict';
 angular.module('indexApp')
 // Controller ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    .controller('BodyController', function ($scope, toaster, coreService, accessFac, localStorageService) {
+    .controller('BodyController', function ($scope, toaster, coreService, accessFac, localStorageService, authoritiesService) {
         $scope.navigation = $adminCMS.data.navigation;
         $scope.currentUser = $adminCMS.data.user;
         $scope.skin = layoutConfig.skin;
@@ -14,6 +14,7 @@ angular.module('indexApp')
         $scope.currentUser.profile.title = userInfo.UserName;
         coreService.getList(10, function (data) {
             var pData = $scope.buildNavigation(data[1]);
+            authoritiesService.set(data[1]);
             $scope.sidebarNavigation = pData;
             setTimeout(function () {
                 $.AdminLTE.tree('.sidebar');
@@ -31,7 +32,7 @@ angular.module('indexApp')
             var tempData = angular.extend([], data),
             masterArr = [],
             childArr = [];
-            for (var i = 0; i < tempData.length; i++) {
+             for (var i = 0; i < tempData.length; i++) {
                 tempData[i].name = tempData[i].Name;
                 tempData[i].url = tempData[i].Code.toLowerCase();//tempData[i].LinkURL == '' ? '#' : tempData[i].LinkURL;
                 tempData[i].cssIcon = tempData[i].CssIcon;

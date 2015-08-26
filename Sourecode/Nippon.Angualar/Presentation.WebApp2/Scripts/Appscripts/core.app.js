@@ -164,18 +164,18 @@ var coreApp;
                 ret = '';
             var childInput = "";
             angular.forEach(data, function (value, key) {
-                if (key.indexOf("$") >=0) return;
+                if (key.indexOf("$") >= 0) return;
                 if (typeof value != "function" && typeof value != "object") {
                     // value = html.decode(value);
                     inputs.push($.string.Format('{0}="{1}" ', key, objThis.html.encode(value)));
                 } else if (angular.isArray(value)) {
-                    angular.forEach(value, function(item,notuse) {
+                    angular.forEach(value, function (item, notuse) {
                         childInput += objThis.objectToXMLEx(key, item);
-                        console.log("array",key, item);
+                        console.log("array", key, item);
                     });
-                }else if (angular.isObject(value)) {
-                        childInput = objThis.objectToXMLEx(key, value);
-                    }
+                } else if (angular.isObject(value)) {
+                    childInput = objThis.objectToXMLEx(key, value);
+                }
             });
             ret = $.string.Format('<{0} {1}>', tagName, inputs.join(' '));
             ret += childInput;
@@ -234,7 +234,7 @@ var coreApp;
 (function (a) {
     a.service = {
         core: function () {
-            userID:0,
+            userID: 0,
             this.execute = function (fnName, inputValue, callback) {
                 return a.callAjax({
                     url: 'Core/CoreService.asmx/' + fnName,
@@ -319,10 +319,12 @@ var coreApp;
                     return null;
                 if (typeof viewID == 'undefined')
                     return this.listRight;
-                for (var i = 0; i < this.listRight.length; i++)
+                viewID += '';
+                for (var i = 0; i < this.listRight.length; i++) {
                     if (this.listRight[i].ViewID == viewID)
                         return this.listRight[i];
-                
+                }
+
             };
         }
     }

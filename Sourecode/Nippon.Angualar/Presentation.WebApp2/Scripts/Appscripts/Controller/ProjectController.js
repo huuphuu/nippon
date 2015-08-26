@@ -60,8 +60,7 @@
         $scope.gridInfo.data = angular.copy(data[1]);
 
     });
-
-    var listRight = authoritiesService.get($scope.gridInfo.sysViewID);
+     var listRight = authoritiesService.get($scope.gridInfo.sysViewID);
     console.log('listRight', listRight);
     $scope.formDisabled = false;
     $scope.statusOptions = statusOptions;

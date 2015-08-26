@@ -5,30 +5,30 @@
         table: null,
         cols: [
 
-            { name: 'ID', heading: '#', width: '8px' },
-            { name: 'DisplayStatus', heading: 'Status', width: '10x' },
-            { name: 'Action', heading: 'Action', width: '100px', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }, { classIcon: ' fa-bar-chart', action: 'chart' }] },
-            { name: 'AgentName', heading: 'Agent', width: '100px' },
-            { name: 'AgentAddress', heading: 'Address', width: '200px' },
-            { name: 'AgentPhone', heading: 'AgentPhone', width: '100px' },
-            { name: 'AgentContactName', heading: 'AgentContactName', width: '100px' },
+            { name: 'ID', heading: '#', width: '2%' },
+            { name: 'DisplayStatus', heading: 'Status', width: '3%' },
+            { name: 'Action', heading: 'Action', width: '3%', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }, { classIcon: ' fa-bar-chart', action: 'chart' }] },
+            { name: 'AgentName', heading: 'Agent', width: '3%' },
+            { name: 'AgentAddress', heading: 'Address', width: '3%' },
+            { name: 'AgentPhone', heading: 'AgentPhone', width: '3%' },
+            { name: 'AgentContactName', heading: 'AgentContactName', width: '3%' },
            
-            { name: 'AreaManagerName', heading: 'ApprovedBy', width: '100px' },
-            { name: 'AttachedPhoto', heading: 'AttachedPhoto', width: '100px' },
-            { name: 'CompetitorName', heading: 'CompetitorName', width: '100px' },
-            { name: 'ComplitionDate', heading: 'ComplitionDate', width: '100px' },
-            { name: 'DealerTypeName', heading: 'DealerType', width: '100px' },
-            { name: 'EstimatedAnnualTurnover', heading: 'EstimatedAnnualTurnover', width: '100px' },
-            { name: 'HadCCMName', heading: 'HadCCM', width: '100px' },
-            { name: 'HadCompetitorShopsignName', heading: 'HadCompetitorShopsign', width: '100px' },
-            { name: 'IsCCMName', heading: 'IsCCM', width: '100px' },
-            { name: 'IsShopsignName', heading: 'IsShopsign', width: '100px' },
-            { name: 'MasterDealerName', heading: 'MasterDealerName', width: '100px' },
-            { name: 'NumberOfShelf', heading: 'NumberOfShelf', width: '100px' },
-            { name: 'NumberOfShopsign', heading: 'NumberOfShopsign', width: '100px' },
-            { name: 'RequestedBy', heading: 'RequestedBy', width: '100px' },
-            { name: 'ShopsignPlacementName', heading: 'ShopsignPlacement', width: '100px' },
-            { name: 'ShopsignSize', heading: 'ShopsignSize', width: '100px' }
+            { name: 'AreaManagerName', heading: 'ApprovedBy', width: '3%' },
+            { name: 'AttachedPhoto', heading: 'AttachedPhoto', width: '3%' },
+            { name: 'CompetitorName', heading: 'CompetitorName', width: '3%' },
+            { name: 'ComplitionDate', heading: 'ComplitionDate', width: '3%' },
+            { name: 'DealerTypeName', heading: 'DealerType', width: '3%' },
+            { name: 'EstimatedAnnualTurnover', heading: 'EstimatedAnnualTurnover', width: '3%' },
+            { name: 'HadCCMName', heading: 'HadCCM', width: '10%' },
+            { name: 'HadCompetitorShopsignName', heading: 'HadCompetitorShopsign', width: '10%' },
+            { name: 'IsCCMName', heading: 'IsCCM', width: '10%' },
+            { name: 'IsShopsignName', heading: 'IsShopsign', width: '10%' },
+            { name: 'MasterDealerName', heading: 'MasterDealerName', width: '10%' },
+            { name: 'NumberOfShelf', heading: 'NumberOfShelf', width: '10%' },
+            { name: 'NumberOfShopsign', heading: 'NumberOfShopsign', width: '10%' },
+            { name: 'RequestedBy', heading: 'RequestedBy', width: '10%' },
+            { name: 'ShopsignPlacementName', heading: 'ShopsignPlacement', width: '10%' },
+            { name: 'ShopsignSize', heading: 'ShopsignSize', width: '10%' }
         ],
         showColMin: 6,
         data: [],
@@ -296,7 +296,7 @@
                 $scope.name = 'You did not enter in your name!';
         });
     }
-    //   $scope.openDialogChart(1);
+   //   $scope.openDialogChart(1);
 })
 .controller('projectDialogCtrl', function ($scope, $modalInstance, projectService) {
     //-- Variables --//

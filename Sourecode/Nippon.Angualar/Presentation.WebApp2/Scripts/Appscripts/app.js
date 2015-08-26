@@ -64,9 +64,17 @@ app.run(function ($rootScope, $location, accessFac) {
 
     });
 
-
 });
-
+app.run(function ($templateCache) {
+    $templateCache.put('template/chart/popover.html', [
+        '<div modal-render="{{$isRendered}}" tabindex="-1" role="dialog" class="modal app-modal" modal-animation-class="fade" ng-class="{in: animate}"',
+            'ng-style="{\'z-index\': 1050 + index*10, display: \'block\'}" ng-click="close($event)">',
+            '<div class="modal-dialog" ng-class="size ? \'modal-\' + size : \'\'">',
+                '<div class="modal-content" modal-transclude></div>',
+            '</div>',
+        '</div>'
+    ].join(''));
+})
 var statusOptions = [
         {
             name: 'DeActive',

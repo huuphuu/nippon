@@ -24,7 +24,8 @@
         var maxDate = $filter('getMaxDate')(data[0].IntendEndDate, data[0].CompleteDate);
         var totalDate = $filter('dateDiff')(minDate, maxDate);
         for (var i = 0; i < data.length; i++) {
-                angular.extend(data[i], getStepInfo(data[i], minDate, maxDate, totalDate));
+         //   if (i == 6) debugger;
+            angular.extend(data[i], getStepInfo(data[i], minDate, maxDate, totalDate));
         }
         console.log(data)
         $scope.data = data;
@@ -148,8 +149,8 @@
                 }
                 else {
                     // StartDate--IntendEndDate
-                    if (maxStartDate == data.StartDate && minEndDate < data.CompleteDate) {
-                        longG2 = $filter('dateDiff')(minEndDate.maxStartDate);
+                    if (maxStartDate == data.StartDate && minEndDate < data.CompleteDate && data.IntendEndDate > data.StartDate) {
+                        longG2 = $filter('dateDiff')(minEndDate, maxStartDate);
                         widthG2 = longG2 == 0 ? 0 : longG2 * 100 / total;
                         g2 = {
                             css: 'baseline-bar-gray',
@@ -189,7 +190,7 @@
         /************Block 3 T3-T4==>G3*****************************************/
         //IntendEndDate<StartDate
         if (data.IntendEndDate < data.StartDate) {
-            longG3 = $filter('dateDiff')(data.IntendEndDate, data.CompleteDate);
+            longG3 = $filter('dateDiff')(data.StartDate, data.CompleteDate);
             widthG3 = longG3 == 0 ? 0 : longG3 * 100 / total;
             g3 = {
                 css: 'baseline-bar-red',
@@ -233,7 +234,9 @@
 
         }
 
-
+        g1.width = parseFloat(Math.floor(g1.width * 10)) / 10;
+        g2.width = parseFloat(Math.floor(g2.width * 10)) / 10;
+        g3.width = parseFloat(Math.floor(g3.width * 10)) / 10;
         // var group1 = $filter('dateDiff')(dataIntendStartDate, maxEndDate) * 100 / totalDate;
         return {
             space: space,
@@ -257,3 +260,50 @@
 
 
 })
+
+.directive('baselinechartPopover', function () {
+    return {
+        restrict: 'A',
+        template: '<span>{{label}}</span>',
+       // templateUrl: '/Templates/directive/listFolderTreeView/listFolder-Parent.html',
+        link: function (scope, el, attrs) {
+            scope.label = attrs.popoverLabel;
+
+            $(el).popover({
+                trigger: 'mouseenter',
+                html: true,
+                content: attrs.popoverHtml,
+                placement: attrs.popoverPlacement
+            });
+        }
+    };
+})
+.directive('mypopover', function ($compile, $templateCache) {
+
+    var getTemplate = function (contentType) {
+        var template = '';
+        switch (contentType) {
+            case 'user':
+                template = $templateCache.get("'/Templates/directive/form/right-Action.html");
+                break;
+        }
+        return template;
+    }
+    return {
+        restrict: "A",
+        link: function (scope, element, attrs) {
+            var popOverContent;
+            popOverContent = $templateCache.get("template/chart/popover.html");
+           
+            debugger;
+            var options = {
+                content: popOverContent,
+                placement: "right",
+                html: true,
+                date: scope.date,
+                trigger: 'click'
+            };
+            $(element).popover(options);
+        }
+    };
+});

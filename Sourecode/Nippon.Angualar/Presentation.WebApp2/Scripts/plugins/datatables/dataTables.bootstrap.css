@@ -172,11 +172,13 @@ table.table-bordered thead th,
 table.table-bordered thead td {
 	border-left-width: 0;
 	border-top-width: 0;
+     white-space: nowrap;
 }
 table.table-bordered tbody th,
 table.table-bordered tbody td {
 	border-left-width: 0;
 	border-bottom-width: 0;
+     white-space: nowrap;
 }
 table.table-bordered tfoot th,
 table.table-bordered tfoot td {

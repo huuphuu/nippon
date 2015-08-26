@@ -261,7 +261,7 @@ angular.module('indexApp')
                                 .withOption("pageLength", 9)
                                 .withOption("searching", true)
                                .withOption("autowidth", true)
-                                .withOption('scrollX', '100px')
+                                .withOption('scrollX', '30%')
                                .withOption('scrollCollapse', true)
                                 .withOption('createdRow', createdRow)
                                 //.withFixedColumns({

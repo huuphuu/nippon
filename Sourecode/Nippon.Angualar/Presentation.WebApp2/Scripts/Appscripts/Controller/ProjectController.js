@@ -33,7 +33,7 @@
         showColMin: 6,
         data: [],
         sysViewID: 5,
-        pageLength:20,
+        pageLength:16,
         searchQuery: '',
         onActionClick: function (rowID, act) {
             switch (act) {

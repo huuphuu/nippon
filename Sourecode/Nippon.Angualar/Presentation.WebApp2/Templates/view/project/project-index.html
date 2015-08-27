@@ -27,9 +27,11 @@
                         <accordion-group heading="" ng-repeat="group in steps"   is-open="group.isOpen">
                              <accordion-heading>
           {{group.StepName}}
-                                 <button type="button" class="btn pull-right" ng-class="themeButton" style="margin-top: -8px;" ng-if="group.Status=='0'" ng-click="stepDone($event,group)"> Done</button>
+                                 
+                                 <button type="button" class="btn pull-right" ng-class="themeButton" style="margin-top: -8px;" ng-if="group.Status=='0' || group.Status=='2'" ng-click="stepDone($event,group)"> Done</button>
+                                 <span ng-if="group.Status=='2'" class="pull-right label-danger">Rejected</span>
                                  <span ng-if="group.Status=='1'" class=" pull-right">{{ group.CompleteDate | date : 'dd-MM-yyyy' }}</span>
-                                 <span ng-if="group.Status=='2'" class=" pull-right label-danger">Rejected</span>
+                                
         </accordion-heading>
 
                          <project-step>

@@ -51,7 +51,7 @@
                         <label for="parentarea" class="col-sm-3 control-label">Parent</label>
                         <div class="col-sm-9 padding-right-19">
                             <ui-select ng-model="dataSeleted.ParentID" theme="selectize" ng-disabled="disabled" title="Choose a manager">
-                                <ui-select-match placeholder="Select or search a manager in the list...">{{$select.selected.Name}}</ui-select-match>
+                                <ui-select-match placeholder="">{{$select.selected.Name}}</ui-select-match>
                                 <ui-select-choices repeat="item.ID as item in parentareas | filter: $select.search">
                                   <span ng-bind-html="item.Name | highlight: $select.search"></span>
                                   <small ng-bind-html="item.Code | highlight: $select.search"></small>

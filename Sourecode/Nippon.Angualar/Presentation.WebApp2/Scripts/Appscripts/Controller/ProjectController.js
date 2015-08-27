@@ -66,6 +66,7 @@
     }
     
     var listRight = authoritiesService.get($scope.gridInfo.sysViewID);
+    
     $scope.formDisabled = false;
     $scope.statusOptions = statusOptions;
     $scope.stepDone = function ($event, item) {
@@ -324,6 +325,13 @@
             if (angular.equals($scope.name, ''))
                 $scope.name = 'You did not enter in your name!';
         });
+    }
+
+    $scope.stepPermision = function(item) {
+        //quyen IsInsert,IsUpdate trong listRight
+        //Neu la manager thi co quyen tren tat ca step
+        //Neu la user thuong thi chi co quyen tren step cua minh thoi
+        
     }
    //   $scope.openDialogChart(1);
 })

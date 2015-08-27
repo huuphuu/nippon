@@ -15,7 +15,7 @@
     },
     $scope.parentareas = [];
     $scope.managers = [];
-    coreService.getListEx(8, function (data) {
+    coreService.getList(8, function (data) {
         $scope.parentareas = data[1];
     });
     coreService.getList(3, function (data) {

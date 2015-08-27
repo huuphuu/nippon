@@ -2,6 +2,45 @@
     <button type="button" class="close" ng-click="cancel()">×</button>
     <h4 class="modal-title ng-binding"><span class="glyphicon glyphicon-check"></span>{{title}}</h4>
 </div>
+<script id="calendar.html" type="text/ng-template">
+    <div class="row">
+            <div class="col-md-12">
+      <div class="form-group">
+                    <label for="inputDate1" class="col-sm-6 ">Intend Start Date</label>
+                    
+                    <div class="col-sm-6">
+                       {{popoverData.IntendStartDate| date : 'dd-MM-yyyy'}}
+                    </div>
+                </div>
+
+    <div class="form-group">
+                    <label for="inputDate1" class="col-sm-6 ">Intend Start Date</label>
+                    
+                    <div class="col-sm-6">
+                       {{popoverData.StartDate| date : 'dd-MM-yyyy'}}
+                    </div>
+                </div>
+
+    <div class="form-group">
+                    <label for="inputDate1" class="col-sm-6 ">Start Date</label>
+                    
+                    <div class="col-sm-6">
+                       {{popoverData.IntendStartDate| date : 'dd-MM-yyyy'}}
+                    </div>
+                </div>
+
+    <div class="form-group">
+                    <label for="inputDate1" class="col-sm-6 ">Intend End Date</label>
+                    
+                    <div class="col-sm-6">
+                       {{popoverData.IntendEndDate| date : 'dd-MM-yyyy'}}
+                    </div>
+                </div>
+
+    </div>
+                </div>
+
+</script>
 
 <div class="modal-body">
     <form class="form-horizontal row">
@@ -10,9 +49,9 @@
             <div class="col-sm-9 padding-right-19 ">
                 <div class="space" style="float: left; overflow: hidden" ng-style='{"width":item.space+"%"}'>&nbsp;</div>
                 <div class="baselinechart" ng-style='{"width":item.width+"%"}'>
-                    <div class="noneintersectionleft" ng-style='{"width":item.group1.width+"%"}' ng-class="item.group1.css" ng-hide="item.group1.width<1" mypopover data-placement="right" title="title">{{item.group1.long||' '}}</div>
-                    <div ng-class="item.group2.css" ng-style='{"width":item.group2.width+"%"}' ng-hide="item.group2.width<1" popover="I appeared on<br/> mouse enter!" popover-trigger="mouseenter">{{item.group2.long||' '}}</div>
-                    <div class="noneintersectionright" ng-class="item.group3.css" ng-style='{"width":item.group3.width+"%"}' ng-hide="item.group3.width<1" popover="I appeared on mouse enter!" popover-trigger="mouseenter">{{item.group3.long||' '}}</div>
+                    <div class="noneintersectionleft" ng-style='{"width":item.group1.width+"%"}' ng-class="item.group1.css" ng-hide="item.group1.width<1" popover-placement="bottom" popover-template="'calendar.html'" popover-title="{{item.StepName}}" ng-mouseover="setHoverData(item)">{{item.group1.long||' '}}</div>
+                    <div ng-class="item.group2.css" ng-style='{"width":item.group2.width+"%"}' ng-hide="item.group2.width<1" popover-placement="bottom" popover-trigger="mouseenter" popover-template="'calendar.html'" popover-title="{{item.StepName}}" ng-mouseover="setHoverData(item)">{{item.group2.long||' '}}</div>
+                    <div class="noneintersectionright" ng-class="item.group3.css" ng-style='{"width":item.group3.width+"%"}' ng-hide="item.group3.width<1" popover-placement="bottom" popover-template="'calendar.html'" popover-title="{{item.StepName}}" ng-mouseover="setHoverData(item)" >{{item.group3.long||' '}}</div>
                 </div>
             </div>
         </div>

@@ -119,7 +119,7 @@ var coreApp;
                                         result.Result = data[1][0].Result;
                                         result.Success = true;
                                         if (data.length > 2) { //Neu co tra ve du lieu
-                                            result.entry = data[2];
+                                            result.Entry = data[2];
                                         }
                                     } else {
                                         result.Message = data[1][0];

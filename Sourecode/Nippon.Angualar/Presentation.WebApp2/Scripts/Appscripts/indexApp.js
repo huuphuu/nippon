@@ -279,6 +279,9 @@ angular.module('indexApp')
                 $('td', nRow).bind('click', function ($event) {
                     var col = $(this).attr('class').split(' ')[0];
                     // aData.gridPositoin = $scope.gridInfo.tableInstance.fnGetPosition(this);
+
+                    var row = $(this).closest('tr');
+                    $scope.gridInfo.nRow = row[0];
                     $("tr").removeClass('selected');
                     $(this).parent().addClass('selected');
                     $scope.gridInfo.setData(aData, col);
@@ -301,17 +304,32 @@ angular.module('indexApp')
                 var query = $scope.searchQuery;
                 $scope.gridInfo.tableInstance.search(query).draw();
             };
+            $scope.deleteRow = function () {
+                //debugger;
+                $scope.dtInstance.DataTable.rows('.selected').remove().draw(false);
+                $scope.dtInstance.dataTable.fnDeleteRow($scope.gridInfo.nRow, null, false);
+            }
+            $scope.addRow = function (entry) {
+                $scope.dtInstance.dataTable.fnAddData(entry);
+            }
+            $scope.updateRow = function (aData) {
+                loadData();
+               // $scope.dtInstance.dataTable.fnUpdate(aData, $scope.gridInfo.nRow);
+            }
 
-
-            coreService.getList($scope.gridInfo.sysViewID, function (data) {
-                $scope.gridInfo.data = angular.copy(data[1]);
-                $scope.dtInstance.dataTable.fnAddData($scope.gridInfo.data);
-                $scope.gridInfo.tableInstance = $scope.dtInstance.DataTable;
-                window.setTimeout(function () {
-                    $(window).trigger("resize")
-                }, 200);
-            });
-
+            loadData();
+            function loadData() {
+                coreService.getList($scope.gridInfo.sysViewID, function (data) {
+                    $scope.gridInfo.data = angular.copy(data[1]);
+                    $scope.dtInstance.dataTable.fnClearTable();
+                    $scope.dtInstance.dataTable.fnAddData($scope.gridInfo.data);
+                    $scope.gridInfo.tableInstance = $scope.dtInstance.DataTable;
+                    $scope.gridInfo.instance = $scope;
+                    window.setTimeout(function () {
+                        $(window).trigger("resize")
+                    }, 200);
+                });
+            }
             //$timeout(function () {
             //    $scope.$watch('gridInfo.data', function (data, oldData) {
             //        if (data) {
@@ -336,7 +354,7 @@ angular.module('indexApp')
                 return columns;
             }
             $scope.actionClick = function (row, act, obj) {
-                
+
                 $scope.gridInfo.onActionClick(row, act)
             }
 

@@ -146,6 +146,7 @@
         });
     }
     $scope.actionEntry = function (act) {
+        
         if (typeof act != 'undefined') {
             var entry = angular.copy($scope.dataSeleted);
             entry.Action = act;
@@ -155,6 +156,7 @@
             entry.Steps.Step = converDatetoDB();
             coreService.actionEntry2(entry, function (data) {
                 if (data.Success) {
+                    
                     switch (act) {
                         case 'INSERT':
                             entry.ID = data.Result;
@@ -171,6 +173,7 @@
                         case 'DELETE':
                             var index = -1;
                             var i = 0;
+                          
                             angular.forEach($scope.gridInfo.data, function (item, key) {
                                 if (entry.ID == item.ID)
                                     index = i;
@@ -178,6 +181,7 @@
                             });
                             if (index > -1)
                                 $scope.gridInfo.data.splice(index, 1);
+                            $scope.gridInfo.instance.deleteRow();
                             break;
                     }
                     //$scope.reset();
@@ -301,6 +305,7 @@
         projectService.areaManagerList = $scope.areaManagerList;
         projectService.dataSelected = $scope.dataSeleted;
         projectService.gridData = $scope.gridInfo.data;
+        projectService.gridInfo = $scope.gridInfo;
         var dlg = dialogs.create('/templates/view/project/project-popup.html', 'projectDialogCtrl', projectService, { size: 'lg', keyboard: false, backdrop: false });
         dlg.result.then(function (name) {
             $scope.name = name;

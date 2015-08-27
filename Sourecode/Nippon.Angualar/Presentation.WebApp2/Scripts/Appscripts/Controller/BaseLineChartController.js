@@ -27,7 +27,7 @@
          //   if (i == 6) debugger;
             angular.extend(data[i], getStepInfo(data[i], minDate, maxDate, totalDate));
         }
-        console.log(data)
+        console.log('baseline',data)
         $scope.data = data;
         $scope.$apply();
         return data;
@@ -295,7 +295,6 @@
             var popOverContent;
             popOverContent = $templateCache.get("template/chart/popover.html");
            
-            debugger;
             var options = {
                 content: popOverContent,
                 placement: "right",

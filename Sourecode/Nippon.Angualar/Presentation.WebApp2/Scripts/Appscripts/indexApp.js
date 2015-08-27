@@ -255,12 +255,16 @@ angular.module('indexApp')
             gridInfo: '=vmisTable'
         },
         controller: function ($scope, $element, $attrs, $q, DTOptionsBuilder, DTColumnBuilder, $timeout, $compile) {
+            var pageLength = 20;
+            if (typeof $scope.gridInfo.pageLength != 'undefined')
+                pageLength=  $scope.gridInfo.pageLength
             $scope.dtOptions = DTOptionsBuilder.newOptions()
                                 .withOption("paging", true)
                                 .withOption("pagingType", 'simple_numbers')
-                                .withOption("pageLength", 9)
+                                .withOption("pageLength", pageLength)
                                 .withOption("searching", true)
-                               .withOption("autowidth", true)
+                               .withOption("autowidth", false)
+                               .withOption('responsive', true)
                                 .withOption('scrollX', '30%')
                                .withOption('scrollCollapse', true)
                                 .withOption('createdRow', createdRow)
@@ -330,7 +334,7 @@ angular.module('indexApp')
                 col.withTitle(field.heading);
                 col.notSortable();
                 if (typeof field.className == 'undefined')
-                    field.className = 'text-center';
+                    field.className = '';
                 col.withClass(field.name + " " + field.className);
                 switch (field.type) {
                     //case controls.ICON_AND_TEXT:

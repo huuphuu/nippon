@@ -10,8 +10,8 @@
             <div class="col-sm-9 padding-right-19 ">
                 <div class="space" style="float: left; overflow: hidden" ng-style='{"width":item.space+"%"}'>&nbsp;</div>
                 <div class="baselinechart" ng-style='{"width":item.width+"%"}'>
-                    <div class="noneintersectionleft" ng-style='{"width":item.group1.width+"%"}' ng-class="item.group1.css" ng-hide="item.group1.width<1"  mypopover data-placement="right" title="title">{{item.group1.long||' '}}</div>
-                    <div ng-class="item.group2.css" ng-style='{"width":item.group2.width+"%"}' ng-hide="item.group2.width<1" popover="I appeared on mouse enter!" popover-trigger="mouseenter">{{item.group2.long||' '}}</div>
+                    <div class="noneintersectionleft" ng-style='{"width":item.group1.width+"%"}' ng-class="item.group1.css" ng-hide="item.group1.width<1" mypopover data-placement="right" title="title">{{item.group1.long||' '}}</div>
+                    <div ng-class="item.group2.css" ng-style='{"width":item.group2.width+"%"}' ng-hide="item.group2.width<1" popover="I appeared on<br/> mouse enter!" popover-trigger="mouseenter">{{item.group2.long||' '}}</div>
                     <div class="noneintersectionright" ng-class="item.group3.css" ng-style='{"width":item.group3.width+"%"}' ng-hide="item.group3.width<1" popover="I appeared on mouse enter!" popover-trigger="mouseenter">{{item.group3.long||' '}}</div>
                 </div>
             </div>

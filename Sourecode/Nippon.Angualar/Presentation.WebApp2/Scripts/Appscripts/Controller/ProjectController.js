@@ -6,12 +6,12 @@
         cols: [
 
             { name: 'ID', heading: '#', width: '2%' },
-            { name: 'DisplayStatus', heading: 'Status', width: '3%' },
-            { name: 'Action', heading: 'Action', width: '3%', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }, { classIcon: ' fa-bar-chart', action: 'chart' }] },
+            { name: 'DisplayStatus', heading: 'Status', width: '3%', className: 'text-center' },
+            { name: 'Action', heading: 'Action', width: '3%', className: 'text-center', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }, { classIcon: ' fa-bar-chart', action: 'chart' }] },
             { name: 'AgentName', heading: 'Agent', width: '3%' },
             { name: 'AgentAddress', heading: 'Address', width: '3%' },
-            { name: 'AgentPhone', heading: 'AgentPhone', width: '3%' },
-            { name: 'AgentContactName', heading: 'AgentContactName', width: '3%' },
+            { name: 'AgentPhone', heading: 'AgentPhone', width: '3%', className: 'text-center' },
+            { name: 'AgentContactName', heading: 'Agent Contact Name', width: '3%' },
            
             { name: 'AreaManagerName', heading: 'ApprovedBy', width: '3%' },
             { name: 'AttachedPhoto', heading: 'AttachedPhoto', width: '3%' },
@@ -33,6 +33,7 @@
         showColMin: 6,
         data: [],
         sysViewID: 5,
+        pageLength:20,
         searchQuery: '',
         onActionClick: function (rowID, act) {
             switch (act) {

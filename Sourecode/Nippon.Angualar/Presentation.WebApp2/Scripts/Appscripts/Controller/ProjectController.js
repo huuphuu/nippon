@@ -5,8 +5,8 @@
         table: null,
         cols: [
 
-            { name: 'ID', heading: '#', width: '2%' },
-            { name: 'DisplayStatus', heading: 'Status', width: '3%', className: 'text-center' },
+            { name: 'ID', heading: '#', width: '2%', className: 'text-center' },
+            { name: 'DisplayStatus', heading: 'Status', width: '2%', className: 'text-center' },
             { name: 'Action', heading: 'Action', width: '3%', className: 'text-center', type: controls.LIST_ICON, listAction: [{ classIcon: 'fa-pencil-square-o', action: 'view' }, { classIcon: ' fa-bar-chart', action: 'chart' }] },
             { name: 'AgentName', heading: 'Agent', width: '3%' },
             { name: 'AgentAddress', heading: 'Address', width: '3%' },
@@ -155,12 +155,12 @@
                     switch (act) {
                         case 'INSERT':
                             entry.ID = data.Result;
-                            projectService.gridData.unshift(entry);
+                            $scope.gridInfo.data.unshift(entry);
                             break;
                         case 'UPDATE':
-                            angular.forEach(projectService.gridData, function (item, key) {
+                            angular.forEach($scope.gridInfo.data, function (item, key) {
                                 if (entry.ID == item.ID) {
-                                    projectService.gridData[key] = angular.copy(entry);
+                                    $scope.gridInfo.data[key] = angular.copy(entry);
 
                                 }
                             });
@@ -168,13 +168,13 @@
                         case 'DELETE':
                             var index = -1;
                             var i = 0;
-                            angular.forEach(projectService.gridData, function (item, key) {
+                            angular.forEach($scope.gridInfo.data, function (item, key) {
                                 if (entry.ID == item.ID)
                                     index = i;
                                 i++;
                             });
                             if (index > -1)
-                                projectService.gridData.splice(index, 1);
+                                $scope.gridInfo.data.splice(index, 1);
                             break;
                     }
                     //$scope.reset();
@@ -230,6 +230,26 @@
                 if (data.Success) {
                     item.CompleteDate = new Date();
                     item.Status = '1';
+
+                } else {
+                    dialogs.notify(data.Message.Name, data.Message.Description);
+                }
+                //dialogs.notify(data.Message.Name, data.Message.Description);
+                $scope.$apply();
+
+            });
+        }
+    }
+    $scope.setReject = function (item) {
+        if (typeof item != 'undefined') {
+            var entry = angular.copy(item);
+            entry.Action = "UPDATE::REJECT";
+            entry.ProjectID = $scope.dataSeleted.ID;
+            entry.Sys_ViewID = $scope.gridInfo.sysViewID;
+            coreService.actionEntry2(entry, function (data) {
+                if (data.Success) {
+                    item.CompleteDate = new Date();
+                    item.Status = '2';
 
                 } else {
                     dialogs.notify(data.Message.Name, data.Message.Description);

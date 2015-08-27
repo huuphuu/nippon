@@ -268,16 +268,13 @@ angular.module('indexApp')
                                 .withOption('scrollX', '30%')
                                .withOption('scrollCollapse', true)
                                 .withOption('createdRow', createdRow)
-                                //.withFixedColumns({
-                                //    leftColumns: 3,
-                                //    rightColumns: 0
-                                //})
+                                .withFixedColumns({
+                                    leftColumns: 3,
+                                    rightColumns: 0
+                                })
                                .withOption('rowCallback', rowCallback);
 
-            function rowCallback(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-                // Unbind first in order to avoid any duplicate handler (see https://github.com/l-lin/angular-datatables/issues/87)
-
-
+            function rowCallback(nRow, aData, iDisplayIndex, iDisplayIndexFull) {              
                 $('td', nRow).unbind('click');
                 $('td', nRow).bind('click', function () {
                     var col = $(this).attr('class').split(' ')[0];

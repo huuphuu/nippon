@@ -171,7 +171,6 @@ var coreApp;
                 } else if (angular.isArray(value)) {
                     angular.forEach(value, function (item, notuse) {
                         childInput += objThis.objectToXMLEx(key, item);
-                        console.log("array", key, item);
                     });
                 } else if (angular.isObject(value)) {
                     childInput = objThis.objectToXMLEx(key, value);

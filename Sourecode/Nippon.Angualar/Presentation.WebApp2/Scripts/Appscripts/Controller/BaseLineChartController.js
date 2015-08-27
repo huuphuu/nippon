@@ -4,7 +4,7 @@
     if (typeof data == 'undefined')
         data = { viewID: 11, ProjectID: 1 };
     $scope.data = [];
-
+    $scope.popoverData = {};
     coreService.getViewData({ Sys_ViewID: data.viewID, ProjectID: data.projectID }, function (pData) {
         modifyData(pData[1])
     });
@@ -24,10 +24,9 @@
         var maxDate = $filter('getMaxDate')(data[0].IntendEndDate, data[0].CompleteDate);
         var totalDate = $filter('dateDiff')(minDate, maxDate);
         for (var i = 0; i < data.length; i++) {
-         //   if (i == 6) debugger;
+            //   if (i == 6) debugger;
             angular.extend(data[i], getStepInfo(data[i], minDate, maxDate, totalDate));
         }
-        console.log('baseline',data)
         $scope.data = data;
         $scope.$apply();
         return data;
@@ -258,14 +257,33 @@
         $modalInstance.dismiss('Canceled');
     }; // end cancel
 
+    $scope.setHoverData = function (data) {
+        $scope.popoverData = converDatetoView(data);
+    }
+    function converDatetoView(data) {
+        var item = angular.copy(data);
+        if (item.IntendStartDate != '') {
+            item.IntendStartDate = new Date(item.IntendStartDate);
+        }
+        if (item.CompleteDate != '') {
+            item.CompleteDate = new Date(item.CompleteDate);
+        }
+        if (item.IntendEndDate != '') {
+            item.IntendEndDate = new Date(item.IntendEndDate);
+        }
+        if (item.StartDate != '') {
+            item.StartDate = new Date(item.StartDate);
+        }
 
+        return item;
+    }
 })
 
 .directive('baselinechartPopover', function () {
     return {
         restrict: 'A',
         template: '<span>{{label}}</span>',
-       // templateUrl: '/Templates/directive/listFolderTreeView/listFolder-Parent.html',
+        // templateUrl: '/Templates/directive/listFolderTreeView/listFolder-Parent.html',
         link: function (scope, el, attrs) {
             scope.label = attrs.popoverLabel;
 
@@ -294,7 +312,7 @@
         link: function (scope, element, attrs) {
             var popOverContent;
             popOverContent = $templateCache.get("template/chart/popover.html");
-           
+
             var options = {
                 content: popOverContent,
                 placement: "right",

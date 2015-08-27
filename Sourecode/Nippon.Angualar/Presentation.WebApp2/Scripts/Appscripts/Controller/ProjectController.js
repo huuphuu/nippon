@@ -36,8 +36,15 @@
         pageLength:16,
         searchQuery: '',
         onActionClick: function (rowID, act) {
+            
             switch (act) {
                 case 'view':
+
+                    for (var i = 0; i < $scope.gridInfo.data.length; i++)
+                        if ($scope.gridInfo.data[i].ID == rowID) {
+                            $scope.dataSeleted = $scope.gridInfo.data[i];
+                            break;
+                        }
                     $scope.openDialog();
                     break;
                 case 'chart':
@@ -57,12 +64,8 @@
             }
         }
     }
-    coreService.getList($scope.gridInfo.sysViewID, function (data) {
-        $scope.gridInfo.data = angular.copy(data[1]);
-
-    });
+    
     var listRight = authoritiesService.get($scope.gridInfo.sysViewID);
-    console.log('listRight', listRight);
     $scope.formDisabled = false;
     $scope.statusOptions = statusOptions;
     $scope.stepDone = function ($event, item) {

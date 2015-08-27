@@ -32,7 +32,7 @@ angular.module('indexApp')
             var tempData = angular.extend([], data),
             masterArr = [],
             childArr = [];
-             for (var i = 0; i < tempData.length; i++) {
+            for (var i = 0; i < tempData.length; i++) {
                 tempData[i].name = tempData[i].Name;
                 tempData[i].url = tempData[i].Code.toLowerCase();//tempData[i].LinkURL == '' ? '#' : tempData[i].LinkURL;
                 tempData[i].cssIcon = tempData[i].CssIcon;
@@ -245,7 +245,7 @@ angular.module('indexApp')
 
 
     }])
-.directive('vmisTable', function () {
+.directive('vmisTable', function (coreService) {
     return {
         // restrict: "AE",
         templateUrl: function (elem, attrs) {
@@ -257,7 +257,7 @@ angular.module('indexApp')
         controller: function ($scope, $element, $attrs, $q, DTOptionsBuilder, DTColumnBuilder, $timeout, $compile) {
             var pageLength = 20;
             if (typeof $scope.gridInfo.pageLength != 'undefined')
-                pageLength=  $scope.gridInfo.pageLength
+                pageLength = $scope.gridInfo.pageLength
             $scope.dtOptions = DTOptionsBuilder.newOptions()
                                 .withOption("paging", true)
                                 .withOption("pagingType", 'simple_numbers')
@@ -274,15 +274,16 @@ angular.module('indexApp')
                                 })
                                .withOption('rowCallback', rowCallback);
 
-            function rowCallback(nRow, aData, iDisplayIndex, iDisplayIndexFull) {              
+            function rowCallback(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                 $('td', nRow).unbind('click');
-                $('td', nRow).bind('click', function () {
+                $('td', nRow).bind('click', function ($event) {
                     var col = $(this).attr('class').split(' ')[0];
+                    // aData.gridPositoin = $scope.gridInfo.tableInstance.fnGetPosition(this);
                     $("tr").removeClass('selected');
                     $(this).parent().addClass('selected');
-                    $scope.$apply(function () {
-                        $scope.gridInfo.setData(aData, col);
-                    });
+                    $scope.gridInfo.setData(aData, col);
+                    $event.preventDefault();
+                    $event.stopPropagation();
                 });
                 return nRow;
             }
@@ -301,18 +302,30 @@ angular.module('indexApp')
                 $scope.gridInfo.tableInstance.search(query).draw();
             };
 
-            $timeout(function () {
-                $scope.$watch('gridInfo.data', function (data, oldData) {
-                    if (data) {
-                        $scope.dtInstance.dataTable.fnAddData(data);
-                        $scope.gridInfo.tableInstance = $scope.dtInstance.DataTable;
-                    }
-                }, true);
 
+            coreService.getList($scope.gridInfo.sysViewID, function (data) {
+                $scope.gridInfo.data = angular.copy(data[1]);
+                $scope.dtInstance.dataTable.fnAddData($scope.gridInfo.data);
+                $scope.gridInfo.tableInstance = $scope.dtInstance.DataTable;
                 window.setTimeout(function () {
                     $(window).trigger("resize")
                 }, 200);
-            }, 100);
+            });
+
+            //$timeout(function () {
+            //    $scope.$watch('gridInfo.data', function (data, oldData) {
+            //        if (data) {
+            //            debugger;
+            //            $scope.dtInstance.dataTable.fnClearTable();
+            //            $scope.dtInstance.dataTable.fnAddData(data);
+            //            $scope.gridInfo.tableInstance = $scope.dtInstance.DataTable;
+            //        }
+            //    }, true);
+
+            //    window.setTimeout(function () {
+            //        $(window).trigger("resize")
+            //    }, 200);
+            //}, 100);
 
             function standardFields(fields) {
                 var columns = [];
@@ -322,7 +335,8 @@ angular.module('indexApp')
                 }
                 return columns;
             }
-            $scope.actionClick = function (row, act) {
+            $scope.actionClick = function (row, act, obj) {
+                
                 $scope.gridInfo.onActionClick(row, act)
             }
 
@@ -352,7 +366,7 @@ angular.module('indexApp')
                             var result = '';
 
                             angular.forEach(field.listAction, function (value, key) {
-                                result += '<i  ng-click="actionClick(' + full.ID + ",\'" + value.action + '\')" class="fa ' + value.classIcon + '">&nbsp;&nbsp;' + '</i>';
+                                result += '<i  ng-click="actionClick(' + full.ID + ",\'" + value.action + '\',this)" class="fa ' + value.classIcon + '">&nbsp;&nbsp;' + '</i>';
                             });
 
                             return result;

@@ -12,7 +12,7 @@
             { name: 'AgentAddress', heading: 'Address', width: '3%' },
             { name: 'AgentPhone', heading: 'AgentPhone', width: '3%', className: 'text-center' },
             { name: 'AgentContactName', heading: 'Agent Contact Name', width: '3%' },
-           
+
             { name: 'AreaManagerName', heading: 'ApprovedBy', width: '3%' },
             { name: 'AttachedPhoto', heading: 'AttachedPhoto', width: '3%' },
             { name: 'CompetitorName', heading: 'CompetitorName', width: '3%' },
@@ -33,10 +33,10 @@
         showColMin: 6,
         data: [],
         sysViewID: 5,
-        pageLength:16,
+        pageLength: 16,
         searchQuery: '',
         onActionClick: function (rowID, act) {
-            
+
             switch (act) {
                 case 'view':
 
@@ -64,9 +64,8 @@
             }
         }
     }
-    
+
     var listRight = authoritiesService.get($scope.gridInfo.sysViewID);
-    
     $scope.formDisabled = false;
     $scope.statusOptions = statusOptions;
     $scope.stepDone = function ($event, item) {
@@ -147,7 +146,7 @@
         });
     }
     $scope.actionEntry = function (act) {
-        
+
         if (typeof act != 'undefined') {
             var entry = angular.copy($scope.dataSeleted);
             entry.Action = act;
@@ -157,7 +156,7 @@
             entry.Steps.Step = converDatetoDB();
             coreService.actionEntry2(entry, function (data) {
                 if (data.Success) {
-                    
+
                     switch (act) {
                         case 'INSERT':
                             entry.ID = data.Result;
@@ -174,7 +173,7 @@
                         case 'DELETE':
                             var index = -1;
                             var i = 0;
-                          
+
                             angular.forEach($scope.gridInfo.data, function (item, key) {
                                 if (entry.ID == item.ID)
                                     index = i;
@@ -326,14 +325,7 @@
                 $scope.name = 'You did not enter in your name!';
         });
     }
-
-    $scope.stepPermision = function(item) {
-        //quyen IsInsert,IsUpdate trong listRight
-        //Neu la manager thi co quyen tren tat ca step
-        //Neu la user thuong thi chi co quyen tren step cua minh thoi
-        
-    }
-   //   $scope.openDialogChart(1);
+    $scope.openDialogChart(1);
 })
 .controller('projectDialogCtrl', function ($scope, $modalInstance, projectService) {
     //-- Variables --//

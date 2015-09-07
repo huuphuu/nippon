@@ -6,9 +6,35 @@
     projectService.gridData = [];
     projectService.areaList = [];
     projectService.areaManagerList = [];
+   
     projectService.actionEntry = function (act) {
         if (typeof act != 'undefined') {
             var entry = angular.copy(projectService.dataSelected);
+            var requestObjects = 0, shopsignPlacement=0;
+           
+            if (typeof entry.IsShopsign != 'undefined')
+                requestObjects += parseInt(entry.IsShopsign);
+            if (typeof entry.IsOutHouse != 'undefined')
+                requestObjects += parseInt(entry.IsOutHouse);
+            if (typeof entry.IsShelves != 'undefined')
+                requestObjects += parseInt(entry.IsShelves);
+            if (typeof entry.IsInHouse != 'undefined')
+                requestObjects += parseInt(entry.IsInHouse);
+            if (typeof entry.IsShopsignPoster != 'undefined')
+                requestObjects += parseInt(entry.IsShopsignPoster);
+            if (typeof entry.IsShopsignOther != 'undefined')
+                requestObjects += parseInt(entry.IsShopsignOther);
+
+
+            if (typeof entry.ShopsignPlacementFront != 'undefined')
+                shopsignPlacement += parseInt(entry.ShopsignPlacementFront);
+            if (typeof entry.ShopsignPlacementRight != 'undefined')
+                shopsignPlacement += parseInt(entry.ShopsignPlacementRight);
+            if (typeof entry.ShopsignPlacementLeft != 'undefined')
+                shopsignPlacement += parseInt(entry.ShopsignPlacementLeft);
+
+            entry.RequestObjects = requestObjects;
+            entry.ShopsignPlacement = shopsignPlacement;
             entry.Action = act;
             entry.Sys_ViewID = projectService.Sys_ViewID;
             coreService.actionEntry2(entry, function (data) {

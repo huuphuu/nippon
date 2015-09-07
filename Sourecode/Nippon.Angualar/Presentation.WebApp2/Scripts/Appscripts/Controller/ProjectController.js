@@ -14,7 +14,7 @@
             { name: 'AgentContactName', heading: 'Agent Contact Name', width: '3%' },
 
             { name: 'AreaManagerName', heading: 'ApprovedBy', width: '3%' },
-            { name: 'AttachedPhoto', heading: 'AttachedPhoto', width: '3%' },
+            //{ name: 'AttachedPhoto', heading: 'AttachedPhoto', width: '3%' },
             { name: 'CompetitorName', heading: 'CompetitorName', width: '3%' },
             { name: 'ComplitionDate', heading: 'ComplitionDate', width: '3%' },
             { name: 'DealerTypeName', heading: 'DealerType', width: '3%' },
@@ -27,7 +27,7 @@
             { name: 'NumberOfShelf', heading: 'NumberOfShelf', width: '10%' },
             { name: 'NumberOfShopsign', heading: 'NumberOfShopsign', width: '10%' },
             { name: 'RequestedBy', heading: 'RequestedBy', width: '10%' },
-            { name: 'ShopsignPlacementName', heading: 'ShopsignPlacement', width: '10%' },
+            //{ name: 'ShopsignPlacementName', heading: 'ShopsignPlacement', width: '10%' },
             { name: 'ShopsignSize', heading: 'ShopsignSize', width: '10%' }
         ],
         showColMin: 6,
@@ -45,7 +45,7 @@
                             $scope.dataSeleted = $scope.gridInfo.data[i];
                             break;
                         }
-                    $scope.openDialog();
+                    $scope.openDialog('view');
                     break;
                 case 'chart':
                     $scope.openDialogChart(rowID);
@@ -267,9 +267,13 @@
             });
         }
     }
+    $scope.resetDataSeleted = function () {
+        $scope.dataSeleted = { ID: 0, Name: '', Code: '', Description: "", Status: "0", Sys_ViewID: $scope.gridInfo.sysViewID, DealerType: '1', HadCCM: '0', HadCompetitorShopsign: '0' };
+
+    }
     $scope.reset = function (data) {
-        $scope.dataSeleted = { ID: 0, Name: '', Code: '', Description: "", Status: "0", Sys_ViewID: $scope.gridInfo.sysViewID };
-        $scope.layout = {
+        $scope.resetDataSeleted();
+         $scope.layout = {
             enableClear: false,
             enableButtonOrther: false,
             isFull: false
@@ -300,12 +304,48 @@
         // $scope.$apply();
     }
 
-    $scope.openDialog = function () {
+    $scope.openDialog = function (act) {
         projectService.areaList = $scope.areaList;
         projectService.areaManagerList = $scope.areaManagerList;
+        if (act == 'INSERT')
+            $scope.resetDataSeleted();
         projectService.dataSelected = $scope.dataSeleted;
         projectService.gridData = $scope.gridInfo.data;
         projectService.gridInfo = $scope.gridInfo;
+        var requestObjects = parseInt(projectService.dataSelected.RequestObjects);
+        var shopsignPlacement = parseInt(projectService.dataSelected.ShopsignPlacement);
+        projectService.dataSelected.IsShopsign = 0;
+        projectService.dataSelected.IsOutHouse = 0;
+        projectService.dataSelected.IsShelves = 0;
+        projectService.dataSelected.IsInHouse = 0;
+        projectService.dataSelected.IsShopsignPoster = 0;
+        projectService.dataSelected.IsShopsignOther = 0;
+
+        projectService.dataSelected.ShopsignPlacementFront = 0;
+        projectService.dataSelected.ShopsignPlacementRight = 0;
+        projectService.dataSelected.ShopsignPlacementLeft = 0;
+
+        if ((requestObjects & 1) == 1)
+            projectService.dataSelected.IsShopsign = 1;
+        if ((requestObjects & 2 )== 2)
+            projectService.dataSelected.IsOutHouse = 2;
+        if ((requestObjects & 4) == 4)
+            projectService.dataSelected.IsShelves = 4;
+        if ((requestObjects & 8) == 8)
+            projectService.dataSelected.IsInHouse = 8;
+        if ((requestObjects & 16) == 16)
+            projectService.dataSelected.IsShopsignPoster = 16;
+        if ((requestObjects & 32) == 32)
+            projectService.dataSelected.IsShopsignOther = 32;
+
+        if ((shopsignPlacement & 1) == 1)
+            projectService.dataSelected.ShopsignPlacementFront = 1;
+        if ((shopsignPlacement & 2) == 2)
+            projectService.dataSelected.ShopsignPlacementRight = 2;
+        if ((shopsignPlacement & 4) == 4)
+            projectService.dataSelected.ShopsignPlacementLeft = 4;
+        
+       
         var dlg = dialogs.create('/templates/view/project/project-popup.html', 'projectDialogCtrl', projectService, { size: 'lg', keyboard: false, backdrop: false });
         dlg.result.then(function (name) {
             $scope.name = name;
@@ -325,7 +365,7 @@
                 $scope.name = 'You did not enter in your name!';
         });
     }
-    $scope.openDialogChart(1);
+    //  $scope.openDialog(1);
 })
 .controller('projectDialogCtrl', function ($scope, $modalInstance, projectService) {
     //-- Variables --//
@@ -356,6 +396,10 @@
         //if (angular.equals(evt.keyCode, 13) && !(angular.equals($scope.user.name, null) || angular.equals($scope.user.name, '')))
         //    $scope.save();
     };
+
+    $scope.IsRequestObject = function (object) {
+        return ($scope.dataSelected.RequestObjects & object == object) ? true : false;
+    }
 }) // end controller(customDialogCtrl)
 
 .directive('projectStep', function ($timeout) {

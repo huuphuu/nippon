@@ -11,7 +11,6 @@
         if (typeof act != 'undefined') {
             var entry = angular.copy(projectService.dataSelected);
             var requestObjects = 0, shopsignPlacement=0;
-           
             if (typeof entry.IsShopsign != 'undefined')
                 requestObjects += parseInt(entry.IsShopsign);
             if (typeof entry.IsOutHouse != 'undefined')
@@ -24,8 +23,6 @@
                 requestObjects += parseInt(entry.IsShopsignPoster);
             if (typeof entry.IsShopsignOther != 'undefined')
                 requestObjects += parseInt(entry.IsShopsignOther);
-
-
             if (typeof entry.ShopsignPlacementFront != 'undefined')
                 shopsignPlacement += parseInt(entry.ShopsignPlacementFront);
             if (typeof entry.ShopsignPlacementRight != 'undefined')

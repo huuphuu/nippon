@@ -1,6 +1,6 @@
 ﻿angular.module('indexApp')
 .controller('baseLineChartCtrl', function ($scope, $modalInstance, data, coreService, $filter) {
-    $scope.title = 'Timeline Project';
+    $scope.title = data.titlePopup;
     if (typeof data == 'undefined')
         data = { viewID: 11, ProjectID: 1 };
     $scope.data = [];

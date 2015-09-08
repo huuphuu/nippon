@@ -304,10 +304,10 @@
     $scope.openDialog = function (act) {
         projectService.areaList = $scope.areaList;
         projectService.areaManagerList = $scope.areaManagerList;
-        projectService.titlePopup = "Modify Requistion";
+        projectService.titlePopup = "Modify ShopSign Requistion";
         if (act == 'INSERT') {
             $scope.resetDataSeleted();
-            projectService.titlePopup = "Add New Requistion"
+            projectService.titlePopup = "Add New ShopSign Requistion"
         }
         projectService.dataSelected = $scope.dataSeleted;
         projectService.gridData = $scope.gridInfo.data;
@@ -356,7 +356,7 @@
     }
 
     $scope.openDialogChart = function (pID) {
-        var data = { viewID: 11, projectID: pID }
+        var data = { viewID: 11, projectID: pID,titlePopup:'Timeline ShopSign' }
         var dlg = dialogs.create('/templates/view/chart/baseline-index.html', 'baseLineChartCtrl', data, { size: 'lg', keyboard: false, backdrop: false });
         dlg.result.then(function (name) {
             $scope.name = name;

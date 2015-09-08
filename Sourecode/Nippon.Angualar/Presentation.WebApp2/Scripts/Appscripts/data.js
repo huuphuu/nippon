@@ -107,7 +107,7 @@ $adminCMS.data = {
             "fullName": "Thanh Ly",
             "title": "Thanh Ly - Web Developer",
             "image": "Images/icons/user2-160x160.jpg",
-            "beMemberSince": "Nov 2012",
+            "beMemberSince": "Nov 2015",
             "profileUrl": "#",
             "userBody": [
                 { "text": "Followers", "url": "#" },

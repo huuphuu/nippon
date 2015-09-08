@@ -12,12 +12,15 @@ angular.module('indexApp')
         coreService.userID = userInfo.ID;
         $scope.currentUser.profile.fullName = userInfo.FullName;
         $scope.currentUser.profile.title = userInfo.UserName;
+        $scope.metroNavigation = [];
         coreService.getList(10, function (data) {
             var pData = $scope.buildNavigation(data[1]);
             authoritiesService.set(data[1]);
+            $scope.metroNavigation=data[1];
             $scope.sidebarNavigation = pData;
             setTimeout(function () {
                 $.AdminLTE.tree('.sidebar');
+                $(window).trigger("resize");
             }, 100);
         });
 

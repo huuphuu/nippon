@@ -964,6 +964,7 @@
     <Content Include="Templates\view\project\project-step.html" />
     <Content Include="Templates\view\project\project-top-left.html" />
     <Content Include="Templates\view\project\project-top-right.html" />
+    <Content Include="Templates\view\welcome\index.html" />
     <Content Include="test\datetime\example.js" />
     <Content Include="test\datetime\HtmlPage1.html" />
     <Content Include="test\layout.html" />

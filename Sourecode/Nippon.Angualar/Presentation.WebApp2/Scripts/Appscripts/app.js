@@ -5,7 +5,7 @@ var app = angular.module('indexApp', ['toaster', 'ngSanitize', 'ui.router', 'ang
 //ui.router
 app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
-    $urlRouterProvider.otherwise('/department');
+    $urlRouterProvider.otherwise('/welcome');
 
     $stateProvider
              .state('account', {
@@ -45,6 +45,10 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
              url: '/project',
              templateUrl: '/Templates/view/project/project-index.html'
          })
+        .state('welcome', {
+            url: '/welcome',
+            templateUrl: '/Templates/view/welcome/index.html'
+        })
      .state('test', {
          url: '/test',
          templateUrl: '/Templates/view/chart/baseline-index.html'

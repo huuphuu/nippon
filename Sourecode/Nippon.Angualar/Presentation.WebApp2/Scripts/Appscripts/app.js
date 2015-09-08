@@ -65,7 +65,9 @@ app.run(function ($rootScope, $location, accessFac) {
         } else {
             window.location.href = '/index.html';			//redirect user to home if it does not have permission.
         }
-
+        window.setTimeout(function () {
+            $(window).trigger("resize")
+        }, 100);
     });
 
 });

@@ -124,10 +124,7 @@
     });
     $scope.dataSeleted = { ID: 0, Name: "", Code: '', Description: "", Status: "0", Sys_ViewID: $scope.gridInfo.sysViewID };
     $scope.init = function () {
-        window.setTimeout(function () {
-            $(window).trigger("resize");
-        }, 200);
-        $scope.loadSteps(0);
+               $scope.loadSteps(0);
     }
     $scope.setData = function (data) {
         if (typeof data != 'undefined') {

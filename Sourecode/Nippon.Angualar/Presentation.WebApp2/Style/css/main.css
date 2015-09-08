@@ -197,3 +197,15 @@ table#AreaGrid tbody td {
     float: left;
     background-color: #00a650;
 }
+
+#BaseChart .popover {
+    max-width: 350px;
+    min-width: 350px;
+}
+#BaseChart .popover  div {
+     font-weight:100;
+}
+
+#BaseChart .boder-right {
+    border-left: solid 1px #ccc;
+}

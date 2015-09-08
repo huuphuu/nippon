@@ -24,8 +24,8 @@
         var maxDate = $filter('getMaxDate')(data[0].IntendEndDate, data[0].CompleteDate);
         var totalDate = $filter('dateDiff')(minDate, maxDate);
         for (var i = 0; i < data.length; i++) {
-            //   if (i == 6) debugger;
             angular.extend(data[i], getStepInfo(data[i], minDate, maxDate, totalDate));
+            console.log(data[i]);
         }
         $scope.data = data;
         $scope.$apply();
@@ -274,7 +274,10 @@
         if (item.StartDate != '') {
             item.StartDate = new Date(item.StartDate);
         }
-
+        item.overdueStartDate = dateDiff(data.StartDate, data.IntendStartDate);
+        item.overdueEndDate = dateDiff(data.CompleteDate, data.IntendEndDate);
+        item.processIntendDate = dateDiff(data.IntendStartDate, data.IntendEndDate);
+        item.processRealityDate = dateDiff(data.StartDate, data.CompleteDate);
         return item;
     }
 })

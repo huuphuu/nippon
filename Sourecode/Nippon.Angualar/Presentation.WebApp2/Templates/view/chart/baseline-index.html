@@ -3,65 +3,42 @@
     <h4 class="modal-title ng-binding"><span class="glyphicon glyphicon-check"></span>{{title}}</h4>
 </div>
 <script id="calendar.html" type="text/ng-template">
-    <form class="form-horizontal">
-    <div class="row" style="width:300px">
-            <div class="col-md-12">
-      <div class="form-group">
-                    <label for="inputDate1" class="col-sm-6 ">Intend Start Date</label>
-                    
-                    <div class="col-sm-6">
-                       {{popoverData.IntendStartDate| date : 'dd-MM-yyyy'}}
-                    </div>
-                </div>
-
-    <div class="form-group">
-                    <label for="inputDate1" class="col-sm-6 ">Start Date</label>
-                    
-                    <div class="col-sm-6">
-                       {{popoverData.StartDate| date : 'dd-MM-yyyy'}}
-                    </div>
-                </div>
-
-    <div class="form-group">
-                    <label for="inputDate1" class="col-sm-6 ">Intend End Date</label>
-                    
-                    <div class="col-sm-6">
-                       {{popoverData.IntendEndDate| date : 'dd-MM-yyyy'}}
-                    </div>
-                </div>
-
-    <div class="form-group">
-                    <label for="inputDate1" class="col-sm-6 ">Complete Date</label>
-                    
-                    <div class="col-sm-6">
-                       {{popoverData.CompleteDate| date : 'dd-MM-yyyy'}}
-                    </div>
-                </div>
-
-    </div>
-                </div>
-    </form>
+   <div class="row text-center" >
+            <div class="col-md-12">{{popoverData.EmployeeName}}<br />
+            {{popoverData.AgentName}}
+            </div>
+            <div class="col-md-6">
+                Intend <br>
+                F:  {{popoverData.IntendStartDate| date : 'dd-MM-yyyy'}}<br>
+                T: {{popoverData.IntendEndDate| date : 'dd-MM-yyyy'}}<br>
+                {{popoverData.processIntendDate}} days
+            </div>
+            <div class="col-md-6 boder-right">Reality<br>
+                F:  {{popoverData.StartDate| date : 'dd-MM-yyyy'}}({{popoverData.overdueStartDate}}d)<br>
+                T: {{popoverData.CompleteDate| date : 'dd-MM-yyyy'}}({{popoverData.overdueEndDate}}d)<br>
+                 {{popoverData.processRealityDate}} days
+             </div>
+        </div>
+    
 </script>
+<form class="form-horizontal">
 
-<div class="modal-body">
-    <form class="form-horizontal row">
-        <div class="form-group" ng-repeat="item in data">
-            <label for="txtAddress" class="col-sm-3 control-label"  popover-placement="bottom" popover-template="'calendar.html'" popover-trigger="mouseenter" popover-title="{{item.StepName}}" ng-mouseover="setHoverData(item)">{{item.StepName}}</label>
-            <div class="col-sm-9 padding-right-19 ">
-                <div class="space" style="float: left; overflow: hidden" ng-style='{"width":item.space+"%"}'>&nbsp;</div>
-                <div class="baselinechart" ng-style='{"width":item.width+"%"}'>
-                    <div class="noneintersectionleft" ng-style='{"width":item.group1.width+"%"}' ng-class="item.group1.css" ng-hide="item.group1.width<1" popover-trigger="mouseenter" popover-placement="bottom" popover-template="'calendar.html'" popover-title="{{item.StepName}}" ng-mouseover="setHoverData(item)">{{item.group1.long||' '}}</div>
-                    <div ng-class="item.group2.css" ng-style='{"width":item.group2.width+"%"}' ng-hide="item.group2.width<1" popover-placement="bottom" popover-trigger="mouseenter" popover-template="'calendar.html'" popover-title="{{item.StepName}}" ng-mouseover="setHoverData(item)">{{item.group2.long||' '}}</div>
-                    <div class="noneintersectionright" ng-class="item.group3.css" ng-style='{"width":item.group3.width+"%"}' ng-hide="item.group3.width<1" popover-trigger="mouseenter" popover-placement="bottom" popover-template="'calendar.html'" popover-title="{{item.StepName}}" ng-mouseover="setHoverData(item)" >{{item.group3.long||' '}}</div>
+    <div class="modal-body" id="BaseChart">
+        <form class="form-horizontal row">
+            <div class="form-group" ng-repeat="item in data">
+                <label for="txtAddress" class="col-sm-3 control-label" popover-placement="bottom" popover-template="'calendar.html'" popover-trigger="mouseenter" popover-title="{{item.StepName}}" ng-mouseover="setHoverData(item)">{{item.StepName}}</label>
+                <div class="col-sm-9 padding-right-19 ">
+                    <div class="space" style="float: left; overflow: hidden" ng-style='{"width":item.space+"%"}'>&nbsp;</div>
+                    <div class="baselinechart" ng-style='{"width":item.width+"%"}'>
+                        <div class="noneintersectionleft" ng-style='{"width":item.group1.width+"%"}' ng-class="item.group1.css" ng-hide="item.group1.width<1" popover-trigger="mouseenter" popover-placement="bottom" popover-template="'calendar.html'" popover-title="{{item.StepName}}" ng-mouseover="setHoverData(item)">{{item.group1.long||' '}}</div>
+                        <div ng-class="item.group2.css" ng-style='{"width":item.group2.width+"%"}' ng-hide="item.group2.width<1" popover-placement="bottom" popover-trigger="mouseenter" popover-template="'calendar.html'" popover-title="{{item.StepName}}" ng-mouseover="setHoverData(item)">{{item.group2.long||' '}}</div>
+                        <div class="noneintersectionright" ng-class="item.group3.css" ng-style='{"width":item.group3.width+"%"}' ng-hide="item.group3.width<1" popover-trigger="mouseenter" popover-placement="bottom" popover-template="'calendar.html'" popover-title="{{item.StepName}}" ng-mouseover="setHoverData(item)">{{item.group3.long||' '}}</div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
 
-</div>
-<div class="modal-footer">
-    <button class="btn btn-warning" type="button" ng-click="cancel()">Close</button>
-</div>
-
-
-
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Close</button>
+    </div>

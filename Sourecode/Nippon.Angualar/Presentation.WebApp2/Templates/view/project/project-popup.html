@@ -45,7 +45,7 @@
                     <div class="form-group">
                         <label for="AreaID" class="col-sm-4 control-label">Khu vực:</label>
                         <div class="col-sm-8">
-                            <ui-select ng-model="dataSelected.AreaID" theme="selectize" ng-disabled="disabled" id="AreaID"  title="Choose a manager">
+                            <ui-select ng-model="dataSelected.AreaID" theme="selectize" ng-disabled="disabled" id="AreaID" title="Choose a manager">
                                 <ui-select-match placeholder="Select or search a area in the list...">{{$select.selected.Name}}</ui-select-match>
                                 <ui-select-choices repeat="item.ID as item in areaList | filter: $select.search">
                                   <span ng-bind-html="item.Name | highlight: $select.search"></span>
@@ -58,7 +58,7 @@
                     <div class="form-group">
                         <label for="ApprovedBy" class="col-sm-4 control-label">Người duyệt mẫu:</label>
                         <div class="col-sm-8">
-                            <ui-select ng-model="dataSelected.AreaManagerID" theme="selectize" ng-disabled="disabled" id="ApprovedBy"  title="Choose a manager">
+                            <ui-select ng-model="dataSelected.AreaManagerID" theme="selectize" ng-disabled="disabled" id="ApprovedBy" title="Choose a manager">
                                 <ui-select-match placeholder="Select or search a area in the list...">{{$select.selected.Name}}</ui-select-match>
                                 <ui-select-choices repeat="item.ID as item in areaManagerList | filter: $select.search">
                                   <span ng-bind-html="item.Name | highlight: $select.search"></span>
@@ -150,45 +150,45 @@
                                 </label>
                             </div>
                         </div>
-                      <div class="col-sm-3 ">
+                        <div class="col-sm-3 ">
                             <div class="checkbox checkbox-success">
                                 <input ng-model="dataSelected.IsOutHouse" id="cbxOutHouse" class="styled" type="checkbox" ng-true-value="2" ng-false-value="'0'">
                                 <label for="cbxOutHouse" class="checkbox5 text-bold">
-                                   Mái che
+                                    Mái che
                                 </label>
                             </div>
                         </div>
-                          <div class="col-sm-3 ">
+                        <div class="col-sm-3 ">
                             <div class="checkbox checkbox-success">
                                 <input ng-model="dataSelected.IsShelves" id="cbxsShelves" class="styled" type="checkbox" ng-true-value="4" ng-false-value="'0'">
                                 <label for="cbxsShelves" class="checkbox5 text-bold">
-                                  Kệ
+                                    Kệ
                                 </label>
                             </div>
                         </div>
-                          <div class="col-sm-3 ">
+                        <div class="col-sm-3 ">
                             <div class="checkbox checkbox-success">
                                 <input ng-model="dataSelected.IsInHouse" id="cbxInHous" class="styled" type="checkbox" ng-true-value="8" ng-false-value="'0'">
                                 <label for="cbxInHous" class="checkbox5 text-bold">
-                                  Bảng trong nhà
+                                    Bảng trong nhà
                                 </label>
                             </div>
                         </div>
-                          <div class="col-sm-3 ">
+                        <div class="col-sm-3 ">
                             <div class="checkbox checkbox-success">
                                 <input ng-model="dataSelected.IsShopsignPoster" id="cbxShopsignPoster" ng-check="" class="styled" type="checkbox" ng-true-value="16" ng-false-value="'0'">
                                 <label for="cbxShopsignPoster" class="checkbox5 text-bold">
-                                  Poster kính
+                                    Poster kính
                                 </label>
                             </div>
                         </div>
-                          <div class="col-sm-9 ">
+                        <div class="col-sm-9 ">
                             <div class="checkbox checkbox-success">
                                 <input ng-model="dataSelected.IsShopsignOther" id="cbxShopsignOther" class="styled" type="checkbox" ng-true-value="32" ng-false-value="'0'">
                                 <label for="cbxShopsignOther" class="checkbox5 text-bold">
-                                 Khác
+                                    Khác
                                 </label>
-                                 <input ng-model="dataSelected.RequestOther" type="text" class="col-lg-11" ng-show="dataSelected.IsShopsignOther==32" style="float:right"/>
+                                <input ng-model="dataSelected.RequestOther" type="text" class="col-lg-11" ng-show="dataSelected.IsShopsignOther==32" style="float: right" />
                             </div>
                         </div>
                     </div>
@@ -196,7 +196,7 @@
                         <div class="col-sm-6 ">
 
                             <div class="radio radio-success">
-                                <input ng-model="dataSelected.HadCCM"  id="cbxSDealernoCCM" class="styled" type="radio"  ng-value="'0'" ng-false-value="'1'">
+                                <input ng-model="dataSelected.HadCCM" id="cbxSDealernoCCM" class="styled" type="radio" ng-value="'0'" ng-false-value="'1'">
                                 <label for="cbxSDealernoCCM" class="checkbox5 text-bold">
                                     Dealer no CCM
                                     ( Đại lí bình thường)
@@ -213,14 +213,14 @@
                                 </label>
                             </div>
                         </div>
-                       
+
 
                     </div>
                     <div class="form-group">
                         <div class="col-sm-11 ">
 
                             <div class="checkbox checkbox-success">
-                                <input ng-model="dataSelected.IsCCM" id="cbxSCCMCorner" class="styled" type="checkbox"  ng-true-value="'1'" ng-false-value="'0'">
+                                <input ng-model="dataSelected.IsCCM" id="cbxSCCMCorner" class="styled" type="checkbox" ng-true-value="'1'" ng-false-value="'0'">
                                 <label for="cbxSCCMCorner" class="checkbox5 text-bold">
                                     CCM Corner (Đặt máy pha màu, trang trí showroom)
                                 </label>
@@ -234,7 +234,7 @@
                         </label>
                         <div class="col-sm-3">
                             <div class="checkbox checkbox-success">
-                                <input ng-model="dataSelected.ShopsignPlacementFront" id="cbxShopsignPlacementFront" class="styled" type="checkbox"  ng-true-value="1" ng-false-value="0">
+                                <input ng-model="dataSelected.ShopsignPlacementFront" id="cbxShopsignPlacementFront" class="styled" type="checkbox" ng-true-value="1" ng-false-value="0">
                                 <label for="cbxShopsignPlacementFront" class="checkbox5 text-bold">
                                     Front of shop 
                                     <br />
@@ -245,7 +245,7 @@
                         <div class="col-sm-3">
 
                             <div class="checkbox checkbox-success">
-                                <input  ng-model="dataSelected.ShopsignPlacementRight" id="cbxShopsignPlacementRight" class="styled" type="checkbox"  ng-true-value="2" ng-false-value="0">
+                                <input ng-model="dataSelected.ShopsignPlacementRight" id="cbxShopsignPlacementRight" class="styled" type="checkbox" ng-true-value="2" ng-false-value="0">
                                 <label for="cbxShopsignPlacementRight" class="checkbox5 text-bold">
                                     Right side of shop
                                     <br />
@@ -256,7 +256,7 @@
                         <div class="col-sm-3">
 
                             <div class="checkbox checkbox-success">
-                                <input ng-model="dataSelected.ShopsignPlacementLeft" id="cbxShopsignPlacementLeft" class="styled" type="checkbox"  ng-true-value="4" ng-false-value="0">
+                                <input ng-model="dataSelected.ShopsignPlacementLeft" id="cbxShopsignPlacementLeft" class="styled" type="checkbox" ng-true-value="4" ng-false-value="0">
                                 <label for="cbxShopsignPlacementLeft" class="checkbox5 text-bold">
                                     Left side of shop 
                                     <br />
@@ -309,7 +309,7 @@
                         <div class="col-sm-3">
 
                             <div class="radio radio-success">
-                                <input ng-model="dataSelected.HadCompetitorShopsign"  id="cbxNo" class="styled" type="radio"  ng-value="'0'" ng-false-value="'1'">
+                                <input ng-model="dataSelected.HadCompetitorShopsign" id="cbxNo" class="styled" type="radio" ng-value="'0'" ng-false-value="'1'">
                                 <label for="cbxNo" class="checkbox5 text-bold">
                                     No
                                 </label>
@@ -326,19 +326,46 @@
                             <input ng-model="CompetitorName" type="text" class="form-control" id="CompetitorName" placeholder="">
                         </div>
                     </div>
+
                     <div class="form-group">
                         <label for="inputEmail3" class="col-sm-3 control-label">
-                           Requisition Date
+                            Khu Vực(Area)
+
+                        </label>
+
+                        <div class="col-sm-3">
+
+                            <div class="radio radio-success">
+                                <input ng-model="dataSelected.StepConfigID" id="rdHCMHN" class="styled" name="StepConfigID" type="radio" checked="checked" ng-value="'1'" ng-false-value="'2'">
+                                <label for="rdHCMHN" class="checkbox5 text-bold">
+                                    HN, HCM
+                                </label>
+                            </div>
+                        </div>
+
+                         <div class="col-sm-3">
+                            <div class="radio radio-success">
+                                <input ng-model="dataSelected.StepConfigID" id="rdAreaOther" name="StepConfigID" class="styled" type="radio" checked="checked" ng-value="'2'" ng-false-value="'1'">
+                                <label for="rdAreaOther" class="checkbox5 text-bold">
+                                   Khác (Other)
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-3 control-label">
+                            Requisition Date
                             <br />
-                           (Ngày yêu cầu)
+                            (Ngày yêu cầu)
                         </label>
                         <div class="col-sm-3">
                             <input type="text" class="form-control" id="Text5" placeholder="">
                         </div>
-                         <label for="inputEmail3" class="col-sm-3 control-label">
-                           Completion Date
+                        <label for="inputEmail3" class="col-sm-3 control-label">
+                            Completion Date
                             <br />
-                          (Ngày hoàn thành)
+                            (Ngày hoàn thành)
                         </label>
                         <div class="col-sm-3">
                             <input type="text" class="form-control" id="Text6" placeholder="">
@@ -376,7 +403,7 @@
 
                     <div class="form-group">
                         <label for="ShopsignSize" class="col-sm-4 control-label">
-                          Người yêu cầu
+                            Người yêu cầu
                         </label>
                         <div class="col-sm-8">
                             <input ng-model="dataSelected.RequestedByName" type="text" class="form-control ng-pristine ng-untouched ng-valid" id="RequestedByName" placeholder="">

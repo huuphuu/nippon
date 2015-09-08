@@ -5,7 +5,7 @@ var app = angular.module('indexApp', ['toaster', 'ngSanitize', 'ui.router', 'ang
 //ui.router
 app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
-    $urlRouterProvider.otherwise('/project');
+    $urlRouterProvider.otherwise('/department');
 
     $stateProvider
              .state('account', {

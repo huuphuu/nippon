@@ -1,5 +1,5 @@
 ﻿angular.module('indexApp')
-.controller('DepartmentCtrl', function ($scope, coreService, alertFactory, dialogs) {
+.controller('DepartmentCtrl', function ($scope, coreService, authoritiesService, alertFactory, dialogs) {
     $scope.gridInfo = {
         gridID: 'departmentgrid',
         table: null,
@@ -13,8 +13,11 @@
         data: [],
         sysViewID: 1,
         searchQuery: '',
-    },
-     $scope.statusOptions = statusOptions;
+    }
+
+    $scope.listRight = authoritiesService.get($scope.gridInfo.sysViewID);
+
+    $scope.statusOptions = statusOptions;
     $scope.layout = {
         enableClear: false,
         enableButtonOrther: false

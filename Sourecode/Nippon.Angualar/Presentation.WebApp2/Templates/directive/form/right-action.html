@@ -5,12 +5,12 @@
                 <span class="glyphicon glyphicon-flash"></span>
                  Clear</button>
         </div>
-        <div class="col-md-3 pull-right" ng-hide="dataSeleted.ID==0">
+        <div class="col-md-3 pull-right" ng-hide="dataSeleted.ID==0"  ng-if="listRight.IsDelete=='True'">
             <button class="btn col-xs-12" ng-class="{'{{themeButton}}':layout.enableButtonOrther, 'disabled':!layout.enableButtonOrther}" ng-click="actionConfirm('DELETE')">
                 <span class="glyphicon glyphicon-minus"></span>
                 Delete</button>
         </div>
-        <div class="col-md-3 pull-right" ng-hide="dataSeleted.ID==0">
+        <div class="col-md-3 pull-right" ng-hide="dataSeleted.ID==0"  ng-if="listRight.IsUpdate=='True'">
             <button class="btn col-xs-12" ng-class="{'{{themeButton}}':layout.enableButtonOrther, 'disabled':!layout.enableButtonOrther}"  ng-click="actionConfirm('UPDATE')">
                 <span class="glyphicon glyphicon-save"></span>
                 Save</button>
@@ -25,7 +25,7 @@
                 <span class="glyphicon glyphicon-lock"></span>
                 Deactive</button>
         </div>
-        <div class="col-md-3 pull-right" ng-show="dataSeleted.ID==0">
+        <div class="col-md-3 pull-right" ng-show="dataSeleted.ID==0" ng-if="listRight.IsInsert=='True'">
             <button class="btn col-xs-12" ng-class="{'{{themeButton}}':layout.enableButtonOrther, 'disabled':!layout.enableButtonOrther}" ng-click="actionConfirm('INSERT')">
                 <span class="glyphicon glyphicon-plus"></span>
               Add</button>

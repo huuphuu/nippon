@@ -1,5 +1,5 @@
 ﻿angular.module('indexApp')
- .controller('UserCtrl', function ($scope, coreService, alertFactory, dialogs) {
+ .controller('UserCtrl', function ($scope, coreService,authoritiesService, alertFactory, dialogs) {
      $scope.gridInfo = {
          gridID: 'usergrid',
          table: null,
@@ -13,6 +13,7 @@
          sysViewID:7,
          searchQuery: '',
      }
+     $scope.listRight = authoritiesService.get($scope.gridInfo.sysViewID);
      $scope.userlist = [];
      $scope.employeelist = [];
      $scope.roles = [];

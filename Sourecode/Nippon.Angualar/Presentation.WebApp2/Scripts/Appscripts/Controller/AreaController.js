@@ -1,5 +1,5 @@
 ﻿angular.module('indexApp')
-.controller('AreaCtrl', function ($scope, coreService, alertFactory, dialogs, coreService) {
+.controller('AreaCtrl', function ($scope, coreService, authoritiesService, alertFactory, dialogs, coreService) {
     $scope.gridInfo = {
         gridID: 'areagridid',
         table: null,
@@ -12,7 +12,8 @@
         data: [],
         sysViewID: 2,
         searchQuery: '',
-    },
+    }
+    $scope.listRight = authoritiesService.get($scope.gridInfo.sysViewID);
     $scope.parentareas = [];
     $scope.managers = [];
     coreService.getList(8, function (data) {

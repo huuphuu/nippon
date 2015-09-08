@@ -124,7 +124,7 @@
     });
     $scope.dataSeleted = { ID: 0, Name: "", Code: '', Description: "", Status: "0", Sys_ViewID: $scope.gridInfo.sysViewID };
     $scope.init = function () {
-               $scope.loadSteps(0);
+        $scope.loadSteps(0);
     }
     $scope.setData = function (data) {
         if (typeof data != 'undefined') {
@@ -265,12 +265,12 @@
         }
     }
     $scope.resetDataSeleted = function () {
-        $scope.dataSeleted = { ID: 0, Name: '', Code: '', Description: "", Status: "0", Sys_ViewID: $scope.gridInfo.sysViewID, DealerType: '1', HadCCM: '0', HadCompetitorShopsign: '0' };
+        $scope.dataSeleted = { ID: 0, Name: '', Code: '', Description: "", Status: "0", Sys_ViewID: $scope.gridInfo.sysViewID, DealerType: '1', StepConfigID: '1', HadCCM: '0', HadCompetitorShopsign: '0' };
 
     }
     $scope.reset = function (data) {
         $scope.resetDataSeleted();
-         $scope.layout = {
+        $scope.layout = {
             enableClear: false,
             enableButtonOrther: false,
             isFull: false
@@ -305,7 +305,7 @@
         projectService.areaList = $scope.areaList;
         projectService.areaManagerList = $scope.areaManagerList;
         projectService.titlePopup = "Modify Requistion";
-        if (act == 'INSERT'){
+        if (act == 'INSERT') {
             $scope.resetDataSeleted();
             projectService.titlePopup = "Add New Requistion"
         }
@@ -327,7 +327,7 @@
 
         if ((requestObjects & 1) == 1)
             projectService.dataSelected.IsShopsign = 1;
-        if ((requestObjects & 2 )== 2)
+        if ((requestObjects & 2) == 2)
             projectService.dataSelected.IsOutHouse = 2;
         if ((requestObjects & 4) == 4)
             projectService.dataSelected.IsShelves = 4;
@@ -344,8 +344,8 @@
             projectService.dataSelected.ShopsignPlacementRight = 2;
         if ((shopsignPlacement & 4) == 4)
             projectService.dataSelected.ShopsignPlacementLeft = 4;
-        
-       
+
+
         var dlg = dialogs.create('/templates/view/project/project-popup.html', 'projectDialogCtrl', projectService, { size: 'lg', keyboard: false, backdrop: false });
         dlg.result.then(function (name) {
             $scope.name = name;

@@ -307,8 +307,11 @@
     $scope.openDialog = function (act) {
         projectService.areaList = $scope.areaList;
         projectService.areaManagerList = $scope.areaManagerList;
-        if (act == 'INSERT')
+        projectService.titlePopup = "Modify Requistion";
+        if (act == 'INSERT'){
             $scope.resetDataSeleted();
+            projectService.titlePopup = "Add New Requistion"
+        }
         projectService.dataSelected = $scope.dataSeleted;
         projectService.gridData = $scope.gridInfo.data;
         projectService.gridInfo = $scope.gridInfo;
@@ -376,7 +379,7 @@
     //console.log("init:data", $scope.dataSelected);
     //console.log("init:data", projectService.dataSelected);
     $scope.user = { name: '' };
-    //$scope.title = data.layout.titlePopup;
+    $scope.title = projectService.titlePopup;
     //-- Methods --//
 
     $scope.cancel = function () {

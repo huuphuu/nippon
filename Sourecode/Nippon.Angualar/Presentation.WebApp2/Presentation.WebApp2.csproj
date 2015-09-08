@@ -75,6 +75,7 @@
     <Content Include="Images\img\credit\visa.png" />
     <Content Include="Images\img\default-50x50.gif" />
     <Content Include="Images\img\icons.png" />
+    <Content Include="Images\img\logo.png" />
     <Content Include="Images\img\photo1.png" />
     <Content Include="Images\img\photo2.png" />
     <Content Include="Images\img\user1-128x128.jpg" />

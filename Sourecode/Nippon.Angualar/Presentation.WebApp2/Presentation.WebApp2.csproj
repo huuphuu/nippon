@@ -38,6 +38,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FWS.Framework">
+      <HintPath>..\DLL\FWS.Framework.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -882,6 +885,7 @@
     <Content Include="Scripts\plugins\ui-select-master\select.js" />
     <Content Include="Scripts\plugins\ui-select-master\selectize.default.css" />
     <Content Include="Scripts\Appscripts\Authentication\angularAuthApp.js" />
+    <Content Include="Services\ShopSignExport.aspx" />
     <Content Include="Style\bootstrap\css\bootstrap.css" />
     <Content Include="Style\bootstrap\css\bootstrap.min.css" />
     <Content Include="Style\bootstrap\fonts\glyphicons-halflings-regular.svg" />
@@ -972,6 +976,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ShopSignExport.aspx.cs">
+      <DependentUpon>ShopSignExport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Services\ShopSignExport.aspx.designer.cs">
+      <DependentUpon>ShopSignExport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="_ServiceRef\TemplateService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\img\credit\Thumbs.db" />

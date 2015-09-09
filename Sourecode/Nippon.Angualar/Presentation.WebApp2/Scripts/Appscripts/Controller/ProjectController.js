@@ -22,7 +22,7 @@
             { name: 'HadCCMName', heading: 'HadCCM', width: '10%' },
             { name: 'HadCompetitorShopsignName', heading: 'HadCompetitorShopsign', width: '10%' },
             { name: 'IsCCMName', heading: 'IsCCM', width: '10%' },
-            { name: 'IsShopsignName', heading: 'IsShopsign', width: '10%' },
+            //{ name: 'IsShopsignName', heading: 'IsShopsign', width: '10%' },
             { name: 'MasterDealerName', heading: 'MasterDealerName', width: '10%' },
             { name: 'NumberOfShelf', heading: 'NumberOfShelf', width: '10%' },
             { name: 'NumberOfShopsign', heading: 'NumberOfShopsign', width: '10%' },
@@ -278,7 +278,12 @@
         $scope.loadSteps(0);
         // $scope.$apply();
     }
-
+    $scope.exportReport = function () {
+        var excelFile = '1111.xlsx';
+        var inputXml = "<RequestParams Function='Nippon_4SS' FilePath='" + excelFile + "' />";
+        console.log('btnExport',inputXml);
+        var __previewFull = window.open('Services/ShopSignExport.aspx?request=' + encodeURIComponent(inputXml), '_blank');
+    }
 
 
     //********************************************

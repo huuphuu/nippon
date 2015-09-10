@@ -38,9 +38,9 @@ namespace Service.Data.Core.Class
             int colIndex = 3;
             ExcelPackage pck = (ExcelPackage)mixExcel.ExcelMixCore;
             ExcelWorksheet worksheet = pck.Workbook.Worksheets[1];
-            ApplyDataToWorksheet(dtSummary, worksheet);
+            ApplyDataToShopSignWorksheet(dtSummary, worksheet);
             ExcelWorksheet worksheetDetail = pck.Workbook.Worksheets[2];
-            ApplyDataToWorksheet(dtDetail, worksheetDetail);
+            ApplyDataToShopSignWorksheet(dtDetail, worksheetDetail);
             /*
             ExcelRange columnTemplate = worksheet.Cells["C1:C7"];
             ExcelRange pastedColumn = worksheet.Cells["D1"];//1, colIndex, 7, colIndex];
@@ -89,7 +89,7 @@ namespace Service.Data.Core.Class
             return "01-Unknow Error";
         }
 
-        private void ApplyDataToWorksheet(System.Data.DataTable dt, ExcelWorksheet worksheet)
+        private void ApplyDataToShopSignWorksheet(System.Data.DataTable dt, ExcelWorksheet worksheet)
         {
             int colIndex = 3;
             ExcelRange columnTemplate = worksheet.Cells["C1:C7"];

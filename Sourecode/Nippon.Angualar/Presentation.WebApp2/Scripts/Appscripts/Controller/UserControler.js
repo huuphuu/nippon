@@ -29,7 +29,26 @@
              //console.log("user roles::", data);
          });
      }
+     $scope.resetPassword = function () {
 
+         
+         var hashPass = md5.createHash($scope.dataSeleted.Password || '');
+         var entry = { UserID: $scope.dataSeleted.ID, Password: hashPass, Action: 'UPDATE::RESETPASS' };
+         var dlg = dialogs.confirm('Confirmation', 'Confirmation required');
+         dlg.result.then(function (btn) {
+             coreService.actionEntry2(entry, function (data) {
+                 dialogs.notify(data.Message.Name, data.Message.Description, function () {
+
+                 });
+
+                
+
+                 $scope.$apply();
+             });
+         }, function (btn) {
+             //$scope.confirmed = 'You confirmed "No."';
+         });
+     }
      $scope.checkRoleAll = function (propertyName) {
 
          if ($scope.roles == undefined) return;

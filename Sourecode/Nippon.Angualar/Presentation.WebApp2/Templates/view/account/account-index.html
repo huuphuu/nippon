@@ -30,14 +30,25 @@
                     </div>
                     <div class="form-group">
                         <label for="inputPassword3" class="col-sm-3 control-label">Password</label>
-                        <div class="col-sm-9 padding-right-19 ">
-                            <input ng-model="dataSeleted.Password"  type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                        <div class="col-sm-9 padding-right-19 " ng-hide="dataSeleted.ID!=0">
+                            <input ng-model="dataSeleted.Password" type="password" class="form-control" id="inputPassword3" placeholder="Password">
                         </div>
+
+                        <div class="col-sm-7" ng-hide="dataSeleted.ID==0">
+                            <input ng-model="dataSeleted.Password" type="text" class="form-control" id="Password1" placeholder="Password">
+                        </div>
+                        <div class="col-sm-2 padding-right-19 pull-right" ng-hide="dataSeleted.ID==0">
+                            <button class="btn pull-right" ng-class="themeButton" ng-click="resetPassword()">
+                                <span>Reset  </span>
+
+                            </button>
+                        </div>
+
                     </div>
                     <div class="form-group">
                         <label for="employee" class="col-sm-3 control-label">Employee</label>
                         <div class="col-sm-9 padding-right-19">
-                            <ui-select ng-model="dataSeleted.EmployeeID" theme="selectize" ng-disabled="disabled"  title="Choose a employee">
+                            <ui-select ng-model="dataSeleted.EmployeeID" theme="selectize" ng-disabled="disabled" title="Choose a employee">
                                 <ui-select-match placeholder="Select or search a employee in the list...">{{$select.selected.Name}}</ui-select-match>
                                 <ui-select-choices repeat="item.ID as item in employeelist | filter: $select.search">
                                   <span ng-bind-html="item.Name | highlight: $select.search"></span>
@@ -71,7 +82,7 @@
                                 <td>{{role.Name}}</td>
                                 <td class="text-center">
                                     <label>
-                                        <input type="checkbox"  class="minimal" ng-model="role.IsView" ng-true-value="'True'" ng-false-value="'False'"/>
+                                        <input type="checkbox" class="minimal" ng-model="role.IsView" ng-true-value="'True'" ng-false-value="'False'" />
                                     </label>
                                 </td>
                                 <td class="text-center">

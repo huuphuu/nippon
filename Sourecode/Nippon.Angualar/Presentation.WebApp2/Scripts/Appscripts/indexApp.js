@@ -87,7 +87,7 @@ angular.module('indexApp')
 
         }; // 
         $scope.Change = function () {
-            $scope.execAction({ OldPassword: $scope.CurrentPassword, NewPassword: $scope.NewPassword, Sys_ViewID: 7, Action: 'UPDATE' }, function () { alert('qq'); $modalInstance.dismiss('Canceled'); });
+            $scope.execAction({ OldPassword: $scope.CurrentPassword, NewPassword: $scope.NewPassword, Sys_ViewID: 7, Action: 'UPDATE::CHANGEPASS' }, function () { alert('qq'); $modalInstance.dismiss('Canceled'); });
         }; // end save
 
         $scope.hitEnter = function (evt) {

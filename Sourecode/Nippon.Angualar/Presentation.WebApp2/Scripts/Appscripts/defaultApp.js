@@ -8,7 +8,7 @@
      $scope.login = function () {
         var inputData = {
             UserName: $scope.loginData.userName,
-            Password: $scope.loginData.password
+            Password:md5.createHash($scope.loginData.password || '')
         }
         coreService.callServer('Core/CoreService.asmx', 'Login', inputData, function (data) {
             //vm.gridInfo.data = data[1];

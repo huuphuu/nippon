@@ -1,5 +1,5 @@
 ﻿angular.module('indexApp')
- .controller('UserCtrl', function ($scope, coreService,authoritiesService, alertFactory, dialogs) {
+ .controller('UserCtrl', function ($scope, coreService, authoritiesService, alertFactory, dialogs, md5) {
      $scope.gridInfo = {
          gridID: 'usergrid',
          table: null,
@@ -10,7 +10,7 @@
          ],
 
          data: [],
-         sysViewID:7,
+         sysViewID: 7,
          searchQuery: '',
      }
      $scope.listRight = authoritiesService.get($scope.gridInfo.sysViewID);
@@ -22,7 +22,7 @@
          $scope.employeelist = data[1];
      });
      $scope.loadUserRoles = function (userId) {
-        
+
          coreService.getListEx({ Sys_ViewID: 9, UserID: userId }, function (data) {
              $scope.roles = data[1];
              $scope.$apply();
@@ -31,7 +31,7 @@
      }
 
      $scope.checkRoleAll = function (propertyName) {
-        
+
          if ($scope.roles == undefined) return;
          if ($scope.roles.length == 0) return;
          var isCheckAll = true;
@@ -41,21 +41,21 @@
                  break;
              }
          }
-         angular.forEach($scope.roles, function(item, key) {
+         angular.forEach($scope.roles, function (item, key) {
              item[propertyName] = isCheckAll ? 'False' : 'True';
          });
      }
 
 
-    $scope.setData = function (data) {
+     $scope.setData = function (data) {
          if (typeof data != 'undefined') {
              $scope.dataSeleted = data;
              $scope.layout.enableClear = true;
              $scope.layout.enableButtonOrther = true;
              $scope.loadUserRoles(data.ID);
          }
-         
-    }
+
+     }
      $scope.actionConfirm = function (act) {
          var dlg = dialogs.confirm('Confirmation', 'Confirmation required');
          dlg.result.then(function (btn) {
@@ -71,34 +71,34 @@
              entry.Roles = {};
              entry.Roles.Role = $scope.roles;
              entry.Sys_ViewID = $scope.gridInfo.sysViewID;
-
+             entry.Password = md5.createHash(entry.Password || '');
              coreService.actionEntry2(entry, function (data) {
                  console.log(data);
-                 if (data.Success){
+                 if (data.Success) {
                      switch (act) {
-                     case 'INSERT':
-                         entry.ID = data.Result;
-                         $scope.gridInfo.data.unshift(entry);
-                         break;
-                     case 'UPDATE':
-                         angular.forEach($scope.gridInfo.data, function(item, key) {
-                             if (entry.ID == item.ID) {
-                                 $scope.gridInfo.data[key] = angular.copy(entry);
+                         case 'INSERT':
+                             entry.ID = data.Result;
+                             $scope.gridInfo.data.unshift(entry);
+                             break;
+                         case 'UPDATE':
+                             angular.forEach($scope.gridInfo.data, function (item, key) {
+                                 if (entry.ID == item.ID) {
+                                     $scope.gridInfo.data[key] = angular.copy(entry);
 
-                             }
-                         });
-                         break;
-                     case 'DELETE':
-                         var index = -1;
-                         var i = 0;
-                         angular.forEach($scope.gridInfo.data, function(item, key) {
-                             if (entry.ID == item.ID)
-                                 index = i;
-                             i++;
-                         });
-                         if (index > -1)
-                             $scope.gridInfo.data.splice(index, 1);
-                         break;
+                                 }
+                             });
+                             break;
+                         case 'DELETE':
+                             var index = -1;
+                             var i = 0;
+                             angular.forEach($scope.gridInfo.data, function (item, key) {
+                                 if (entry.ID == item.ID)
+                                     index = i;
+                                 i++;
+                             });
+                             if (index > -1)
+                                 $scope.gridInfo.data.splice(index, 1);
+                             break;
                      }
                      $scope.reset();
                  }
@@ -122,7 +122,7 @@
          enableClear: true,
          enableButtonOrther: false
      }
-    
+
      $scope.init = function () {
          window.setTimeout(function () {
              $(window).trigger("resize")

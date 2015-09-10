@@ -128,7 +128,7 @@ angular.module('indexApp')
                 navigation: '=',
                 currentUser: '='
             },
-            controller: function ($scope) {
+            controller: function ($scope, md5) {
                 $scope.signOut = function () {
                     localStorageService.remove('authorizationData');
                     window.location.href = '/index.html';
@@ -144,6 +144,8 @@ angular.module('indexApp')
                 }
                 $scope.actionConfirm = function (entry, callback) {
                     entry.UserID = coreService.userID;
+                    entry.OldPassword = md5.createHash(entry.OldPassword || '');
+                    entry.NewPassword = md5.createHash(entry.NewPassword || '');
                     var dlg = dialogs.confirm('Confirmation', 'Confirmation required');
                     dlg.result.then(function (btn) {
                         coreService.actionEntry2(entry, function (data) {

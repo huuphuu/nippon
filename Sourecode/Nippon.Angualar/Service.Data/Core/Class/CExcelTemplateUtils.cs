@@ -41,30 +41,7 @@ namespace Service.Data.Core.Class
             ApplyDataToShopSignWorksheet(dtSummary, worksheet);
             ExcelWorksheet worksheetDetail = pck.Workbook.Worksheets[2];
             ApplyDataToShopSignWorksheet(dtDetail, worksheetDetail);
-            /*
-            ExcelRange columnTemplate = worksheet.Cells["C1:C7"];
-            ExcelRange pastedColumn = worksheet.Cells["D1"];//1, colIndex, 7, colIndex];
-            //columnTemplate.Copy(pastedColumn);
-            for (int i = 3; i < dt.Columns.Count; i++)
-            {
-                if (colIndex > 3)
-                {
-                    pastedColumn = worksheet.Cells[1, colIndex];//1, colIndex, 7, colIndex];
-                    columnTemplate.Copy(pastedColumn);
-                }
-
-                pastedColumn[1, colIndex].Value = dt.Columns[i].ColumnName;
-                pastedColumn[2, colIndex].Value = dt.Rows[0][i];
-                pastedColumn[3, colIndex].Value = dt.Rows[1][i];
-                pastedColumn[4, colIndex].Value = dt.Rows[2][i];
-                pastedColumn[5, colIndex].Value = dt.Rows[3][i];
-                pastedColumn[6, colIndex].Value = dt.Rows[4][i];
-                pastedColumn[7, colIndex].Value = dt.Rows[5][i];
-
-                colIndex++;
-
-            }
-             * */
+           
             //Xoa cot template
 
             //if (!string.IsNullOrEmpty(mixExcel.PathFile))

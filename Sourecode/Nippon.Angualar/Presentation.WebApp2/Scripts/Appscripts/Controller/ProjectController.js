@@ -281,7 +281,7 @@
     $scope.exportReport = function () {
         var excelFile = '1111.xlsx';
         var inputXml = "<RequestParams Function='Nippon_4SS' FilePath='" + excelFile + "' />";
-        console.log('btnExport',inputXml);
+        console.log('btnExport', inputXml);
         var __previewFull = window.open('Services/ShopSignExport.aspx?request=' + encodeURIComponent(inputXml), '_blank');
     }
 
@@ -361,7 +361,7 @@
     }
 
     $scope.openDialogChart = function (pID) {
-        var data = { viewID: 11, projectID: pID,titlePopup:'Timeline ShopSign' }
+        var data = { viewID: 11, projectID: pID, titlePopup: 'Timeline ShopSign' }
         var dlg = dialogs.create('/templates/view/chart/baseline-index.html', 'baseLineChartCtrl', data, { size: 'lg', keyboard: false, backdrop: false });
         dlg.result.then(function (name) {
             $scope.name = name;
@@ -371,6 +371,65 @@
         });
     }
     //  $scope.openDialog(1);
+
+
+    /*search*/
+    $scope.today = function () {
+        $scope.dt1 = new Date();
+        $scope.dt2 = new Date();
+    };
+    $scope.search = { code: 'Custom' };
+    $scope.listSearchKey = [
+         //{ 'code': 'Custom', 'description': '...' },
+         { 'code': 'Custom', 'description': 'Custom' },
+         { 'code': 'Current Month', 'description': 'Current Month' },
+         { 'code': 'Last Month', 'description': 'Last Month' },
+         { 'code': 'Current Year', 'description': 'Current Year' },
+         { 'code': 'Last Year', 'description': 'Last Year' }
+    ];
+
+    $scope.formats = ['shortDate', 'dd-MM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy'];
+    $scope.format = $scope.formats[1];
+    $scope.dt1 = new Date();
+    $scope.dt2 = new Date();
+    $scope.status = { openedD1: false, openedD2: false };
+    $scope.fillDateTimeSearch = function () {
+        console.log('scope.search.code', $scope.search.code)
+       
+        switch ($scope.search.code) {
+            case 'Custom':
+                break;
+            case 'Current Month':
+                var date = new Date(), y = date.getFullYear(), m = date.getMonth();
+                $scope.dtt1 = new Date(y, m, 1);
+                $scope.dt2 = new Date(y, m + 1, 0);
+                break;
+            case 'Last Month':
+                var date = new Date();
+                date.setMonth(date.getMonth() - 1);
+
+                var y = date.getFullYear(), m = date.getMonth();
+                $scope.dt1 = new Date(y, m, 1);
+                $scope.dt2 = new Date(y, m + 1, 0);
+                break;
+            case 'Current Year':
+                var date = new Date(), y = date.getFullYear(), m = date.getMonth();
+                $scope.dt1 = new Date(y,0, 1);
+                $scope.dt2 = new Date(y, 11, 31);
+                break;
+            case 'Last Year':
+                var date = new Date(), y = date.getFullYear()-1, m = date.getMonth();
+                $scope.dt1 = new Date(y, 0, 1);
+                $scope.dt2 = new Date(y, 11, 31);
+                break;
+        }
+        console.log('$scope.search.code', $scope.dt1, $scope.dt2);
+    }
+  
+    $scope.searchCustom = function () {
+        $scope.dt1 = '2009-08-24';
+    }; //
+    
 })
 .controller('projectDialogCtrl', function ($scope, $modalInstance, projectService) {
     //-- Variables --//

@@ -35,5 +35,8 @@ angular.module('ui.bootstrap.demo').controller('DatepickerDemoCtrl', function ($
         $scope.status.opened = true;
     };
 
-   
+    $scope.setDate = function () {
+        var date = new Date(), y = date.getFullYear(), m = date.getMonth();
+        $scope.dt = new Date(y, m, 1);
+    };
 });

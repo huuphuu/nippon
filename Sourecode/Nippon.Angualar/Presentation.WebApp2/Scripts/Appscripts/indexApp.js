@@ -1,7 +1,7 @@
 ﻿'use strict';
 angular.module('indexApp')
 // Controller ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    .controller('BodyController', function ($scope, toaster, coreService, accessFac, localStorageService, authoritiesService) {
+    .controller('BodyController', function ($scope, toaster, coreService, accessFac, localStorageService, authoritiesService, dialogs) {
         $scope.navigation = $adminCMS.data.navigation;
         $scope.currentUser = $adminCMS.data.user;
         $scope.skin = layoutConfig.skin;
@@ -16,7 +16,7 @@ angular.module('indexApp')
         coreService.getList(10, function (data) {
             var pData = $scope.buildNavigation(data[1]);
             authoritiesService.set(data[1]);
-            $scope.metroNavigation=data[1];
+            $scope.metroNavigation = data[1];
             $scope.sidebarNavigation = pData;
             setTimeout(function () {
                 $.AdminLTE.tree('.sidebar');
@@ -67,13 +67,38 @@ angular.module('indexApp')
             }
         }
 
-
-        $scope.signOut = function () {
-            localStorageService.remove('authorizationData');
-            window.location.href = '/index.html';
-        }
     })
 
+    .controller('changePasswordDialogCtrl', function ($scope, $modalInstance, data) {
+        $scope.title = data.title;
+        $scope.enableChange = true;
+        $scope.ConfirmNewPassword = '';
+        $scope.CurrentPassword = '';
+        $scope.NewPassword = '';
+        $scope.execAction = data.execAction;
+        $scope.cancel = function () {
+            $modalInstance.dismiss('Canceled');
+        }; // end cancel
+        $scope.checkDisabled = function () {
+            $scope.enableChange = false;
+            if ($scope.NewPassword == '' || $scope.ConfirmNewPassword == '' || $scope.CurrentPassword == '' || ($scope.ConfirmNewPassword != $scope.NewPassword) || $scope.NewPassword.length < 1)
+                $scope.enableChange = true;
+
+
+        }; // 
+        $scope.Change = function () {
+            $scope.execAction({ OldPassword: $scope.CurrentPassword, NewPassword: $scope.NewPassword, Sys_ViewID: 7, Action: 'UPDATE' }, function () { alert('qq'); $modalInstance.dismiss('Canceled'); });
+        }; // end save
+
+        $scope.hitEnter = function (evt) {
+            //if (angular.equals(evt.keyCode, 13) && !(angular.equals($scope.user.name, null) || angular.equals($scope.user.name, '')))
+            //    $scope.save();
+        };
+
+        $scope.IsRequestObject = function (object) {
+            return ($scope.dataSelected.RequestObjects & object == object) ? true : false;
+        }
+    })
 //Filter ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //Directive /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -95,7 +120,7 @@ angular.module('indexApp')
             }
         };
     })
-    .directive('headerNavbarMenu', function (localStorageService) {
+    .directive('headerNavbarMenu', function (localStorageService, dialogs, coreService, authoritiesService, alertFactory) {
         return {
             restrict: 'EA',
             replace: true,
@@ -108,6 +133,36 @@ angular.module('indexApp')
                     localStorageService.remove('authorizationData');
                     window.location.href = '/index.html';
                 }
+                $scope.changePassword = function () {
+                    $scope.dlgChangePassword = dialogs.create('/templates/directive/form/changepassword.html', 'changePasswordDialogCtrl', { title: 'Change Password', execAction: $scope.actionConfirm }, { size: 'lg', keyboard: false, backdrop: true });
+                    $scope.dlgChangePassword.result.then(function (name) {
+                        $scope.name = name;
+                    }, function () {
+                        if (angular.equals($scope.name, ''))
+                            $scope.name = 'You did not enter in your name!';
+                    });
+                }
+                $scope.actionConfirm = function (entry, callback) {
+                    entry.UserID = coreService.userID;
+                    var dlg = dialogs.confirm('Confirmation', 'Confirmation required');
+                    dlg.result.then(function (btn) {
+                        coreService.actionEntry2(entry, function (data) {
+                            dialogs.notify(data.Message.Name, data.Message.Description, function () {
+
+                            });
+
+                            if (data.Success) {
+                                $scope.dlgChangePassword.close();
+                            }
+
+                            $scope.$apply();
+                        });
+                    }, function (btn) {
+                        //$scope.confirmed = 'You confirmed "No."';
+                    });
+                }
+
+
             },
             templateUrl: '/Templates/directive/header/nav/header-Navbar-Menu.html'
         };
@@ -317,7 +372,7 @@ angular.module('indexApp')
             }
             $scope.updateRow = function (aData) {
                 loadData();
-               // $scope.dtInstance.dataTable.fnUpdate(aData, $scope.gridInfo.nRow);
+                // $scope.dtInstance.dataTable.fnUpdate(aData, $scope.gridInfo.nRow);
             }
 
             loadData();

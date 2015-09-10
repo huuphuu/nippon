@@ -929,6 +929,7 @@
     <Content Include="Style\fontAwesome\ionicons.min.css" />
     <Content Include="Style\toaster\toaster.css" />
     <Content Include="Style\toaster\toaster.js" />
+    <Content Include="Templates\directive\form\changepassword.html" />
     <Content Include="Templates\directive\form\content-header.html" />
     <Content Include="Templates\directive\form\data-table.html" />
     <Content Include="Templates\directive\form\left-action.html" />

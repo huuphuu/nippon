@@ -24,7 +24,7 @@
     </div>
 
     {{dt1}}
-    <div class="input-group pull-right" style="width: 520px; margin-right:20px;">
+    <div class="input-group pull-right" style="width: 520px; margin-right:20px;"  ng-hide="!layout.isFull">
         <div class="col-sm-4 nonePadding">
             <select class="form-control pull-right " ng-change="fillDateTimeSearch()" ng-model="search.code"
             ng-options="state.code as state.description for state in listSearchKey"></select>

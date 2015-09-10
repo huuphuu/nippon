@@ -56,14 +56,13 @@ namespace Service.Data.Core.Class
             tbl.Rows.Add(row);
             return tbl;
         }
-
        
-        private DataTable GetSummaryResult(string ClientKey, string InputValue)
+        private DataSet GetSummaryResult(string ClientKey, string InputValue)
         {
             string MarketColumnName = "MarketName";
-            string StatusColumnName = "Status";
-            DataTable tblResult = CreateSummaryDataTable();
-
+            //string StatusColumnName = "Status";
+            DataTable tblSummary = CreateSummaryDataTable();
+            DataTable tblDetail = CreateSummaryDataTable();
            // string fileName = CXML.GetXmlNodeValue(InputValue, "RequestParams/@FilePath");
             //fileName = HttpUtility.HtmlDecode(fileName);
             //fileName = uploadPath + "\\" + fileName;
@@ -84,11 +83,23 @@ namespace Service.Data.Core.Class
                         if (row[MarketColumnName] != null)
                         {
                             string market = row[MarketColumnName].ToString();
-                            if (!string.IsNullOrEmpty(market) && !columns.ContainsKey(market))
+                            object parentMarket = row["MarketParentID"].ToString();
+                            if (row["MarketParentID"] == DBNull.Value || row["MarketParentID"].ToString() == "0")
                             {
-                                columns.Add(market, true);
+                                if (!string.IsNullOrEmpty(market) && !tblSummary.Columns.Contains(market))
+                                {
+                                    //columns.Add(market, true);
+                                    tblSummary.Columns.Add(market, typeof (int));
+                                }
+                            }
+                            else
+                            {
+                                if (!string.IsNullOrEmpty(market) && !tblDetail.Columns.Contains(market))
+                                {
+                                    //columns.Add(market, true);
 
-                                tblResult.Columns.Add(market, typeof(int));
+                                    tblDetail.Columns.Add(market, typeof (int));
+                                }
                             }
                         }
                     }
@@ -98,34 +109,38 @@ namespace Service.Data.Core.Class
                 {
                     string market = row[MarketColumnName].ToString();
                     //string status = row[StatusColumnName].ToString();
-                    foreach (DataRow resultRow in tblResult.Rows)
+                    foreach (DataRow resultRow in tblSummary.Rows)
                     {
                         string mappName = resultRow["MapName"].ToString();
-                        if (data.Columns.Contains(mappName))
+                        if (data.Columns.Contains(mappName) && tblSummary.Columns.Contains(market))
                         {
                             resultRow[market] = row[mappName];
                         }
-                        //if (resultRow["MapName"].ToString().Contains(market))
-                        //{
-                        //    if (tblResult.Columns.Contains(market))
-                        //    {
-                        //        resultRow[market] = (int)(row[resultRow["MapName"]] == DBNull.Value ? 0 : resultRow[market]) + 1;
-                        //    }
-                        //}
+                       
+                    }
+                    foreach (DataRow resultRow in tblDetail.Rows)
+                    {
+                        string mappName = resultRow["MapName"].ToString();
+                        if (data.Columns.Contains(mappName) && tblDetail.Columns.Contains(market))
+                        {
+                            resultRow[market] = row[mappName];
+                        }
+
                     }
                 }
 
             }
-            return tblResult;
+            DataSet dsResult = new DataSet();
+            dsResult.Tables.Add(tblSummary);
+            dsResult.Tables.Add(tblDetail);
+            return dsResult;
             //return "";
         }
-        
-
 
         public string Export4SSDataToExcel(string ClientKey, string InputValue)
         {
-            DataTable dt = GetSummaryResult(ClientKey, InputValue);
-            return new CExcelTemplateUtils().Export4SSTemplate(dt);
+            DataSet ds = GetSummaryResult(ClientKey, InputValue);
+            return new CExcelTemplateUtils().Export4SSTemplate(ds);
             //return "";
         }
 

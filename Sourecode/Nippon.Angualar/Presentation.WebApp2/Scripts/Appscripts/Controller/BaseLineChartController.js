@@ -32,6 +32,7 @@
             angular.extend(data[i], getStepInfo(data[i], minDate, maxDate, totalDate));
         }
         $scope.data = data;
+        console.log(data);
         $scope.$apply();
         return data;
 
@@ -40,12 +41,26 @@
 
     function getStepInfo(data, minDate, maxDate, totalDate) {
         //CompleteDate or CompleteDate === null
-        if (data.StartDate == '' || data.CompleteDate == '')
+        var space, total, width;
+        if (data.IntendEndDate != '')
+            data.IntendEndDate = data.IntendEndDate.replace('00:00:00.000', '23:59:59.999');
+        total = $filter('dateDiff')(data.IntendStartDate, data.IntendEndDate, true);
+        space = total * 100 / totalDate;
+        if (space == 100) space = 0;
+        if (data.StartDate == '' || data.CompleteDate == '') {
+
             return {
+                space: space,
+                width: (total * 100 / totalDate),
                 group1: { width: 0 },
-                group2: { width: 0 },
+                group2: {
+                    css: '',
+                    long: total,
+                    width: 100
+                },
                 group3: { width: 0 }
             }
+        }
         if (data.IntendEndDate != '')
             data.IntendEndDate = data.IntendEndDate.replace('00:00:00.000', '23:59:59.999');
         if (data.CompleteDate != '')
@@ -54,9 +69,9 @@
         var maxStartDate = $filter('getMaxDate')(data.IntendStartDate, data.StartDate);
         var minEndDate = $filter('getMinDate')(data.IntendEndDate, data.CompleteDate);
         var maxEndDate = $filter('getMaxDate')(data.IntendEndDate, data.CompleteDate);
-        var total = $filter('dateDiff')(minStartDate, maxEndDate, true);
-        var width = total * 100 / totalDate;
-        var space = $filter('dateDiff')(minDate, minStartDate) * 100 / totalDate;
+        total = $filter('dateDiff')(minStartDate, maxEndDate, true);
+        width = total * 100 / totalDate;
+        space = $filter('dateDiff')(minDate, minStartDate) * 100 / totalDate;
 
         var g1 = { width: 0 }, longG1, widthG1;
         var g2 = { width: 0 }, longG2, widthG3;
@@ -238,14 +253,14 @@
             }
 
         }
-       
+
         g1.width = parseFloat(Math.floor(g1.width * 10)) / 10;
         g2.width = parseFloat(Math.floor(g2.width * 10)) / 10;
         g3.width = parseFloat(Math.floor(g3.width * 10)) / 10;
         // var group1 = $filter('dateDiff')(dataIntendStartDate, maxEndDate) * 100 / totalDate;
 
-        if (g1.width == 0 && g1.width == 0 && g1.width == 0)
-        {
+
+        if (g1.width == 0 && g1.width == 0 && g1.width == 0) {
             g2 = {
                 css: 'baseline-bar-gray',
                 long: total,

@@ -14,8 +14,8 @@
                 {{popoverData.processIntendDate}} days
             </div>
             <div class="col-md-6 boder-right">Reality<br>
-                F:  {{popoverData.StartDate| date : 'dd-MM-yyyy'}}({{popoverData.overdueStartDate}}d)<br>
-                T: {{popoverData.CompleteDate| date : 'dd-MM-yyyy'}}({{popoverData.overdueEndDate}}d)<br>
+                F:  <span ng-if="popoverData.StartDate!=''">  {{popoverData.StartDate| date : 'dd-MM-yyyy'}}({{popoverData.overdueStartDate}}d)<br>
+                T: <span ng-if="popoverData.CompleteDate!=''"> {{popoverData.CompleteDate| date : 'dd-MM-yyyy'}}({{popoverData.overdueEndDate}}d)</span><br>
                  {{popoverData.processRealityDate}} days
              </div>
         </div>

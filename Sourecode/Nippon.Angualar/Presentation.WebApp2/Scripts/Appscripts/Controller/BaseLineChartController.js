@@ -274,9 +274,12 @@
             item.StartDate = new Date(item.StartDate);
         }
         item.overdueStartDate = dateDiff(data.StartDate, data.IntendStartDate);
+
         item.overdueEndDate = dateDiff(data.CompleteDate, data.IntendEndDate);
-        item.processIntendDate = dateDiff(data.IntendStartDate, data.IntendEndDate);
-        item.processRealityDate = dateDiff(data.StartDate, data.CompleteDate);
+        item.processIntendDate = dateDiff(data.IntendStartDate, data.IntendEndDate) + 1;
+        item.processRealityDate = dateDiff(data.StartDate, data.CompleteDate) + 1;
+        if (data.CompleteDate == '')
+            item.processRealityDate = '...';
         return item;
     }
 })

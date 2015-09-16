@@ -380,7 +380,7 @@ angular.module('indexApp')
             loadData();
             function loadData() {
                 coreService.getList($scope.gridInfo.sysViewID, function (data) {
-                    $scope.gridInfo.data = angular.copy(data[1]);
+                    $scope.gridInfo.data = angular.copy(data[0]);
                     $scope.dtInstance.dataTable.fnClearTable();
                     $scope.dtInstance.dataTable.fnAddData($scope.gridInfo.data);
                     $scope.gridInfo.tableInstance = $scope.dtInstance.DataTable;

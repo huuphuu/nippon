@@ -370,7 +370,7 @@
                 $scope.name = 'You did not enter in your name!';
         });
     }
-    //  $scope.openDialog(1);
+    //  $scope.openDialogChart(5);
 
 
     /*search*/
@@ -394,8 +394,6 @@
     $scope.dt2 = new Date();
     $scope.status = { openedD1: false, openedD2: false };
     $scope.fillDateTimeSearch = function () {
-        console.log('scope.search.code', $scope.search.code)
-       
         switch ($scope.search.code) {
             case 'Custom':
                 break;

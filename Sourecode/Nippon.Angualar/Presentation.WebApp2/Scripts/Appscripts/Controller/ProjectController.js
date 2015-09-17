@@ -79,7 +79,7 @@
     $scope.layout = {
         enableClear: false,
         enableButtonOrther: false,
-        isFull: true,
+        isFull: false,
         titlePopup: 'Add New Project'
     }
     $scope.setFullSreen = function () {

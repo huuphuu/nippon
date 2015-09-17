@@ -376,6 +376,21 @@ angular.module('indexApp')
                 loadData();
                 // $scope.dtInstance.dataTable.fnUpdate(aData, $scope.gridInfo.nRow);
             }
+            $scope.gridInfo.CustomSearch = function (newValue) {
+                if (typeof newValue != 'undefined')
+                    if (typeof newValue.Sys_ViewID != 'undefined') {
+                        coreService.getListEx(newValue, function (data) {
+                            $scope.gridInfo.data = angular.copy(data[1]);
+                            $scope.dtInstance.dataTable.fnClearTable();
+                            $scope.dtInstance.dataTable.fnAddData($scope.gridInfo.data);
+                            $scope.gridInfo.tableInstance = $scope.dtInstance.DataTable;
+                            $scope.gridInfo.instance = $scope;
+                            window.setTimeout(function () {
+                                $(window).trigger("resize")
+                            }, 200);
+                        });
+                    }
+            }
 
             loadData();
             function loadData() {
@@ -390,20 +405,6 @@ angular.module('indexApp')
                     }, 200);
                 });
             }
-            //$timeout(function () {
-            //    $scope.$watch('gridInfo.data', function (data, oldData) {
-            //        if (data) {
-            //            debugger;
-            //            $scope.dtInstance.dataTable.fnClearTable();
-            //            $scope.dtInstance.dataTable.fnAddData(data);
-            //            $scope.gridInfo.tableInstance = $scope.dtInstance.DataTable;
-            //        }
-            //    }, true);
-
-            //    window.setTimeout(function () {
-            //        $(window).trigger("resize")
-            //    }, 200);
-            //}, 100);
 
             function standardFields(fields) {
                 var columns = [];

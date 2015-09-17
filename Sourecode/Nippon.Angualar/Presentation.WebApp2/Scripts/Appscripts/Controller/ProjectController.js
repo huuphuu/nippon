@@ -33,6 +33,7 @@
         showColMin: 6,
         data: [],
         sysViewID: 5,
+        paraInput: {},
         pageLength: 16,
         searchQuery: '',
         onActionClick: function (rowID, act) {
@@ -78,7 +79,7 @@
     $scope.layout = {
         enableClear: false,
         enableButtonOrther: false,
-        isFull: false,
+        isFull: true,
         titlePopup: 'Add New Project'
     }
     $scope.setFullSreen = function () {
@@ -399,35 +400,39 @@
                 break;
             case 'Current Month':
                 var date = new Date(), y = date.getFullYear(), m = date.getMonth();
-                $scope.dtt1 = new Date(y, m, 1);
+                $scope.dt1 = new Date(y, m, 1);
                 $scope.dt2 = new Date(y, m + 1, 0);
                 break;
             case 'Last Month':
                 var date = new Date();
                 date.setMonth(date.getMonth() - 1);
-
                 var y = date.getFullYear(), m = date.getMonth();
                 $scope.dt1 = new Date(y, m, 1);
                 $scope.dt2 = new Date(y, m + 1, 0);
                 break;
             case 'Current Year':
                 var date = new Date(), y = date.getFullYear(), m = date.getMonth();
-                $scope.dt1 = new Date(y,0, 1);
+                $scope.dt1 = new Date(y, 0, 1);
                 $scope.dt2 = new Date(y, 11, 31);
                 break;
             case 'Last Year':
-                var date = new Date(), y = date.getFullYear()-1, m = date.getMonth();
+                var date = new Date(), y = date.getFullYear() - 1, m = date.getMonth();
                 $scope.dt1 = new Date(y, 0, 1);
                 $scope.dt2 = new Date(y, 11, 31);
                 break;
         }
-        console.log('$scope.search.code', $scope.dt1, $scope.dt2);
+
     }
-  
+
     $scope.searchCustom = function () {
-        $scope.dt1 = '2009-08-24';
+        $scope.gridInfo.paraInput = { Sys_ViewID: $scope.gridInfo.sysViewID, FilterText: $scope.gridInfo.searchQuery };
+        if ($scope.dt1)
+            $scope.gridInfo.paraInput.FromDate = $filter('date')($scope.dt1, "yyyy-MM-dd");
+        if ($scope.dt2)
+            $scope.gridInfo.paraInput.ToDate = $filter('date')($scope.dt2, "yyyy-MM-dd");
+        $scope.gridInfo.CustomSearch($scope.gridInfo.paraInput);
     }; //
-    
+
 })
 .controller('projectDialogCtrl', function ($scope, $modalInstance, projectService) {
     //-- Variables --//

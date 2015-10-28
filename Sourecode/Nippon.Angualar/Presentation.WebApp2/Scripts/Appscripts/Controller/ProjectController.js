@@ -196,20 +196,29 @@
             if (item.IntendStartDate instanceof Date) {
                 item.IntendStartDate = $filter('date')(item.IntendStartDate, "yyyy-MM-dd");
             }
+            else
+                item.IntendStartDate = "";
             if (item.CompleteDate instanceof Date) {
                 item.CompleteDate = $filter('date')(item.CompleteDate, "yyyy-MM-dd");
             }
+            else
+                item.CompleteDate = "";
             if (item.IntendEndDate instanceof Date) {
                 item.IntendEndDate = $filter('date')(item.IntendEndDate, "yyyy-MM-dd");
             }
+            else
+                item.IntendEndDate = "";
             if (item.StartDate instanceof Date) {
                 item.StartDate = $filter('date')(item.StartDate, "yyyy-MM-dd");
             }
+            else
+                item.StartDate = "";
         });
         return entry;
     }
     function converDatetoView(entry) {
         angular.forEach(entry, function (item, key) {
+
             if (item.IntendStartDate != '') {
                 item.IntendStartDate = new Date(item.IntendStartDate);
             }
